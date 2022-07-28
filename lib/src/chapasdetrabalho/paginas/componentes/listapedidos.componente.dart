@@ -1,7 +1,7 @@
 import 'package:fastfood_inteligente_flutter/src/chapas/dominio/entidade/chapa.entidade.dart';
 import 'package:fastfood_inteligente_flutter/src/chapas/dominio/objetosdevalor/ordem.objeto.dart';
 import 'package:fastfood_inteligente_flutter/src/chapasdetrabalho/bloc/chapadetrabalho.bloc.dart';
-import 'package:fastfood_inteligente_flutter/src/chapasdetrabalho/componentes/deletar.pedido.dialog.componente.dart';
+import 'package:fastfood_inteligente_flutter/src/chapasdetrabalho/componentes/requisitar.deletar.pedido.dialog.componente.dart';
 import 'package:fastfood_inteligente_flutter/src/chapasdetrabalho/eventos/selecaochapa.eventos.dart';
 import 'package:fastfood_inteligente_flutter/src/chapasdetrabalho/paginas/componentes/detalhes.pedido.dialog.componente.dart';
 import 'package:fastfood_inteligente_flutter/src/configuracoes/bloc/configuracoes.chapa.bloc.dart';

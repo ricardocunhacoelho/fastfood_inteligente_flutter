@@ -17,3 +17,12 @@ class ErroChapaDeTrabalhoEstados implements ChapaDeTrabalhoEstados {
 
   ErroChapaDeTrabalhoEstados(this.erro);
 }
+
+class RequisitarDeletarPedidoChapaDeTrabalhoEstados
+    implements ChapaDeTrabalhoEstados {
+  final int numeroDaChapa;
+  final int indexOrdem;
+
+  RequisitarDeletarPedidoChapaDeTrabalhoEstados(
+      this.numeroDaChapa, this.indexOrdem);
+}

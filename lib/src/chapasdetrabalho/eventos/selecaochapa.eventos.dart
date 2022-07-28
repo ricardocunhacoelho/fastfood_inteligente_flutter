@@ -23,3 +23,12 @@ class RemoverPedidoChapaDeTrabalhoEventos implements ChapaDeTrabalhoEventos {
 
   RemoverPedidoChapaDeTrabalhoEventos(this.numeroDaChapa, this.indexOrdem);
 }
+
+class RequisitarDeletarPedidoChapaDeTrabalhoEventos
+    implements ChapaDeTrabalhoEventos {
+  final int numeroDaChapa;
+  final int indexOrdem;
+
+  RequisitarDeletarPedidoChapaDeTrabalhoEventos(
+      this.numeroDaChapa, this.indexOrdem);
+}
