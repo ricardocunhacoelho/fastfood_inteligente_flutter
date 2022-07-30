@@ -107,7 +107,7 @@ mixin CompleteStateMixin<T extends StatefulWidget> on State<T> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    WidgetsBinding.instance?.addPostFrameCallback((_) {
       context
           .read<ConfiguracoesChapaBloc>()
           .add(BuscarTodasChapasEventoConfiguracoesEventos());

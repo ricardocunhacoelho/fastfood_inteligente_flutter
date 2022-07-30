@@ -1,10 +1,12 @@
 import 'package:fastfood_inteligente_flutter/src/chapas/dominio/entidade/chapa.entidade.dart';
 import 'package:fastfood_inteligente_flutter/src/chapas/dominio/irepositorio/ichapa.repositorio.dart';
 import 'package:fastfood_inteligente_flutter/src/chapas/dominio/objetosdevalor/ordem.objeto.dart';
+import 'package:fastfood_inteligente_flutter/src/chapas/dominio/objetosdevalor/solicitacoes/solicitacao.cancelamento.pedido.objeto.dart';
 import 'package:fastfood_inteligente_flutter/src/chapas/infraestrutura/adaptadores/chapaentidadeparajson.adaptador.dart';
 import 'package:fastfood_inteligente_flutter/src/chapas/infraestrutura/adaptadores/jsonparachapaentidade.adaptador.dart';
 import 'package:fastfood_inteligente_flutter/src/chapas/infraestrutura/adaptadores/jsonparaordem.adaptador.dart';
 import 'package:fastfood_inteligente_flutter/src/chapas/infraestrutura/adaptadores/ordemparajson.adaptador.dart';
+import 'package:fastfood_inteligente_flutter/src/chapas/infraestrutura/adaptadores/solicitacaocancelamento.parajson.adaptador.dart';
 import 'package:fastfood_inteligente_flutter/src/chapas/infraestrutura/fontededados/ichapa.fontededados.dart';
 
 class ChapaRepositorio implements IChapaRepositorio {
@@ -89,5 +91,14 @@ class ChapaRepositorio implements IChapaRepositorio {
   @override
   Future<void> removerOrdemChapa(int numeroDaChapa, int indexOrdem) async {
     await fontededados.removerOrdemChapa('chapa${numeroDaChapa}', indexOrdem);
+  }
+
+  @override
+  Future<void> adicionarSolicitacaoCancelamento(
+      SolicitacaoCancelamentoPedidoObjeto
+          solicitacaoCancelamentoPedidoObjeto) async {
+    final map = SolicitacaoCancelamentoPedidoObjetoParaJson.paraMap(
+        solicitacaoCancelamentoPedidoObjeto);
+    await fontededados.adicionarSolicitacaoCancelamento(map);
   }
 }

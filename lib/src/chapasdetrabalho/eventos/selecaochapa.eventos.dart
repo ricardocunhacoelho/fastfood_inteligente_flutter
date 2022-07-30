@@ -1,4 +1,5 @@
 import 'package:fastfood_inteligente_flutter/src/chapas/dominio/entidade/chapa.entidade.dart';
+import 'package:fastfood_inteligente_flutter/src/chapas/dominio/objetosdevalor/solicitacoes/solicitacao.cancelamento.pedido.objeto.dart';
 
 abstract class ChapaDeTrabalhoEventos {}
 
@@ -26,9 +27,8 @@ class RemoverPedidoChapaDeTrabalhoEventos implements ChapaDeTrabalhoEventos {
 
 class RequisitarDeletarPedidoChapaDeTrabalhoEventos
     implements ChapaDeTrabalhoEventos {
-  final int numeroDaChapa;
-  final int indexOrdem;
+  final SolicitacaoCancelamentoPedidoObjeto solicitacaoCancelamentoPedidoObjeto;
 
   RequisitarDeletarPedidoChapaDeTrabalhoEventos(
-      this.numeroDaChapa, this.indexOrdem);
+      this.solicitacaoCancelamentoPedidoObjeto);
 }

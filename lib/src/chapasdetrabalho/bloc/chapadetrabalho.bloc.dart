@@ -1,4 +1,5 @@
 import 'package:bloc_concurrency/bloc_concurrency.dart';
+import 'package:fastfood_inteligente_flutter/src/chapas/dominio/casodeuso/adicionar.solicitacao.cancelamento.casodeuso.dart';
 import 'package:fastfood_inteligente_flutter/src/chapas/dominio/casodeuso/atualizar.estado.pedido.casodeuso.dart';
 import 'package:fastfood_inteligente_flutter/src/chapas/dominio/casodeuso/remover.ordem.chapa.dart';
 import 'package:fastfood_inteligente_flutter/src/chapas/dominio/casodeuso/vigiar.chapa.casodeuso.dart';
@@ -12,8 +13,13 @@ class ChapaDeTrabalhoBloc
   final IAtualizarEstadoPedido atualizarEstadoPedidoUsecase;
   final IVigiarChapa vigiarChapaUsecase;
   final IRemoverOrdemChapa removerOrdemChapaUsecase;
-  ChapaDeTrabalhoBloc(this.atualizarEstadoPedidoUsecase,
-      this.vigiarChapaUsecase, this.removerOrdemChapaUsecase)
+  final IAdicionarSolicitacaoCancelamento
+      adicionarSolicitacaoCancelamentoUsecase;
+  ChapaDeTrabalhoBloc(
+      this.atualizarEstadoPedidoUsecase,
+      this.vigiarChapaUsecase,
+      this.removerOrdemChapaUsecase,
+      this.adicionarSolicitacaoCancelamentoUsecase)
       : super(InicialChapaDeTrabalhoEstados()) {
     on<AtualizarEstadoPedidoChapaDeTrabalhoEventos>(
         _atualizarEstadoPedidoChapaDeTrabalhoEventos,
@@ -22,6 +28,9 @@ class ChapaDeTrabalhoBloc
         transformer: sequential());
     on<RemoverPedidoChapaDeTrabalhoEventos>(
         _removerPedidoChapaDeTrabalhoEventos,
+        transformer: sequential());
+    on<RequisitarDeletarPedidoChapaDeTrabalhoEventos>(
+        _requisitarDeletarPedidoChapaDeTrabalhoEventos,
         transformer: sequential());
   }
 
@@ -49,5 +58,12 @@ class ChapaDeTrabalhoBloc
       event.numeroDaChapa,
       event.indexOrdem,
     );
+  }
+
+  Future<void> _requisitarDeletarPedidoChapaDeTrabalhoEventos(
+      RequisitarDeletarPedidoChapaDeTrabalhoEventos event,
+      Emitter<ChapaDeTrabalhoEstados> emit) async {
+    await adicionarSolicitacaoCancelamentoUsecase
+        .call(event.solicitacaoCancelamentoPedidoObjeto);
   }
 }

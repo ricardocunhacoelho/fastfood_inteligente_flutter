@@ -1,5 +1,6 @@
 import 'package:fastfood_inteligente_flutter/src/chapas/dominio/entidade/chapa.entidade.dart';
 import 'package:fastfood_inteligente_flutter/src/chapas/dominio/objetosdevalor/ordem.objeto.dart';
+import 'package:fastfood_inteligente_flutter/src/chapas/dominio/objetosdevalor/solicitacoes/solicitacao.cancelamento.pedido.objeto.dart';
 
 abstract class IChapaRepositorio {
   Stream<List<ChapaEntidade>> buscarTodasChapas();
@@ -25,4 +26,7 @@ abstract class IChapaRepositorio {
   Stream<ChapaEntidade> vigiarChapa(int numeroChapa);
 
   removerOrdemChapa(int numeroDaChapa, int indexOrdem) {}
+
+  Future<void> adicionarSolicitacaoCancelamento(
+      SolicitacaoCancelamentoPedidoObjeto solicitacaoCancelamentoPedidoObjeto);
 }

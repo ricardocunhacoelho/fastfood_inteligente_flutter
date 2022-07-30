@@ -22,4 +22,6 @@ abstract class IChapaFonteDeDados {
   Stream<Map> vigiarChapa(int numeroChapa);
 
   Future<void> removerOrdemChapa(String id, int indexOrdem);
+
+  Future<void> adicionarSolicitacaoCancelamento(Map<String, dynamic> map);
 }

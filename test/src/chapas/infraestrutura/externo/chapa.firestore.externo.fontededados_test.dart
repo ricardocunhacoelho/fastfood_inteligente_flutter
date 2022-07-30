@@ -1,10 +1,13 @@
 import 'package:fake_cloud_firestore/fake_cloud_firestore.dart';
+import 'package:fastfood_inteligente_flutter/src/chapas/dominio/entidade/chapa.entidade.dart';
 import 'package:fastfood_inteligente_flutter/src/chapas/dominio/objetosdevalor/ordem.objeto.dart';
+import 'package:fastfood_inteligente_flutter/src/chapas/dominio/objetosdevalor/solicitacoes/solicitacao.cancelamento.pedido.objeto.dart';
+import 'package:fastfood_inteligente_flutter/src/chapas/infraestrutura/adaptadores/solicitacaocancelamento.parajson.adaptador.dart';
 import 'package:fastfood_inteligente_flutter/src/chapas/infraestrutura/externo/chapa.firestore.externo.fontededados.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  test('deve retornar todas as chapas', () async {
+  test('deve retornar quantia de ordens de todas as chapas', () async {
     final firestore = FakeFirebaseFirestore();
     await firestore.collection('chapa').add({
       'titulo': 'Chapa01',
@@ -221,5 +224,44 @@ void main() {
     final buscar = await docRef.get();
     final dados = buscar.data();
     print(dados);
+  });
+  test('deve incluir uma solicigtação no banco', () async {
+    //ordem
+    final ordem = Ordem(
+        id: 'id',
+        observacao: 'observacao',
+        posicao: 2,
+        embalarParaViajem: true,
+        datahora: DateTime.now(),
+        produtos: [],
+        estado: EOrdermEstado.aguardando);
+    //chapa
+    final chapa = ChapaEntidade(
+        titulo: 'titulo',
+        id: 'id',
+        numerodachapa: 1,
+        estado: EChapaEstado.desligada,
+        ordens: []);
+    //solicitacaoobjeto
+    final solicitacaoCancelamentoPedidoObjeto =
+        SolicitacaoCancelamentoPedidoObjeto(
+            id: 'id',
+            motivo: 'motivo',
+            posicao: 1,
+            datahora: DateTime.now(),
+            chapa: chapa,
+            estado: ESolicitacaoCancelamentoEstado.aguardando,
+            ordem: ordem);
+
+    final adapter = SolicitacaoCancelamentoPedidoObjetoParaJson.paraMap(
+        solicitacaoCancelamentoPedidoObjeto);
+    final firestore = FakeFirebaseFirestore();
+    final fonteDeDados = ChapaFirestore(firestore);
+
+    fonteDeDados.adicionarSolicitacaoCancelamento(adapter);
+    final ref = firestore.collection('solicitacoescancelamento');
+    final query = await ref.get();
+    final docs = query.docs;
+    print(docs);
   });
 }

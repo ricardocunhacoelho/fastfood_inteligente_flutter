@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fastfood_inteligente_flutter/src/chapas/dominio/casodeuso/adicionar.solicitacao.cancelamento.casodeuso.dart';
 import 'package:fastfood_inteligente_flutter/src/chapas/dominio/casodeuso/adicionarchapa.casodeuso.dart';
 import 'package:fastfood_inteligente_flutter/src/chapas/dominio/casodeuso/atualizar.estado.pedido.casodeuso.dart';
 import 'package:fastfood_inteligente_flutter/src/chapas/dominio/casodeuso/atualizar.ordens.chapa.casodeuso.dart';
@@ -61,6 +62,8 @@ final chapaModulos = [
   Provider<IVigiarChapa>(create: (context) => VigiarChapa(context.read())),
   Provider<IRemoverOrdemChapa>(
       create: (context) => RemoverOrdemChapa(context.read())),
+  Provider<IAdicionarSolicitacaoCancelamento>(
+      create: (context) => AdicionarSolicitacaoCancelamento(context.read())),
 ];
 
 
