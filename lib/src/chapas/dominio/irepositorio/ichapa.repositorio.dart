@@ -29,4 +29,7 @@ abstract class IChapaRepositorio {
 
   Future<void> adicionarSolicitacaoCancelamento(
       SolicitacaoCancelamentoPedidoObjeto solicitacaoCancelamentoPedidoObjeto);
+
+  Stream<List<SolicitacaoCancelamentoPedidoObjeto>>
+      buscarTodasSolicitacoesCancelamentoPedido();
 }

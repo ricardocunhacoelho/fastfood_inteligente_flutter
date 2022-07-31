@@ -3,6 +3,7 @@ import 'package:fastfood_inteligente_flutter/src/chapas/dominio/irepositorio/ich
 import 'package:fastfood_inteligente_flutter/src/chapas/dominio/objetosdevalor/ordem.objeto.dart';
 import 'package:fastfood_inteligente_flutter/src/chapas/dominio/objetosdevalor/solicitacoes/solicitacao.cancelamento.pedido.objeto.dart';
 import 'package:fastfood_inteligente_flutter/src/chapas/infraestrutura/adaptadores/chapaentidadeparajson.adaptador.dart';
+import 'package:fastfood_inteligente_flutter/src/chapas/infraestrutura/adaptadores/jsonpara.solicitacaocancelamento.adaptador.dart';
 import 'package:fastfood_inteligente_flutter/src/chapas/infraestrutura/adaptadores/jsonparachapaentidade.adaptador.dart';
 import 'package:fastfood_inteligente_flutter/src/chapas/infraestrutura/adaptadores/jsonparaordem.adaptador.dart';
 import 'package:fastfood_inteligente_flutter/src/chapas/infraestrutura/adaptadores/ordemparajson.adaptador.dart';
@@ -100,5 +101,17 @@ class ChapaRepositorio implements IChapaRepositorio {
     final map = SolicitacaoCancelamentoPedidoObjetoParaJson.paraMap(
         solicitacaoCancelamentoPedidoObjeto);
     await fontededados.adicionarSolicitacaoCancelamento(map);
+  }
+
+  @override
+  Stream<List<SolicitacaoCancelamentoPedidoObjeto>>
+      buscarTodasSolicitacoesCancelamentoPedido() {
+    final streammap = fontededados.buscarTodasSolicitacoesCancelamentoPedido();
+    return streammap.map(_convertSolicitacoes);
+  }
+
+  List<SolicitacaoCancelamentoPedidoObjeto> _convertSolicitacoes(
+      List<Map<dynamic, dynamic>> list) {
+    return list.map(JsonParaSolicitacaoCancelamentoPedidoObjeto.deMap).toList();
   }
 }

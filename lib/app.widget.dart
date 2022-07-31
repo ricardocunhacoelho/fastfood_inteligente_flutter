@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         routes: <String, WidgetBuilder>{
-          '/': (_) => SelecioneSuaChapaPagina(),
+          '/': (_) => ConfiguracoesPage(),
           ChapaPagina.routeName: (_) => ChapaPagina(),
           '/checkin': (_) => Container(),
         },

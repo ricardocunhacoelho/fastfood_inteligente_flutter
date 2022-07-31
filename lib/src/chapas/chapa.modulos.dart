@@ -6,6 +6,7 @@ import 'package:fastfood_inteligente_flutter/src/chapas/dominio/casodeuso/atuali
 import 'package:fastfood_inteligente_flutter/src/chapas/dominio/casodeuso/atualizarordembase.casodeuso.dart';
 import 'package:fastfood_inteligente_flutter/src/chapas/dominio/casodeuso/atualizarvaloreschapa.casodeuso.dart';
 import 'package:fastfood_inteligente_flutter/src/chapas/dominio/casodeuso/buscar.chapaentidade.na.lista.casodeuso.dart';
+import 'package:fastfood_inteligente_flutter/src/chapas/dominio/casodeuso/buscar.todas.solicitacoes.cancelamento.pedido.casodeuso.dart';
 import 'package:fastfood_inteligente_flutter/src/chapas/dominio/casodeuso/buscarordembase.casodeuso.dart';
 import 'package:fastfood_inteligente_flutter/src/chapas/dominio/casodeuso/buscartodaschapas.casodeuso.dart';
 import 'package:fastfood_inteligente_flutter/src/chapas/dominio/casodeuso/calcular.qual.chapa.deve.recebe.o.pedido.casodeuso.dart';
@@ -64,6 +65,9 @@ final chapaModulos = [
       create: (context) => RemoverOrdemChapa(context.read())),
   Provider<IAdicionarSolicitacaoCancelamento>(
       create: (context) => AdicionarSolicitacaoCancelamento(context.read())),
+  Provider<IBuscarTodasSolicitacoesCancelamentoPedido>(
+      create: (context) =>
+          BuscarTodasSolicitacoesCancelamentoPedido(context.read())),
 ];
 
 

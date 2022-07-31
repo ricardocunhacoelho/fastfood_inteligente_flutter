@@ -24,4 +24,6 @@ abstract class IChapaFonteDeDados {
   Future<void> removerOrdemChapa(String id, int indexOrdem);
 
   Future<void> adicionarSolicitacaoCancelamento(Map<String, dynamic> map);
+
+  Stream<List<Map>> buscarTodasSolicitacoesCancelamentoPedido();
 }

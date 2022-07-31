@@ -1,11 +1,13 @@
 import 'package:fastfood_inteligente_flutter/src/chapas/dominio/entidade/chapa.entidade.dart';
 import 'package:fastfood_inteligente_flutter/src/chapas/dominio/objetosdevalor/ordem.objeto.dart';
 import 'package:fastfood_inteligente_flutter/src/chapas/dominio/objetosdevalor/solicitacoes/solicitacao.cancelamento.pedido.objeto.dart';
+import 'package:fastfood_inteligente_flutter/src/chapas/infraestrutura/adaptadores/jsonpara.solicitacaocancelamento.adaptador.dart';
 import 'package:fastfood_inteligente_flutter/src/chapas/infraestrutura/adaptadores/solicitacaocancelamento.parajson.adaptador.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  test('deve retornar um map a partir de uma solicitação', () {
+  test('deve retornar um objeto SolicitacaoCancelamento a partir de um map',
+      () {
     //ordem
     final ordem = Ordem(
         id: 'id',
@@ -37,6 +39,9 @@ void main() {
     final adapter = SolicitacaoCancelamentoPedidoObjetoParaJson.paraMap(
         solicitacaoCancelamentoPedidoObjeto);
 
-    print(adapter);
+    final solicitacao =
+        JsonParaSolicitacaoCancelamentoPedidoObjeto.deMap(adapter);
+
+    print(solicitacao);
   });
 }

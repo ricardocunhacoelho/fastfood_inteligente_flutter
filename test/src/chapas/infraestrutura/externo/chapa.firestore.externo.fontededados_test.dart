@@ -245,6 +245,7 @@ void main() {
     //solicitacaoobjeto
     final solicitacaoCancelamentoPedidoObjeto =
         SolicitacaoCancelamentoPedidoObjeto(
+            indexOrdem: 1,
             id: 'id',
             motivo: 'motivo',
             posicao: 1,

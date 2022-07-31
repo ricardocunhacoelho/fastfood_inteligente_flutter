@@ -1,9 +1,11 @@
 import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:fastfood_inteligente_flutter/src/chapas/dominio/casodeuso/adicionar.solicitacao.cancelamento.casodeuso.dart';
 import 'package:fastfood_inteligente_flutter/src/chapas/dominio/casodeuso/atualizar.estado.pedido.casodeuso.dart';
+import 'package:fastfood_inteligente_flutter/src/chapas/dominio/casodeuso/buscar.todas.solicitacoes.cancelamento.pedido.casodeuso.dart';
 import 'package:fastfood_inteligente_flutter/src/chapas/dominio/casodeuso/remover.ordem.chapa.dart';
 import 'package:fastfood_inteligente_flutter/src/chapas/dominio/casodeuso/vigiar.chapa.casodeuso.dart';
 import 'package:fastfood_inteligente_flutter/src/chapas/dominio/entidade/chapa.entidade.dart';
+import 'package:fastfood_inteligente_flutter/src/chapas/dominio/objetosdevalor/solicitacoes/solicitacao.cancelamento.pedido.objeto.dart';
 import 'package:fastfood_inteligente_flutter/src/chapasdetrabalho/estados/selecaochapa.estados.dart';
 import 'package:fastfood_inteligente_flutter/src/chapasdetrabalho/eventos/selecaochapa.eventos.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,11 +17,14 @@ class ChapaDeTrabalhoBloc
   final IRemoverOrdemChapa removerOrdemChapaUsecase;
   final IAdicionarSolicitacaoCancelamento
       adicionarSolicitacaoCancelamentoUsecase;
+  final IBuscarTodasSolicitacoesCancelamentoPedido
+      buscarTodasSolicitacoesCancelamentoPedidoUsecase;
   ChapaDeTrabalhoBloc(
       this.atualizarEstadoPedidoUsecase,
       this.vigiarChapaUsecase,
       this.removerOrdemChapaUsecase,
-      this.adicionarSolicitacaoCancelamentoUsecase)
+      this.adicionarSolicitacaoCancelamentoUsecase,
+      this.buscarTodasSolicitacoesCancelamentoPedidoUsecase)
       : super(InicialChapaDeTrabalhoEstados()) {
     on<AtualizarEstadoPedidoChapaDeTrabalhoEventos>(
         _atualizarEstadoPedidoChapaDeTrabalhoEventos,
@@ -31,6 +36,9 @@ class ChapaDeTrabalhoBloc
         transformer: sequential());
     on<RequisitarDeletarPedidoChapaDeTrabalhoEventos>(
         _requisitarDeletarPedidoChapaDeTrabalhoEventos,
+        transformer: sequential());
+    on<BuscarTodasSolicitacoesCancelamentoPedidoChapaDeTrabalhoEventos>(
+        _buscarTodasSolicitacoesCancelamentoPedidoChapaDeTrabalhoEventos,
         transformer: sequential());
   }
 
@@ -65,5 +73,19 @@ class ChapaDeTrabalhoBloc
       Emitter<ChapaDeTrabalhoEstados> emit) async {
     await adicionarSolicitacaoCancelamentoUsecase
         .call(event.solicitacaoCancelamentoPedidoObjeto);
+  }
+
+  Future<void> _buscarTodasSolicitacoesCancelamentoPedidoChapaDeTrabalhoEventos(
+      BuscarTodasSolicitacoesCancelamentoPedidoChapaDeTrabalhoEventos event,
+      Emitter<ChapaDeTrabalhoEstados> emit) async {
+    emit(CarregandoBuscarSolicitacoesConfiguracoesChapaEstados());
+    await emit.forEach<List<SolicitacaoCancelamentoPedidoObjeto>>(
+      buscarTodasSolicitacoesCancelamentoPedidoUsecase.call(),
+      onData: (solicitacoescancelamento) =>
+          CompletoBuscarSolicitacoesConfiguracoesChapaEstados(
+              solicitacoescancelamento),
+      onError: (error, st) =>
+          ErroBuscarSolicitacoesConfiguracoesChapaEstados(error.toString()),
+    );
   }
 }

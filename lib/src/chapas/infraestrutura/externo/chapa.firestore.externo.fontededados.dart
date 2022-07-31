@@ -131,4 +131,24 @@ class ChapaFirestore implements IChapaFonteDeDados {
     final ref = firestore.collection('solicitacoescancelamento');
     await ref.doc(map['id']).set(map);
   }
+
+  @override
+  Stream<List<Map>> buscarTodasSolicitacoesCancelamentoPedido() {
+    final ref = firestore.collection('solicitacoescancelamento');
+    final snapshots = ref.snapshots();
+
+    return snapshots.map((e) => e.docs).map(_convertSolicitacoes);
+  }
+
+  List<Map> _convertSolicitacoes(
+      List<QueryDocumentSnapshot<Map<String, dynamic>>> docs) {
+    return docs
+        .map(
+          (documents) => {
+            'id': documents.id,
+            ...documents.data(),
+          },
+        )
+        .toList();
+  }
 }

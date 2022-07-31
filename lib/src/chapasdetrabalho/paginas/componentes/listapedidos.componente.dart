@@ -157,7 +157,7 @@ class _ListaPedidosComponenteState extends State<ListaPedidosComponente> {
                                       context: context,
                                       builder: (_) {
                                         return RequisitarDeletarPedidoDialogComponente(
-                                            chapa.numerodachapa, index);
+                                            chapa, ordem, index);
                                       });
                                 },
                                 icon: const Icon(

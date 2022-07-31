@@ -2,6 +2,7 @@ import 'package:fastfood_inteligente_flutter/src/chapas/dominio/entidade/chapa.e
 import 'package:fastfood_inteligente_flutter/src/chapas/dominio/objetosdevalor/ordem.objeto.dart';
 
 class SolicitacaoCancelamentoPedidoObjeto {
+  final int indexOrdem;
   final String id;
   final String motivo;
   final int posicao;
@@ -11,6 +12,7 @@ class SolicitacaoCancelamentoPedidoObjeto {
   final Ordem ordem;
   SolicitacaoCancelamentoPedidoObjeto({
     required this.id,
+    required this.indexOrdem,
     required this.motivo,
     required this.posicao,
     required this.datahora,

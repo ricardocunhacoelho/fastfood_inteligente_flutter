@@ -22,6 +22,10 @@ class _SelecioneSuaChapaPaginaState extends State<SelecioneSuaChapaPagina>
     context
         .read<ConfiguracoesChapaBloc>()
         .add(BuscarTodasChapasEventoConfiguracoesEventos());
+
+    context
+        .read<ChapaDeTrabalhoBloc>()
+        .add(BuscarTodasSolicitacoesCancelamentoPedidoChapaDeTrabalhoEventos());
   }
 
   var listChapas = [];
@@ -111,6 +115,8 @@ mixin CompleteStateMixin<T extends StatefulWidget> on State<T> {
       context
           .read<ConfiguracoesChapaBloc>()
           .add(BuscarTodasChapasEventoConfiguracoesEventos());
+      context.read<ChapaDeTrabalhoBloc>().add(
+          BuscarTodasSolicitacoesCancelamentoPedidoChapaDeTrabalhoEventos());
 
       completeState();
     });

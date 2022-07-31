@@ -1,4 +1,5 @@
 import 'package:fastfood_inteligente_flutter/src/chapas/dominio/entidade/chapa.entidade.dart';
+import 'package:fastfood_inteligente_flutter/src/chapas/dominio/objetosdevalor/solicitacoes/solicitacao.cancelamento.pedido.objeto.dart';
 
 abstract class ChapaDeTrabalhoEstados {}
 
@@ -25,4 +26,21 @@ class RequisitarDeletarPedidoChapaDeTrabalhoEstados
 
   RequisitarDeletarPedidoChapaDeTrabalhoEstados(
       this.numeroDaChapa, this.indexOrdem);
+}
+
+class CompletoBuscarSolicitacoesConfiguracoesChapaEstados
+    implements ChapaDeTrabalhoEstados {
+  final List<SolicitacaoCancelamentoPedidoObjeto> lista;
+
+  CompletoBuscarSolicitacoesConfiguracoesChapaEstados(this.lista);
+}
+
+class CarregandoBuscarSolicitacoesConfiguracoesChapaEstados
+    implements ChapaDeTrabalhoEstados {}
+
+class ErroBuscarSolicitacoesConfiguracoesChapaEstados
+    implements ChapaDeTrabalhoEstados {
+  final String erro;
+
+  ErroBuscarSolicitacoesConfiguracoesChapaEstados(this.erro);
 }

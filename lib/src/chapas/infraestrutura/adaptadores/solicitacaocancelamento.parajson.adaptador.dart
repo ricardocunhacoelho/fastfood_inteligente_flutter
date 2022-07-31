@@ -1,4 +1,3 @@
-import 'package:fastfood_inteligente_flutter/src/chapas/dominio/objetosdevalor/ordem.objeto.dart';
 import 'package:fastfood_inteligente_flutter/src/chapas/dominio/objetosdevalor/solicitacoes/solicitacao.cancelamento.pedido.objeto.dart';
 import 'package:fastfood_inteligente_flutter/src/chapas/infraestrutura/adaptadores/chapaentidadeparajson.adaptador.dart';
 import 'package:fastfood_inteligente_flutter/src/chapas/infraestrutura/adaptadores/ordemparajson.adaptador.dart';
@@ -16,6 +15,7 @@ class SolicitacaoCancelamentoPedidoObjetoParaJson {
       'chapa': ChapaEntidadeParaJson.paraMap(
           solicitacaoCancelamentoPedidoObjeto.chapa),
       'ordem': OrdemParaJson.paraMap(solicitacaoCancelamentoPedidoObjeto.ordem),
+      'indexOrdem': solicitacaoCancelamentoPedidoObjeto.indexOrdem
     });
   }
 }

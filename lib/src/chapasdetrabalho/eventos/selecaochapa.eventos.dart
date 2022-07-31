@@ -32,3 +32,6 @@ class RequisitarDeletarPedidoChapaDeTrabalhoEventos
   RequisitarDeletarPedidoChapaDeTrabalhoEventos(
       this.solicitacaoCancelamentoPedidoObjeto);
 }
+
+class BuscarTodasSolicitacoesCancelamentoPedidoChapaDeTrabalhoEventos
+    implements ChapaDeTrabalhoEventos {}

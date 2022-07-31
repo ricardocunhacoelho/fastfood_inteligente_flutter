@@ -4,7 +4,6 @@ import 'package:fastfood_inteligente_flutter/src/chapasdetrabalho/estados/seleca
 import 'package:fastfood_inteligente_flutter/src/chapasdetrabalho/paginas/componentes/listapedidos.componente.dart';
 import 'package:fastfood_inteligente_flutter/src/configuracoes/bloc/configuracoes.chapa.bloc.dart';
 import 'package:fastfood_inteligente_flutter/src/configuracoes/estados/configuracoes.chapa.estados.dart';
-import 'package:fastfood_inteligente_flutter/src/configuracoes/modelo/configuracoes.chapa.modelo.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
