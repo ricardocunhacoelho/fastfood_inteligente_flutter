@@ -273,7 +273,7 @@ class _ConfiguracoesPageState extends State<ConfiguracoesPage>
                         ),
                       ),
                     ),
-                    const SizedBox(height: 10),
+                    const SizedBox(height: 20),
                     if (chapaTrabalhoEstado
                         is CompletoBuscarSolicitacoesConfiguracoesChapaEstados)
                       ListView.builder(
@@ -285,9 +285,11 @@ class _ConfiguracoesPageState extends State<ConfiguracoesPage>
                             title: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text(
-                                  'Solicitação da ${solicitacao.chapa.titulo} - Ordem ${solicitacao.ordem.id}',
-                                  style: TextStyle(fontSize: 15),
+                                Expanded(
+                                  child: Text(
+                                    'Solicitação ${solicitacao.chapa.titulo} - Ordem ${solicitacao.ordem.id}',
+                                    style: TextStyle(fontSize: 15),
+                                  ),
                                 ),
                                 Container(
                                   width: 180,

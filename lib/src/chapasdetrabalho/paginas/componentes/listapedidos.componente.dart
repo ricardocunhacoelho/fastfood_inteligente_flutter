@@ -20,6 +20,7 @@ class ListaPedidosComponente extends StatefulWidget {
 
 class _ListaPedidosComponenteState extends State<ListaPedidosComponente> {
   var listChapas = [];
+  var todasSolicitacoesCancelamento = [];
   @override
   Widget build(BuildContext context) {
     var chapa = ChapaEntidade(
@@ -30,6 +31,7 @@ class _ListaPedidosComponenteState extends State<ListaPedidosComponente> {
         titulo: '');
     final chapabloc = context.watch<ConfiguracoesChapaBloc>();
     final chapastate = chapabloc.state;
+
     if (chapastate is CompletoConfiguracoesChapaEstados) {
       chapastate.lista.forEach((element) {
         if (element.numerodachapa == widget.numeroDaChapa) {
@@ -37,6 +39,7 @@ class _ListaPedidosComponenteState extends State<ListaPedidosComponente> {
         }
       });
     }
+
     return SingleChildScrollView(
       child: ListView.builder(
         shrinkWrap: true,

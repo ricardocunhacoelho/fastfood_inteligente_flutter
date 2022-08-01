@@ -1,6 +1,5 @@
 import 'package:fastfood_inteligente_flutter/src/chapas/dominio/entidade/chapa.entidade.dart';
 import 'package:fastfood_inteligente_flutter/src/chapas/dominio/objetosdevalor/ordem.objeto.dart';
-import 'package:fastfood_inteligente_flutter/src/chapasdetrabalho/estados/selecaochapa.estados.dart';
 import 'package:fastfood_inteligente_flutter/src/chapasdetrabalho/paginas/componentes/listapedidos.componente.dart';
 import 'package:fastfood_inteligente_flutter/src/configuracoes/bloc/configuracoes.chapa.bloc.dart';
 import 'package:fastfood_inteligente_flutter/src/configuracoes/estados/configuracoes.chapa.estados.dart';
@@ -33,6 +32,7 @@ class _ChapaPaginaState extends State<ChapaPagina> {
         numerodachapa: 0,
         ordens: [],
         titulo: '');
+
     final chapabloc = context.watch<ConfiguracoesChapaBloc>();
     final chapastate = chapabloc.state;
     if (chapastate is CompletoConfiguracoesChapaEstados) {
