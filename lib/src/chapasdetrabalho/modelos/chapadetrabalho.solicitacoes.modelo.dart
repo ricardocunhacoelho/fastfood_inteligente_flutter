@@ -53,12 +53,7 @@ class ChapasDeTrabalhoSolicitacoesModelo
         motivo: '',
         posicao: 1,
         datahora: DateTime.now(),
-        chapa: ChapaEntidade(
-            titulo: 'titulo',
-            id: 'id',
-            numerodachapa: 1,
-            estado: EChapaEstado.desligada,
-            ordens: []),
+        chapa: ConfiguracoesChapaModelo.empty(),
         estado: ESolicitacaoCancelamentoEstado.aguardando,
         ordem: Ordem(
             id: 'id',

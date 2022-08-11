@@ -77,6 +77,8 @@ class _SelecioneSuaChapaPaginaState extends State<SelecioneSuaChapaPagina>
                                   child: TextButton(
                                       onPressed: () {
                                         context.read<ChapaDeTrabalhoBloc>().add(
+                                            BuscarTodasSolicitacoesCancelamentoPedidoChapaDeTrabalhoEventos());
+                                        context.read<ChapaDeTrabalhoBloc>().add(
                                             BuscarChapaDeTrabalhoEventos(
                                                 chapa.numerodachapa));
                                         Navigator.pushNamed(

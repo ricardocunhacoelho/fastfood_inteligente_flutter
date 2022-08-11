@@ -45,6 +45,6 @@ class GerarOrdem implements IGerarOrdem {
   }
 
   String _generateId(int id) {
-    return id.toString().padLeft(4, '0');
+    return id.toString().padLeft(3, '0');
   }
 }

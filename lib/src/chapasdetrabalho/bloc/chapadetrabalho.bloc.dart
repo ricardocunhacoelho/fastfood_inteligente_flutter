@@ -39,7 +39,7 @@ class ChapaDeTrabalhoBloc
         transformer: sequential());
     on<BuscarTodasSolicitacoesCancelamentoPedidoChapaDeTrabalhoEventos>(
         _buscarTodasSolicitacoesCancelamentoPedidoChapaDeTrabalhoEventos,
-        transformer: sequential());
+        transformer: restartable());
   }
 
   Future<void> _atualizarEstadoPedidoChapaDeTrabalhoEventos(

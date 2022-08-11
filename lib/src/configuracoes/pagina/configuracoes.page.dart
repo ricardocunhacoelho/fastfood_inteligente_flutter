@@ -10,6 +10,8 @@ import 'package:fastfood_inteligente_flutter/src/configuracoes/componentes/chapa
 import 'package:fastfood_inteligente_flutter/src/configuracoes/componentes/produto/adicionar.produto.dialog.componente.dart';
 import 'package:fastfood_inteligente_flutter/src/configuracoes/componentes/produto/deletar.produto.dialog.componente.dart';
 import 'package:fastfood_inteligente_flutter/src/configuracoes/componentes/produto/editar.produto.dialog.componente.dart';
+import 'package:fastfood_inteligente_flutter/src/configuracoes/componentes/solicitacoes/confirmar.remover.pedido.dialog.componente.dart';
+import 'package:fastfood_inteligente_flutter/src/configuracoes/componentes/solicitacoes/detalhes.solicitacao.remover.pedido.dialog.componente.dart';
 import 'package:fastfood_inteligente_flutter/src/configuracoes/estados/configuracoes.chapa.estados.dart';
 import 'package:fastfood_inteligente_flutter/src/configuracoes/estados/configuracoes.produto.estados.dart';
 import 'package:fastfood_inteligente_flutter/src/configuracoes/eventos/configuracoes.chapa.eventos.dart';
@@ -300,19 +302,32 @@ class _ConfiguracoesPageState extends State<ConfiguracoesPage>
                                     children: [
                                       IconButton(
                                           iconSize: 17,
-                                          onPressed: () {},
-                                          icon: Icon(Icons.message)),
+                                          onPressed: () {
+                                            showDialog(
+                                                context: context,
+                                                builder: (_) {
+                                                  return DetalhesSolicitacaoRemoverPedidoDialog(
+                                                      solicitacao);
+                                                });
+                                          },
+                                          icon: Icon(
+                                              Icons.library_books_rounded)),
                                       IconButton(
                                         iconSize: 17,
-                                        onPressed: () {},
+                                        onPressed: () {
+                                          showDialog(
+                                              context: context,
+                                              builder: (_) {
+                                                return ConfirmarRemoverPedidoDialog(
+                                                    solicitacao);
+                                              });
+                                        },
                                         icon: Icon(Icons.check),
                                       ),
                                       IconButton(
                                         iconSize: 17,
                                         onPressed: () {},
-                                        icon: Icon(
-                                          Icons.remove,
-                                        ),
+                                        icon: Icon(Icons.close),
                                       ),
                                     ],
                                   ),

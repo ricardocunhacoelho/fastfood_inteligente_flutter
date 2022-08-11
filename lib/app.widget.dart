@@ -3,7 +3,6 @@ import 'package:fastfood_inteligente_flutter/src/configuracoes/configuracoes.cha
 import 'package:fastfood_inteligente_flutter/src/configuracoes/configuracoes.produto.modulos.dart';
 import 'package:fastfood_inteligente_flutter/src/configuracoes/pagina/configuracoes.page.dart';
 import 'package:fastfood_inteligente_flutter/src/entrada/entrada.modulos.dart';
-import 'package:fastfood_inteligente_flutter/src/entrada/pagina/entrada.pagina.dart';
 import 'package:fastfood_inteligente_flutter/src/produtos/produtos.modulos.dart';
 import 'package:fastfood_inteligente_flutter/src/chapasdetrabalho/paginas/chapa.pagina.dart';
 import 'package:fastfood_inteligente_flutter/src/chapasdetrabalho/paginas/selecione.sua.chapa.pagina.dart';

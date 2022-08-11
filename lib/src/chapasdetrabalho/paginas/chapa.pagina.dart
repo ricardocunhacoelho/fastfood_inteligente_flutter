@@ -1,8 +1,22 @@
 import 'package:fastfood_inteligente_flutter/src/chapas/dominio/entidade/chapa.entidade.dart';
 import 'package:fastfood_inteligente_flutter/src/chapas/dominio/objetosdevalor/ordem.objeto.dart';
+import 'package:fastfood_inteligente_flutter/src/chapasdetrabalho/bloc/chapadetrabalho.bloc.dart';
+import 'package:fastfood_inteligente_flutter/src/chapasdetrabalho/estados/selecaochapa.estados.dart';
+import 'package:fastfood_inteligente_flutter/src/chapasdetrabalho/eventos/selecaochapa.eventos.dart';
 import 'package:fastfood_inteligente_flutter/src/chapasdetrabalho/paginas/componentes/listapedidos.componente.dart';
 import 'package:fastfood_inteligente_flutter/src/configuracoes/bloc/configuracoes.chapa.bloc.dart';
+import 'package:fastfood_inteligente_flutter/src/configuracoes/bloc/configuracoes.produto.bloc.dart';
+import 'package:fastfood_inteligente_flutter/src/configuracoes/componentes/chapa/adicionar.chapa.dialog.componente.dart';
+import 'package:fastfood_inteligente_flutter/src/configuracoes/componentes/chapa/deletar.chapa.dialog.componente.dart';
+import 'package:fastfood_inteligente_flutter/src/configuracoes/componentes/chapa/editar.chapa.dialog.componente.dart';
+import 'package:fastfood_inteligente_flutter/src/configuracoes/componentes/chapa/ligadeslig.chapa.botao.componente.dart';
+import 'package:fastfood_inteligente_flutter/src/configuracoes/componentes/produto/adicionar.produto.dialog.componente.dart';
+import 'package:fastfood_inteligente_flutter/src/configuracoes/componentes/produto/deletar.produto.dialog.componente.dart';
+import 'package:fastfood_inteligente_flutter/src/configuracoes/componentes/produto/editar.produto.dialog.componente.dart';
 import 'package:fastfood_inteligente_flutter/src/configuracoes/estados/configuracoes.chapa.estados.dart';
+import 'package:fastfood_inteligente_flutter/src/configuracoes/estados/configuracoes.produto.estados.dart';
+import 'package:fastfood_inteligente_flutter/src/configuracoes/eventos/configuracoes.chapa.eventos.dart';
+import 'package:fastfood_inteligente_flutter/src/configuracoes/eventos/configuracoes.produto.eventos.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -20,10 +34,32 @@ class ChapaPagina extends StatefulWidget {
   State<ChapaPagina> createState() => _ChapaPaginaState();
 }
 
-class _ChapaPaginaState extends State<ChapaPagina> {
+class _ChapaPaginaState extends State<ChapaPagina> with CompleteStateMixin {
+  @override
+  void completeState() {
+    context
+        .read<ConfiguracoesProdutoBloc>()
+        .add(BuscarTodosProdutosEventoConfiguracoesEventos());
+    context
+        .read<ConfiguracoesChapaBloc>()
+        .add(BuscarTodasChapasEventoConfiguracoesEventos());
+
+    context
+        .read<ChapaDeTrabalhoBloc>()
+        .add(BuscarTodasSolicitacoesCancelamentoPedidoChapaDeTrabalhoEventos());
+  }
+
+  bool isSwitched = false;
+
   @override
   Widget build(BuildContext context) {
     final argumentos = ModalRoute.of(context)!.settings.arguments as Argumentos;
+    final produtobloc = context.watch<ConfiguracoesProdutoBloc>();
+    final produtostate = produtobloc.state;
+    final chapabloc = context.watch<ConfiguracoesChapaBloc>();
+    final chapastate = chapabloc.state;
+    final chapaTrabalhoBloc = context.watch<ChapaDeTrabalhoBloc>();
+    final chapaTrabalhoEstado = chapaTrabalhoBloc.state;
     int numeroDaChapa = argumentos.numeroDaChapa;
     String titulo = 'Carregando...';
     var chapa = ChapaEntidade(
@@ -32,9 +68,6 @@ class _ChapaPaginaState extends State<ChapaPagina> {
         numerodachapa: 0,
         ordens: [],
         titulo: '');
-
-    final chapabloc = context.watch<ConfiguracoesChapaBloc>();
-    final chapastate = chapabloc.state;
     if (chapastate is CompletoConfiguracoesChapaEstados) {
       chapastate.lista.forEach((element) {
         if (element.numerodachapa == numeroDaChapa) {
@@ -42,6 +75,7 @@ class _ChapaPaginaState extends State<ChapaPagina> {
         }
       });
     }
+
     return Scaffold(
       appBar: AppBar(
         title: Padding(
@@ -95,8 +129,8 @@ class _ChapaPaginaState extends State<ChapaPagina> {
                 const CircularProgressIndicator(),
               if (chapastate is CompletoConfiguracoesChapaEstados)
                 ListaPedidosComponente(numeroDaChapa, EOrdermEstado.atendendo),
-              SizedBox(height: 30),
-              Padding(
+              const SizedBox(height: 30),
+              const Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: Text(
                   'AGUARDANDO',
@@ -105,9 +139,9 @@ class _ChapaPaginaState extends State<ChapaPagina> {
                   ),
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               if (chapastate is CarregandoConfiguracoesChapaEstados)
-                CircularProgressIndicator(),
+                const CircularProgressIndicator(),
               if (chapastate is CompletoConfiguracoesChapaEstados)
                 ListaPedidosComponente(numeroDaChapa, EOrdermEstado.aguardando),
             ],
@@ -115,5 +149,28 @@ class _ChapaPaginaState extends State<ChapaPagina> {
         ),
       ),
     );
+  }
+}
+
+mixin CompleteStateMixin<T extends StatefulWidget> on State<T> {
+  void completeState();
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance?.addPostFrameCallback((_) {
+      context
+          .read<ConfiguracoesProdutoBloc>()
+          .add(BuscarTodosProdutosEventoConfiguracoesEventos());
+
+      context
+          .read<ConfiguracoesChapaBloc>()
+          .add(BuscarTodasChapasEventoConfiguracoesEventos());
+
+      context.read<ChapaDeTrabalhoBloc>().add(
+          BuscarTodasSolicitacoesCancelamentoPedidoChapaDeTrabalhoEventos());
+
+      completeState();
+    });
   }
 }
