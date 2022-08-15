@@ -5,6 +5,7 @@ import 'package:fastfood_inteligente_flutter/src/configuracoes/bloc/configuracoe
 import 'package:fastfood_inteligente_flutter/src/configuracoes/bloc/configuracoes.produto.bloc.dart';
 import 'package:fastfood_inteligente_flutter/src/configuracoes/componentes/chapa/adicionar.chapa.dialog.componente.dart';
 import 'package:fastfood_inteligente_flutter/src/configuracoes/componentes/chapa/deletar.chapa.dialog.componente.dart';
+import 'package:fastfood_inteligente_flutter/src/configuracoes/componentes/chapa/detalhes.chapa.dialog.componente.dart';
 import 'package:fastfood_inteligente_flutter/src/configuracoes/componentes/chapa/editar.chapa.dialog.componente.dart';
 import 'package:fastfood_inteligente_flutter/src/configuracoes/componentes/chapa/ligadeslig.chapa.botao.componente.dart';
 import 'package:fastfood_inteligente_flutter/src/configuracoes/componentes/produto/adicionar.produto.dialog.componente.dart';
@@ -55,7 +56,7 @@ class _ConfiguracoesPageState extends State<ConfiguracoesPage>
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Configurações'),
+        title: const Text('Configurações'),
       ),
       body: Container(
         child: ListView(
@@ -226,11 +227,11 @@ class _ConfiguracoesPageState extends State<ConfiguracoesPage>
                                           showDialog(
                                               context: context,
                                               builder: (_) {
-                                                return EditarChapaDialogComponente(
+                                                return DetalhesChapaDialogComponente(
                                                     chapa);
                                               });
                                         },
-                                        icon: Icon(Icons.edit),
+                                        icon: Icon(Icons.description_sharp),
                                       ),
                                       IconButton(
                                         iconSize: 17,

@@ -1,4 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fastfood_inteligente_flutter/src/chapas/dominio/objetosdevalor/ordem.objeto.dart';
+import 'package:fastfood_inteligente_flutter/src/chapas/dominio/entidade/chapa.entidade.dart';
 import 'package:fastfood_inteligente_flutter/src/chapas/infraestrutura/fontededados/ichapa.fontededados.dart';
 
 class ChapaFirestore implements IChapaFonteDeDados {
@@ -121,7 +123,6 @@ class ChapaFirestore implements IChapaFonteDeDados {
       final map = documentoSnap.data();
       (map!['ordens'] as List).removeAt(indexOrdem);
       doc.update(map);
-      print(map);
     });
   }
 
@@ -150,5 +151,34 @@ class ChapaFirestore implements IChapaFonteDeDados {
           },
         )
         .toList();
+  }
+
+  @override
+  Future<void> moverPedidoEntreChapas(
+      Map<String, dynamic> ordem,
+      Map<String, dynamic> chapaAtual,
+      Map<String, dynamic> chapaDestino) async {
+    final ref = firestore.collection('chapa');
+    final doc = ref.doc(chapaAtual['id']);
+    final getdocumento = doc.get();
+    getdocumento.then((documentoSnap) {
+      final map = documentoSnap.data();
+      final ordens = (map!['ordens'] as List);
+      for (int i = 0; i < ordens.length; i++) {
+        if (ordens[i]['id'] == ordem['id']) {
+          (map['ordens'] as List).removeAt(i);
+        }
+      }
+      doc.update(map);
+    });
+    final docDestino = ref.doc(chapaDestino['id']);
+    final getDocumentoDestino = docDestino.get();
+    getDocumentoDestino.then((documentoSnap) async {
+      final map = documentoSnap.data();
+      final ordens = map!['ordens'];
+      ordens.add(ordem);
+      map['ordens'] = ordens;
+      await docDestino.set(map);
+    });
   }
 }

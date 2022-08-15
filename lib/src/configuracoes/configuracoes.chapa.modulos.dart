@@ -9,5 +9,6 @@ final configuracoesChapaModulos = [
             context.read(),
             context.read(),
             context.read(),
+            context.read(),
           )),
 ];

@@ -3,6 +3,7 @@ import 'package:fastfood_inteligente_flutter/src/chapas/dominio/casodeuso/adicio
 import 'package:fastfood_inteligente_flutter/src/chapas/dominio/casodeuso/atualizarvaloreschapa.casodeuso.dart';
 import 'package:fastfood_inteligente_flutter/src/chapas/dominio/casodeuso/buscartodaschapas.casodeuso.dart';
 import 'package:fastfood_inteligente_flutter/src/chapas/dominio/casodeuso/deletarchapa.casodeuso.dart';
+import 'package:fastfood_inteligente_flutter/src/chapas/dominio/casodeuso/mover.pedido.entre.chapas.casodeuso.dart';
 import 'package:fastfood_inteligente_flutter/src/chapas/dominio/casodeuso/resetar.todos.pedidos.casodeuso.dart';
 import 'package:fastfood_inteligente_flutter/src/chapas/dominio/entidade/chapa.entidade.dart';
 import 'package:fastfood_inteligente_flutter/src/configuracoes/estados/configuracoes.chapa.estados.dart';
@@ -16,13 +17,15 @@ class ConfiguracoesChapaBloc
   final IDeletarChapa deletarChapaUseCase;
   final IAdicionarChapa adicionarChapaUseCase;
   final IResetarTodosPedidos resetarTodosPedidosUsecase;
+  final IMoverPedidoEntreChapas moverPedidoEntreChapasUsecase;
 
   ConfiguracoesChapaBloc(
       this.buscarTodasChapasUsecase,
       this.atualizarValoresChapaUseCase,
       this.deletarChapaUseCase,
       this.adicionarChapaUseCase,
-      this.resetarTodosPedidosUsecase)
+      this.resetarTodosPedidosUsecase,
+      this.moverPedidoEntreChapasUsecase)
       : super(InicialConfiguracoesChapaEstados()) {
     on<BuscarTodasChapasEventoConfiguracoesEventos>(
         _buscarTodasChapasEventoConfiguracoesEventos,
@@ -37,6 +40,9 @@ class ConfiguracoesChapaBloc
     on<ResetarTodosPedidosEventoConfiguracoesEventos>(
         _resetarTodosPedidosEventoConfiguracoesEventos,
         transformer: restartable());
+    on<MoverPedidoEntreChapasEventoConfiguracoesEventos>(
+        _moverPedidoEntreChapasEventoConfiguracoesEventos,
+        transformer: sequential());
   }
   Future<void> _buscarTodasChapasEventoConfiguracoesEventos(
       BuscarTodasChapasEventoConfiguracoesEventos event,
@@ -71,5 +77,12 @@ class ConfiguracoesChapaBloc
       ResetarTodosPedidosEventoConfiguracoesEventos event,
       Emitter<ConfiguracoesChapaEstados> emit) async {
     await resetarTodosPedidosUsecase.call();
+  }
+
+  Future<void> _moverPedidoEntreChapasEventoConfiguracoesEventos(
+      MoverPedidoEntreChapasEventoConfiguracoesEventos event,
+      Emitter<ConfiguracoesChapaEstados> emit) async {
+    await moverPedidoEntreChapasUsecase.call(
+        event.ordem, event.chapaAtual, event.chapaDestino);
   }
 }

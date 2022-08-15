@@ -32,4 +32,7 @@ abstract class IChapaRepositorio {
 
   Stream<List<SolicitacaoCancelamentoPedidoObjeto>>
       buscarTodasSolicitacoesCancelamentoPedido();
+
+  Future<void> moverPedidoEntreChapas(
+      Ordem ordem, ChapaEntidade chapaAtual, ChapaEntidade chapaDestino);
 }

@@ -1,4 +1,5 @@
 import 'package:fastfood_inteligente_flutter/src/chapas/dominio/entidade/chapa.entidade.dart';
+import 'package:fastfood_inteligente_flutter/src/chapas/dominio/objetosdevalor/ordem.objeto.dart';
 
 abstract class ConfiguracoesChapaEventos {}
 
@@ -26,3 +27,13 @@ class AtualizarValoresChapaConfiguracoesEventos
 
 class ResetarTodosPedidosEventoConfiguracoesEventos
     implements ConfiguracoesChapaEventos {}
+
+class MoverPedidoEntreChapasEventoConfiguracoesEventos
+    implements ConfiguracoesChapaEventos {
+  final Ordem ordem;
+  final ChapaEntidade chapaAtual;
+  final ChapaEntidade chapaDestino;
+
+  MoverPedidoEntreChapasEventoConfiguracoesEventos(
+      this.ordem, this.chapaAtual, this.chapaDestino);
+}

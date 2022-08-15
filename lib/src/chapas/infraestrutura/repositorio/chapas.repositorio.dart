@@ -114,4 +114,14 @@ class ChapaRepositorio implements IChapaRepositorio {
       List<Map<dynamic, dynamic>> list) {
     return list.map(JsonParaSolicitacaoCancelamentoPedidoObjeto.deMap).toList();
   }
+
+  @override
+  Future<void> moverPedidoEntreChapas(
+      Ordem ordem, ChapaEntidade chapaAtual, ChapaEntidade chapaDestino) async {
+    final mapOrdem = OrdemParaJson.paraMap(ordem);
+    final mapChapaAtual = ChapaEntidadeParaJson.paraMap(chapaAtual);
+    final mapchapaDestino = ChapaEntidadeParaJson.paraMap(chapaDestino);
+    await fontededados.moverPedidoEntreChapas(
+        mapOrdem, mapChapaAtual, mapchapaDestino);
+  }
 }

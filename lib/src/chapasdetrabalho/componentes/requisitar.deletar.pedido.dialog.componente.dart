@@ -1,3 +1,4 @@
+import 'package:fastfood_inteligente_flutter/src/chapas/dominio/casodeuso/calcular.posicao.solicitacao.cancelamento.casodeuso.dart';
 import 'package:fastfood_inteligente_flutter/src/chapas/dominio/entidade/chapa.entidade.dart';
 import 'package:fastfood_inteligente_flutter/src/chapas/dominio/objetosdevalor/ordem.objeto.dart';
 import 'package:fastfood_inteligente_flutter/src/chapas/dominio/objetosdevalor/solicitacoes/solicitacao.cancelamento.pedido.objeto.dart';
@@ -29,7 +30,8 @@ class _RequisitarDeletarPedidoDialogComponenteState
     extends State<RequisitarDeletarPedidoDialogComponente> {
   List<SolicitacaoCancelamentoPedidoObjeto> todasSolicitacoesCancelamento = [];
   bool selecionadoMotivo = false;
-
+  final ICalcularPosicaoCancelamento calculoPosicaoSolicitacaoUsecase =
+      CalcularPosicaoCancelamento();
   SolicitacaoCancelamentoPedidoObjeto solicitacaoJaFeita =
       ChapasDeTrabalhoSolicitacoesModelo.empty();
   String motivo = 'nada';
@@ -53,7 +55,10 @@ class _RequisitarDeletarPedidoDialogComponenteState
       }
     });
     var solicitacao = widget.solicitacaoCancelamentoPedidoObjeto;
-    var _calculoPosicaoSolicitacao = todasSolicitacoesCancelamento.length + 1;
+
+    var _calculoPosicaoSolicitacao =
+        calculoPosicaoSolicitacaoUsecase.call(todasSolicitacoesCancelamento) +
+            1;
     solicitacao = solicitacao.copyWith(posicao: _calculoPosicaoSolicitacao);
     solicitacao =
         solicitacao.copyWith(id: 'solicitacao${_calculoPosicaoSolicitacao}');

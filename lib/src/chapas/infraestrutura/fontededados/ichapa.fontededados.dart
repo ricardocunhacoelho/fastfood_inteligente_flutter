@@ -1,3 +1,6 @@
+import 'package:fastfood_inteligente_flutter/src/chapas/dominio/entidade/chapa.entidade.dart';
+import 'package:fastfood_inteligente_flutter/src/chapas/dominio/objetosdevalor/ordem.objeto.dart';
+
 abstract class IChapaFonteDeDados {
   Stream<List<Map>> buscarTodasChapas();
 
@@ -26,4 +29,7 @@ abstract class IChapaFonteDeDados {
   Future<void> adicionarSolicitacaoCancelamento(Map<String, dynamic> map);
 
   Stream<List<Map>> buscarTodasSolicitacoesCancelamentoPedido();
+
+  Future<void> moverPedidoEntreChapas(Map<String, dynamic> ordem,
+      Map<String, dynamic> chapaAtual, Map<String, dynamic> chapaDestino);
 }
