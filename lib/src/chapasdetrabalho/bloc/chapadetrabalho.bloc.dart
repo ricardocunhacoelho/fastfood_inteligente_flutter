@@ -3,6 +3,7 @@ import 'package:fastfood_inteligente_flutter/src/chapas/dominio/casodeuso/adicio
 import 'package:fastfood_inteligente_flutter/src/chapas/dominio/casodeuso/atualizar.estado.pedido.casodeuso.dart';
 import 'package:fastfood_inteligente_flutter/src/chapas/dominio/casodeuso/buscar.todas.solicitacoes.cancelamento.pedido.casodeuso.dart';
 import 'package:fastfood_inteligente_flutter/src/chapas/dominio/casodeuso/remover.ordem.chapa.dart';
+import 'package:fastfood_inteligente_flutter/src/chapas/dominio/casodeuso/remover.solicitacao.cancelamento.pedido.usecase.dart';
 import 'package:fastfood_inteligente_flutter/src/chapas/dominio/casodeuso/vigiar.chapa.casodeuso.dart';
 import 'package:fastfood_inteligente_flutter/src/chapas/dominio/entidade/chapa.entidade.dart';
 import 'package:fastfood_inteligente_flutter/src/chapas/dominio/objetosdevalor/solicitacoes/solicitacao.cancelamento.pedido.objeto.dart';
@@ -19,12 +20,15 @@ class ChapaDeTrabalhoBloc
       adicionarSolicitacaoCancelamentoUsecase;
   final IBuscarTodasSolicitacoesCancelamentoPedido
       buscarTodasSolicitacoesCancelamentoPedidoUsecase;
+  final IRemoverSolicitacaoCancelamentoPedido
+      removerSolicitacaoCancelamentoPedidoUsecase;
   ChapaDeTrabalhoBloc(
       this.atualizarEstadoPedidoUsecase,
       this.vigiarChapaUsecase,
       this.removerOrdemChapaUsecase,
       this.adicionarSolicitacaoCancelamentoUsecase,
-      this.buscarTodasSolicitacoesCancelamentoPedidoUsecase)
+      this.buscarTodasSolicitacoesCancelamentoPedidoUsecase,
+      this.removerSolicitacaoCancelamentoPedidoUsecase)
       : super(InicialChapaDeTrabalhoEstados()) {
     on<AtualizarEstadoPedidoChapaDeTrabalhoEventos>(
         _atualizarEstadoPedidoChapaDeTrabalhoEventos,
@@ -66,6 +70,7 @@ class ChapaDeTrabalhoBloc
       event.numeroDaChapa,
       event.indexOrdem,
     );
+    await removerSolicitacaoCancelamentoPedidoUsecase.call(event.solicitacao);
   }
 
   Future<void> _requisitarDeletarPedidoChapaDeTrabalhoEventos(

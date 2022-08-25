@@ -25,7 +25,7 @@ class ConfiguracoesProdutoBloc
         transformer: restartable());
     on<AdicionarProdutoConfiguracoesEventos>(
         _adicionarProdutoConfiguracoesEventos,
-        transformer: restartable());
+        transformer: sequential());
     on<DeletarProdutoConfiguracoesEventos>(_deletarProdutoConfiguracoesEventos,
         transformer: sequential());
     on<EditarProdutoConfiguracoesEventos>(_editarProdutoConfiguracoesEventos,

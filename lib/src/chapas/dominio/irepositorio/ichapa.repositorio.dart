@@ -35,4 +35,7 @@ abstract class IChapaRepositorio {
 
   Future<void> moverPedidoEntreChapas(
       Ordem ordem, ChapaEntidade chapaAtual, ChapaEntidade chapaDestino);
+
+  Future<void> removerSolicitacaoCancelamentoPedido(
+      SolicitacaoCancelamentoPedidoObjeto solicitacao);
 }

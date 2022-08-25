@@ -47,7 +47,7 @@ class EntradaBloc extends Bloc<EntradaEventos, EntradaEstados> {
     on<SubtrairQuantidadeEntradaEventos>(_subtrairQuantidadeEntradaEventos,
         transformer: sequential());
     on<BuscarOrdemBaseEntradaEventos>(_buscarOrdemBaseEntradaEventos,
-        transformer: restartable());
+        transformer: sequential());
     on<AtualizarOrdemBaseEntradaEventos>(_atualizarOrdemBaseEntradaEventos,
         transformer: restartable());
     on<FinalizarImprimirPedidoEntradaEventos>(
@@ -55,9 +55,9 @@ class EntradaBloc extends Bloc<EntradaEventos, EntradaEstados> {
         transformer: sequential());
     on<ResetarProdutosReceberamIncrementoQuantidadeEntradaEventos>(
         _resetarProdutosReceberamIncrementoQuantidadeEntradaEventos,
-        transformer: sequential());
+        transformer: restartable());
     on<ResetarOrdemBaseEntradaEventos>(_resetarOrdemBaseEntradaEventos,
-        transformer: sequential());
+        transformer: restartable());
   }
 
   Future<void> _adicionarQuantidadeEntradaEventos(

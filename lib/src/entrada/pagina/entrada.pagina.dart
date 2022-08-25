@@ -25,25 +25,26 @@ class EntradaPagina extends StatefulWidget {
 class _EntradaPaginaState extends State<EntradaPagina> with CompleteStateMixin {
   @override
   void completeState() {
-    context.read<EntradaBloc>().add(BuscarOrdemBaseEntradaEventos());
     context
         .read<ConfiguracoesProdutoBloc>()
         .add(BuscarTodosProdutosEventoConfiguracoesEventos());
+    context.read<EntradaBloc>().add(BuscarOrdemBaseEntradaEventos());
     context
         .read<ConfiguracoesChapaBloc>()
         .add(BuscarTodasChapasEventoConfiguracoesEventos());
   }
 
+  Ordem ordemInicial = Ordem(
+      produtos: [],
+      embalarParaViajem: false,
+      estado: EOrdermEstado.aguardando,
+      id: 'ordem1',
+      datahora: DateTime.now(),
+      observacao: '',
+      posicao: 1);
+
   @override
   Widget build(BuildContext context) {
-    Ordem ordemInicial = Ordem(
-        produtos: [],
-        embalarParaViajem: false,
-        estado: EOrdermEstado.aguardando,
-        id: 'ordem1',
-        datahora: DateTime.now(),
-        observacao: '',
-        posicao: 1);
     bool habilitar = false;
     final IChecarSeFoiAdicionadoProduto checarSeFoiAdicionadoProduto =
         ChecarSeFoiAdicionadoProduto();
@@ -70,7 +71,7 @@ class _EntradaPaginaState extends State<EntradaPagina> with CompleteStateMixin {
           centerTitle: true,
           elevation: 5,
           actions: [IconButton(onPressed: () {}, icon: Icon(Icons.search))],
-          bottom: TabBar(isScrollable: true, tabs: [
+          bottom: const TabBar(isScrollable: true, tabs: [
             Tab(
               text: 'Lanches',
             ),
@@ -93,16 +94,12 @@ class _EntradaPaginaState extends State<EntradaPagina> with CompleteStateMixin {
             Expanded(
               child: TabBarView(
                 children: [
-                  criarPagina('lanche', produtostate,
-                      checarSeFoiAdicionadoProduto, habilitar, ordemInicial),
-                  criarPagina('todos', produtostate,
-                      checarSeFoiAdicionadoProduto, habilitar, ordemInicial),
-                  criarPagina('bebida', produtostate,
-                      checarSeFoiAdicionadoProduto, habilitar, ordemInicial),
-                  criarPagina('combo', produtostate,
-                      checarSeFoiAdicionadoProduto, habilitar, ordemInicial),
-                  criarPagina('sobremesa', produtostate,
-                      checarSeFoiAdicionadoProduto, habilitar, ordemInicial),
+                  criarPagina('lanche', produtostate, habilitar, ordemInicial),
+                  criarPagina('todos', produtostate, habilitar, ordemInicial),
+                  criarPagina('bebida', produtostate, habilitar, ordemInicial),
+                  criarPagina('combo', produtostate, habilitar, ordemInicial),
+                  criarPagina(
+                      'sobremesa', produtostate, habilitar, ordemInicial),
                 ],
               ),
             ),
@@ -174,12 +171,8 @@ class _EntradaPaginaState extends State<EntradaPagina> with CompleteStateMixin {
     );
   }
 
-  Widget criarPagina(
-          String pagina,
-          ConfiguracoesProdutoEstados produtostate,
-          IChecarSeFoiAdicionadoProduto checarSeFoiAdicionadoProduto,
-          bool habilitar,
-          Ordem ordemInicial) =>
+  Widget criarPagina(String pagina, ConfiguracoesProdutoEstados produtostate,
+          bool habilitar, Ordem ordemInicial) =>
       Container(
         height: double.infinity,
         child: Column(mainAxisSize: MainAxisSize.max, children: [
@@ -270,11 +263,10 @@ mixin CompleteStateMixin<T extends StatefulWidget> on State<T> {
   void initState() {
     super.initState();
     WidgetsBinding.instance?.addPostFrameCallback((_) {
-      context.read<EntradaBloc>().add(BuscarOrdemBaseEntradaEventos());
       context
           .read<ConfiguracoesProdutoBloc>()
           .add(BuscarTodosProdutosEventoConfiguracoesEventos());
-
+      context.read<EntradaBloc>().add(BuscarOrdemBaseEntradaEventos());
       context.read<EntradaBloc>().add(BuscarOrdemBaseEntradaEventos());
       context
           .read<ConfiguracoesChapaBloc>()

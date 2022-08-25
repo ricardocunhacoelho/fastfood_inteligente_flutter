@@ -30,8 +30,17 @@ class _DetalhesChapaDialogComponenteState
   List listChapasAptas = [];
   @override
   Widget build(BuildContext context) {
+    initState() {
+      context.read<ConfiguracoesChapaBloc>().add(
+          VigiarChapaEventoConfiguracoesEventos(
+              widget.chapaEntidade.numerodachapa));
+    }
+
     final chapabloc = context.watch<ConfiguracoesChapaBloc>();
     final chapastate = chapabloc.state;
+    if (chapastate is VigiarChapaConfiguracoesChapaEstados) {
+      chapaSelecionada = chapastate.chapa;
+    }
     if (chapastate is CompletoConfiguracoesChapaEstados) {
       chapastate.lista.forEach((element) {
         if (element.estado == EChapaEstado.funcionando &&
@@ -61,14 +70,15 @@ class _DetalhesChapaDialogComponenteState
             Container(
               child: Row(
                 children: [
-                  Text('${widget.chapaEntidade.titulo}'),
+                  Text('${chapaSelecionada.titulo}'),
                   IconButton(
                       onPressed: () {
+                        print(chapaSelecionada.titulo);
                         showDialog(
                             context: context,
                             builder: (_) {
                               return EditarChapaDialogComponente(
-                                  widget.chapaEntidade);
+                                  chapaSelecionada);
                             });
                       },
                       icon: const Icon(Icons.edit)),
@@ -86,10 +96,10 @@ class _DetalhesChapaDialogComponenteState
               width: MediaQuery.of(context).size.width * 0.9,
               height: MediaQuery.of(context).size.width * 0.6,
               child: ListView.builder(
-                  itemCount: widget.chapaEntidade.ordens.length,
+                  itemCount: chapaSelecionada.ordens.length,
                   itemBuilder: (context, index) {
                     bool isaSolicitacao = false;
-                    final ordem = widget.chapaEntidade.ordens[index];
+                    final ordem = chapaSelecionada.ordens[index];
                     todasSolicitacoesCancelamento.forEach((element) {
                       if (element.ordem.id == ordem.id) {
                         isaSolicitacao = true;
@@ -137,7 +147,7 @@ class _DetalhesChapaDialogComponenteState
                                       builder: (_) {
                                         return MoverPedidoEntreChapasDialogComponente(
                                             ordem,
-                                            widget.chapaEntidade,
+                                            chapaSelecionada,
                                             listChapasAptas);
                                       });
                                   // context.read<ConfiguracoesChapaBloc>().add(

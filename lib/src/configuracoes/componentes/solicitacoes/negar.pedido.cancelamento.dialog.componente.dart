@@ -7,21 +7,22 @@ import 'package:fastfood_inteligente_flutter/src/configuracoes/eventos/configura
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class ConfirmarRemoverPedidoDialog extends StatefulWidget {
+class NegarPedidoCancelamentoDialog extends StatefulWidget {
   final SolicitacaoCancelamentoPedidoObjeto solicitacaoCancelamentoPedidoObjeto;
-  ConfirmarRemoverPedidoDialog(this.solicitacaoCancelamentoPedidoObjeto);
+  NegarPedidoCancelamentoDialog(this.solicitacaoCancelamentoPedidoObjeto);
 
   @override
-  _ConfirmarRemoverPedidoDialogState createState() =>
-      new _ConfirmarRemoverPedidoDialogState();
+  _NegarPedidoCancelamentoDialogState createState() =>
+      new _NegarPedidoCancelamentoDialogState();
 }
 
-class _ConfirmarRemoverPedidoDialogState
-    extends State<ConfirmarRemoverPedidoDialog> {
+class _NegarPedidoCancelamentoDialogState
+    extends State<NegarPedidoCancelamentoDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text('Confirmar remoção deste pedido?'),
+      title: Text(
+          'Negar solicitação de cancelamento do pedido ${widget.solicitacaoCancelamentoPedidoObjeto.ordem.id}?'),
       actions: <Widget>[
         TextButton(
             onPressed: () {
@@ -30,11 +31,8 @@ class _ConfirmarRemoverPedidoDialogState
             child: Text('Não')),
         TextButton(
             onPressed: () {
-              context.read<ChapaDeTrabalhoBloc>().add(
-                  RemoverPedidoChapaDeTrabalhoEventos(
-                      widget.solicitacaoCancelamentoPedidoObjeto.chapa
-                          .numerodachapa,
-                      widget.solicitacaoCancelamentoPedidoObjeto.indexOrdem,
+              context.read<ConfiguracoesChapaBloc>().add(
+                  RemoverSolicitacaoCancelamentoPedidoEventoConfiguracoesEventos(
                       widget.solicitacaoCancelamentoPedidoObjeto));
               Navigator.pop(context);
             },

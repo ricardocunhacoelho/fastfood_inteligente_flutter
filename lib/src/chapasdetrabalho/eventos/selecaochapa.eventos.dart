@@ -21,8 +21,9 @@ class AtualizarEstadoPedidoChapaDeTrabalhoEventos
 class RemoverPedidoChapaDeTrabalhoEventos implements ChapaDeTrabalhoEventos {
   final int numeroDaChapa;
   final int indexOrdem;
-
-  RemoverPedidoChapaDeTrabalhoEventos(this.numeroDaChapa, this.indexOrdem);
+  final SolicitacaoCancelamentoPedidoObjeto solicitacao;
+  RemoverPedidoChapaDeTrabalhoEventos(
+      this.numeroDaChapa, this.indexOrdem, this.solicitacao);
 }
 
 class RequisitarDeletarPedidoChapaDeTrabalhoEventos

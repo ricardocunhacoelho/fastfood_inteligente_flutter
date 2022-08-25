@@ -181,4 +181,12 @@ class ChapaFirestore implements IChapaFonteDeDados {
       await docDestino.set(map);
     });
   }
+
+  @override
+  Future<void> removerSolicitacaoCancelamentoPedido(
+      Map<String, dynamic> mapSolicitacao) async {
+    final ref = firestore.collection('solicitacoescancelamento');
+    final doc = ref.doc(mapSolicitacao['id']);
+    await doc.delete();
+  }
 }

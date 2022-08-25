@@ -13,6 +13,7 @@ import 'package:fastfood_inteligente_flutter/src/configuracoes/componentes/produ
 import 'package:fastfood_inteligente_flutter/src/configuracoes/componentes/produto/editar.produto.dialog.componente.dart';
 import 'package:fastfood_inteligente_flutter/src/configuracoes/componentes/solicitacoes/confirmar.remover.pedido.dialog.componente.dart';
 import 'package:fastfood_inteligente_flutter/src/configuracoes/componentes/solicitacoes/detalhes.solicitacao.remover.pedido.dialog.componente.dart';
+import 'package:fastfood_inteligente_flutter/src/configuracoes/componentes/solicitacoes/negar.pedido.cancelamento.dialog.componente.dart';
 import 'package:fastfood_inteligente_flutter/src/configuracoes/estados/configuracoes.chapa.estados.dart';
 import 'package:fastfood_inteligente_flutter/src/configuracoes/estados/configuracoes.produto.estados.dart';
 import 'package:fastfood_inteligente_flutter/src/configuracoes/eventos/configuracoes.chapa.eventos.dart';
@@ -44,7 +45,7 @@ class _ConfiguracoesPageState extends State<ConfiguracoesPage>
   }
 
   bool isSwitched = false;
-
+  List todasSolicitacoes = [];
   @override
   Widget build(BuildContext context) {
     final produtobloc = context.watch<ConfiguracoesProdutoBloc>();
@@ -54,6 +55,10 @@ class _ConfiguracoesPageState extends State<ConfiguracoesPage>
     final chapaTrabalhoBloc = context.watch<ChapaDeTrabalhoBloc>();
     final chapaTrabalhoEstado = chapaTrabalhoBloc.state;
 
+    if (chapaTrabalhoEstado
+        is CompletoBuscarSolicitacoesConfiguracoesChapaEstados) {
+      todasSolicitacoes = chapaTrabalhoEstado.lista;
+    }
     return Scaffold(
       appBar: AppBar(
         title: const Text('Configurações'),
@@ -267,15 +272,16 @@ class _ConfiguracoesPageState extends State<ConfiguracoesPage>
                             },
                             child: Text('RESETAR PEDIDOS'))),
                     const SizedBox(height: 40),
-                    Container(
-                      width: double.infinity,
-                      child: const Text(
-                        'SOLICITAÇÕES',
-                        style: TextStyle(
-                          fontSize: 15,
+                    if (todasSolicitacoes.length != 0)
+                      Container(
+                        width: double.infinity,
+                        child: const Text(
+                          'SOLICITAÇÕES',
+                          style: TextStyle(
+                            fontSize: 15,
+                          ),
                         ),
                       ),
-                    ),
                     const SizedBox(height: 20),
                     if (chapaTrabalhoEstado
                         is CompletoBuscarSolicitacoesConfiguracoesChapaEstados)
@@ -327,7 +333,14 @@ class _ConfiguracoesPageState extends State<ConfiguracoesPage>
                                       ),
                                       IconButton(
                                         iconSize: 17,
-                                        onPressed: () {},
+                                        onPressed: () {
+                                          showDialog(
+                                              context: context,
+                                              builder: (_) {
+                                                return NegarPedidoCancelamentoDialog(
+                                                    solicitacao);
+                                              });
+                                        },
                                         icon: Icon(Icons.close),
                                       ),
                                     ],

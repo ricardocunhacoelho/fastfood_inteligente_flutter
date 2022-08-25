@@ -37,29 +37,29 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyBhVgqpvF5GDylw-lDg4GyOUekXTSN-fVY',
-    appId: '1:518388818633:web:f90b2af1090869e25ca318',
-    messagingSenderId: '518388818633',
-    projectId: 'hamburgueria-inteligente-459e7',
-    authDomain: 'hamburgueria-inteligente-459e7.firebaseapp.com',
-    storageBucket: 'hamburgueria-inteligente-459e7.appspot.com',
+    apiKey: 'AIzaSyD3-4B4GYRpBQDUI1OFIjKRf8cagnz7Zq8',
+    appId: '1:673974094468:web:e7640bbf7efa7fc49210d1',
+    messagingSenderId: '673974094468',
+    projectId: 'maisumatela',
+    authDomain: 'maisumatela.firebaseapp.com',
+    storageBucket: 'maisumatela.appspot.com',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBaMDp3opKT4RpeDUaMjaJGcOdw8Bo_nF8',
-    appId: '1:518388818633:android:09aaaf3f6e83aa0b5ca318',
-    messagingSenderId: '518388818633',
-    projectId: 'hamburgueria-inteligente-459e7',
-    storageBucket: 'hamburgueria-inteligente-459e7.appspot.com',
+    apiKey: 'AIzaSyBBoCXH7oKpYq0UBXAiGXnkCklc1k-LUkU',
+    appId: '1:673974094468:android:4a996bad5ef5ffd49210d1',
+    messagingSenderId: '673974094468',
+    projectId: 'maisumatela',
+    storageBucket: 'maisumatela.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyBtVgNYhHeZBMgvXEypT3UGPpC1rBGUH5M',
-    appId: '1:518388818633:ios:6839a532b87cd46d5ca318',
-    messagingSenderId: '518388818633',
-    projectId: 'hamburgueria-inteligente-459e7',
-    storageBucket: 'hamburgueria-inteligente-459e7.appspot.com',
-    iosClientId: '518388818633-uv9obrrbgfq8lh8lps1seq9fac7qcfik.apps.googleusercontent.com',
+    apiKey: 'AIzaSyCa2ZLcQaqdeubVzNHuEwpnMABco7od9I8',
+    appId: '1:673974094468:ios:4d5e8f8bf641e55a9210d1',
+    messagingSenderId: '673974094468',
+    projectId: 'maisumatela',
+    storageBucket: 'maisumatela.appspot.com',
+    iosClientId: '673974094468-l3gr8d79irqjp0vqr6467njfcb16c1ka.apps.googleusercontent.com',
     iosBundleId: 'com.example.fastfoodInteligenteFlutter',
   );
 }

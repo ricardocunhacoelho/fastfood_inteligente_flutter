@@ -18,3 +18,10 @@ class ErroConfiguracoesChapaEstados implements ConfiguracoesChapaEstados {
 
   ErroConfiguracoesChapaEstados(this.menssagem);
 }
+
+class VigiarChapaConfiguracoesChapaEstados
+    implements ConfiguracoesChapaEstados {
+  final ChapaEntidade chapa;
+
+  VigiarChapaConfiguracoesChapaEstados(this.chapa);
+}

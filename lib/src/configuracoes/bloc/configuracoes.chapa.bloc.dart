@@ -4,7 +4,9 @@ import 'package:fastfood_inteligente_flutter/src/chapas/dominio/casodeuso/atuali
 import 'package:fastfood_inteligente_flutter/src/chapas/dominio/casodeuso/buscartodaschapas.casodeuso.dart';
 import 'package:fastfood_inteligente_flutter/src/chapas/dominio/casodeuso/deletarchapa.casodeuso.dart';
 import 'package:fastfood_inteligente_flutter/src/chapas/dominio/casodeuso/mover.pedido.entre.chapas.casodeuso.dart';
+import 'package:fastfood_inteligente_flutter/src/chapas/dominio/casodeuso/remover.solicitacao.cancelamento.pedido.usecase.dart';
 import 'package:fastfood_inteligente_flutter/src/chapas/dominio/casodeuso/resetar.todos.pedidos.casodeuso.dart';
+import 'package:fastfood_inteligente_flutter/src/chapas/dominio/casodeuso/vigiar.chapa.casodeuso.dart';
 import 'package:fastfood_inteligente_flutter/src/chapas/dominio/entidade/chapa.entidade.dart';
 import 'package:fastfood_inteligente_flutter/src/configuracoes/estados/configuracoes.chapa.estados.dart';
 import 'package:fastfood_inteligente_flutter/src/configuracoes/eventos/configuracoes.chapa.eventos.dart';
@@ -18,14 +20,18 @@ class ConfiguracoesChapaBloc
   final IAdicionarChapa adicionarChapaUseCase;
   final IResetarTodosPedidos resetarTodosPedidosUsecase;
   final IMoverPedidoEntreChapas moverPedidoEntreChapasUsecase;
-
+  final IVigiarChapa vigiarChapaUsecase;
+  final IRemoverSolicitacaoCancelamentoPedido
+      removerSolicitacaoCancelamentoPedidoUsecase;
   ConfiguracoesChapaBloc(
       this.buscarTodasChapasUsecase,
       this.atualizarValoresChapaUseCase,
       this.deletarChapaUseCase,
       this.adicionarChapaUseCase,
       this.resetarTodosPedidosUsecase,
-      this.moverPedidoEntreChapasUsecase)
+      this.moverPedidoEntreChapasUsecase,
+      this.vigiarChapaUsecase,
+      this.removerSolicitacaoCancelamentoPedidoUsecase)
       : super(InicialConfiguracoesChapaEstados()) {
     on<BuscarTodasChapasEventoConfiguracoesEventos>(
         _buscarTodasChapasEventoConfiguracoesEventos,
@@ -42,6 +48,12 @@ class ConfiguracoesChapaBloc
         transformer: restartable());
     on<MoverPedidoEntreChapasEventoConfiguracoesEventos>(
         _moverPedidoEntreChapasEventoConfiguracoesEventos,
+        transformer: sequential());
+    on<VigiarChapaEventoConfiguracoesEventos>(
+        _vigiarChapaEventoConfiguracoesEventos,
+        transformer: restartable());
+    on<RemoverSolicitacaoCancelamentoPedidoEventoConfiguracoesEventos>(
+        _removerSolicitacaoCancelamentoPedidoEventoConfiguracoesEventos,
         transformer: sequential());
   }
   Future<void> _buscarTodasChapasEventoConfiguracoesEventos(
@@ -84,5 +96,22 @@ class ConfiguracoesChapaBloc
       Emitter<ConfiguracoesChapaEstados> emit) async {
     await moverPedidoEntreChapasUsecase.call(
         event.ordem, event.chapaAtual, event.chapaDestino);
+  }
+
+  Future<void> _vigiarChapaEventoConfiguracoesEventos(
+      VigiarChapaEventoConfiguracoesEventos event,
+      Emitter<ConfiguracoesChapaEstados> emit) async {
+    emit(CarregandoConfiguracoesChapaEstados());
+    await emit.forEach<ChapaEntidade>(
+      vigiarChapaUsecase(event.numerodachapa),
+      onData: (chapa) => VigiarChapaConfiguracoesChapaEstados(chapa),
+      onError: (error, st) => ErroConfiguracoesChapaEstados(error.toString()),
+    );
+  }
+
+  Future<void> _removerSolicitacaoCancelamentoPedidoEventoConfiguracoesEventos(
+      RemoverSolicitacaoCancelamentoPedidoEventoConfiguracoesEventos event,
+      Emitter<ConfiguracoesChapaEstados> emit) async {
+    await removerSolicitacaoCancelamentoPedidoUsecase.call(event.solicitacao);
   }
 }

@@ -32,4 +32,7 @@ abstract class IChapaFonteDeDados {
 
   Future<void> moverPedidoEntreChapas(Map<String, dynamic> ordem,
       Map<String, dynamic> chapaAtual, Map<String, dynamic> chapaDestino);
+
+  Future<void> removerSolicitacaoCancelamentoPedido(
+      Map<String, dynamic> mapSolicitacao);
 }

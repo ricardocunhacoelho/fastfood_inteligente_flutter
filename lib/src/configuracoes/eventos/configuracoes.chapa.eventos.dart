@@ -1,5 +1,6 @@
 import 'package:fastfood_inteligente_flutter/src/chapas/dominio/entidade/chapa.entidade.dart';
 import 'package:fastfood_inteligente_flutter/src/chapas/dominio/objetosdevalor/ordem.objeto.dart';
+import 'package:fastfood_inteligente_flutter/src/chapas/dominio/objetosdevalor/solicitacoes/solicitacao.cancelamento.pedido.objeto.dart';
 
 abstract class ConfiguracoesChapaEventos {}
 
@@ -36,4 +37,19 @@ class MoverPedidoEntreChapasEventoConfiguracoesEventos
 
   MoverPedidoEntreChapasEventoConfiguracoesEventos(
       this.ordem, this.chapaAtual, this.chapaDestino);
+}
+
+class VigiarChapaEventoConfiguracoesEventos
+    implements ConfiguracoesChapaEventos {
+  final int numerodachapa;
+
+  VigiarChapaEventoConfiguracoesEventos(this.numerodachapa);
+}
+
+class RemoverSolicitacaoCancelamentoPedidoEventoConfiguracoesEventos
+    implements ConfiguracoesChapaEventos {
+  final SolicitacaoCancelamentoPedidoObjeto solicitacao;
+
+  RemoverSolicitacaoCancelamentoPedidoEventoConfiguracoesEventos(
+      this.solicitacao);
 }

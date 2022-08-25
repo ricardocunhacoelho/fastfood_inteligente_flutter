@@ -2,6 +2,7 @@ import 'package:fastfood_inteligente_flutter/src/chapas/dominio/entidade/chapa.e
 import 'package:fastfood_inteligente_flutter/src/chapas/dominio/objetosdevalor/solicitacoes/solicitacao.cancelamento.pedido.objeto.dart';
 import 'package:fastfood_inteligente_flutter/src/chapasdetrabalho/bloc/chapadetrabalho.bloc.dart';
 import 'package:fastfood_inteligente_flutter/src/chapasdetrabalho/estados/selecaochapa.estados.dart';
+import 'package:fastfood_inteligente_flutter/src/chapasdetrabalho/eventos/selecaochapa.eventos.dart';
 import 'package:fastfood_inteligente_flutter/src/configuracoes/bloc/configuracoes.chapa.bloc.dart';
 import 'package:fastfood_inteligente_flutter/src/configuracoes/componentes/chapa/editar.chapa.dialog.componente.dart';
 import 'package:fastfood_inteligente_flutter/src/configuracoes/eventos/configuracoes.chapa.eventos.dart';
@@ -41,7 +42,16 @@ class _PedidoCancelamentoInsideDetalhesDialogComponenteState
               ),
             ),
             SizedBox(height: 35),
-            TextButton(onPressed: () {}, child: Text('Confirmar Remoção')),
+            TextButton(
+                onPressed: () {
+                  context.read<ChapaDeTrabalhoBloc>().add(
+                      RemoverPedidoChapaDeTrabalhoEventos(
+                          widget.solicitacao.chapa.numerodachapa,
+                          widget.solicitacao.indexOrdem,
+                          widget.solicitacao));
+                  Navigator.pop(context);
+                },
+                child: Text('Confirmar Remoção')),
             SizedBox(height: 7),
             TextButton(onPressed: () {}, child: Text('Negar Solicitação'))
           ],

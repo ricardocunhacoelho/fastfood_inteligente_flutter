@@ -1,5 +1,6 @@
 import 'package:fastfood_inteligente_flutter/src/chapas/dominio/entidade/chapa.entidade.dart';
 import 'package:fastfood_inteligente_flutter/src/chapas/dominio/objetosdevalor/ordem.objeto.dart';
+import 'package:fastfood_inteligente_flutter/src/chapas/dominio/objetosdevalor/solicitacoes/solicitacao.cancelamento.pedido.objeto.dart';
 import 'package:fastfood_inteligente_flutter/src/chapasdetrabalho/bloc/chapadetrabalho.bloc.dart';
 import 'package:fastfood_inteligente_flutter/src/chapasdetrabalho/componentes/requisitar.deletar.pedido.dialog.componente.dart';
 import 'package:fastfood_inteligente_flutter/src/chapasdetrabalho/estados/selecaochapa.estados.dart';
@@ -7,6 +8,7 @@ import 'package:fastfood_inteligente_flutter/src/chapasdetrabalho/eventos/seleca
 import 'package:fastfood_inteligente_flutter/src/chapasdetrabalho/modelos/chapadetrabalho.solicitacoes.modelo.dart';
 import 'package:fastfood_inteligente_flutter/src/chapasdetrabalho/paginas/componentes/detalhes.pedido.dialog.componente.dart';
 import 'package:fastfood_inteligente_flutter/src/configuracoes/bloc/configuracoes.chapa.bloc.dart';
+import 'package:fastfood_inteligente_flutter/src/configuracoes/componentes/chapa/inside.detalhes.solicitacao.pedido.cancelamento.componenteinsidedetalhes.dart';
 import 'package:fastfood_inteligente_flutter/src/configuracoes/estados/configuracoes.chapa.estados.dart';
 import 'package:fastfood_inteligente_flutter/src/configuracoes/modelo/configuracoes.chapa.modelo.dart';
 import 'package:flutter/material.dart';
@@ -22,10 +24,14 @@ class ListaPedidosComponente extends StatefulWidget {
 }
 
 class _ListaPedidosComponenteState extends State<ListaPedidosComponente> {
-  var listChapas = [];
+  bool isaSolicitacao = false;
+  List todasSolicitacoes = [];
+  List listChapas = [];
   var todasSolicitacoesCancelamento = [];
   bool repetida = false;
   var solicitacao = ChapasDeTrabalhoSolicitacoesModelo.empty();
+  SolicitacaoCancelamentoPedidoObjeto solicitacaoPresente =
+      ChapasDeTrabalhoSolicitacoesModelo.empty();
   @override
   Widget build(BuildContext context) {
     ChapaEntidade chapa = ConfiguracoesChapaModelo.empty();
@@ -58,6 +64,12 @@ class _ListaPedidosComponenteState extends State<ListaPedidosComponente> {
           solicitacao = solicitacao.copyWith(chapa: chapa);
           solicitacao = solicitacao.copyWith(ordem: ordem);
           solicitacao = solicitacao.copyWith(indexOrdem: indexAgora);
+          todasSolicitacoesCancelamento.forEach((element) {
+            if (element.ordem.id == ordem.id) {
+              isaSolicitacao = true;
+              solicitacaoPresente = element;
+            }
+          });
           if (ordem.estado == EOrdermEstado.aguardando &&
               widget.estado == EOrdermEstado.aguardando) {
             return SingleChildScrollView(
@@ -89,17 +101,18 @@ class _ListaPedidosComponenteState extends State<ListaPedidosComponente> {
                               ],
                             ),
                             SizedBox(width: 30),
-                            IconButton(
-                                onPressed: () async {
-                                  showDialog(
-                                      context: context,
-                                      builder: (_) {
-                                        return RequisitarDeletarPedidoDialogComponente(
-                                            solicitacao, chapa, ordem, index);
-                                      });
-                                },
-                                icon: const Icon(
-                                    Icons.restore_from_trash_rounded)),
+                            if (!isaSolicitacao)
+                              IconButton(
+                                  onPressed: () async {
+                                    showDialog(
+                                        context: context,
+                                        builder: (_) {
+                                          return RequisitarDeletarPedidoDialogComponente(
+                                              solicitacao, chapa, ordem, index);
+                                        });
+                                  },
+                                  icon: const Icon(
+                                      Icons.restore_from_trash_rounded)),
                             IconButton(
                                 onPressed: () {
                                   context.read<ChapaDeTrabalhoBloc>().add(
@@ -110,6 +123,20 @@ class _ListaPedidosComponenteState extends State<ListaPedidosComponente> {
                                   Icons.check_box,
                                   // color: Colors.lightGreen,
                                 )),
+                            if (isaSolicitacao)
+                              IconButton(
+                                  color: Colors.orangeAccent,
+                                  onPressed: () async {
+                                    showDialog(
+                                        context: context,
+                                        builder: (_) {
+                                          return RequisitarDeletarPedidoDialogComponente(
+                                              solicitacao, chapa, ordem, index);
+                                        });
+                                  },
+                                  icon:
+                                      const Icon(Icons.notification_important)),
+
                             IconButton(
                                 onPressed: () {
                                   showDialog(

@@ -133,9 +133,7 @@ class _RequisitarDeletarPedidoDialogComponenteState
                   ),
                   Container(
                       height: 50,
-                      child: Expanded(
-                          child: Text(
-                              'Motivo : ${motivo} nome da chapa : ${widget.chapa.titulo}'))),
+                      child: Expanded(child: Text('Motivo : ${motivo}'))),
                 ],
               ),
           ],
