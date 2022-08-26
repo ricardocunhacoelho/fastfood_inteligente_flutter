@@ -1,6 +1,7 @@
 import 'package:fastfood_inteligente_flutter/src/chapas/dominio/objetosdevalor/ordem.objeto.dart';
 import 'package:fastfood_inteligente_flutter/src/configuracoes/bloc/configuracoes.chapa.bloc.dart';
 import 'package:fastfood_inteligente_flutter/src/configuracoes/estados/configuracoes.chapa.estados.dart';
+import 'package:fastfood_inteligente_flutter/src/configuracoes/eventos/configuracoes.chapa.eventos.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -11,7 +12,15 @@ class TelaChamadaDePedidos extends StatefulWidget {
   State<TelaChamadaDePedidos> createState() => _TelaChamadaDePedidosState();
 }
 
-class _TelaChamadaDePedidosState extends State<TelaChamadaDePedidos> {
+class _TelaChamadaDePedidosState extends State<TelaChamadaDePedidos>
+    with CompleteStateMixin {
+  @override
+  void completeState() {
+    context
+        .read<ConfiguracoesChapaBloc>()
+        .add(BuscarTodasChapasEventoConfiguracoesEventos());
+  }
+
   var listaOrdensAtendendo = [];
   List todasChapas = [];
   bool clicado = false;
@@ -23,15 +32,22 @@ class _TelaChamadaDePedidosState extends State<TelaChamadaDePedidos> {
   Widget build(BuildContext context) {
     final chapabloc = context.watch<ConfiguracoesChapaBloc>();
     final chapastate = chapabloc.state;
-
     if (chapastate is CompletoConfiguracoesChapaEstados) {
       todasChapas = chapastate.lista;
+      todasChapas.forEach((element) {
+        element.ordens.forEach((element) {
+          if (element.estado == EOrdermEstado.atendendo &&
+              !listaOrdensAtendendo.contains(element.id)) {
+            listaOrdensAtendendo.add(element.id);
+          }
+          if (element.estado == EOrdermEstado.aguardando &&
+              listaOrdensAtendendo.contains(element.id)) {
+            listaOrdensAtendendo.remove(element.id);
+          }
+        });
+      });
     }
 
-    todasChapas.forEach((element) {
-      listaOrdensAtendendo = element.ordens
-          .where((element) => element.estado == EOrdermEstado.atendendo);
-    });
     return Scaffold(
       appBar: AppBar(
         title: Text('Pedidos'),
@@ -109,8 +125,9 @@ class _TelaChamadaDePedidosState extends State<TelaChamadaDePedidos> {
                       color: Colors.purple,
                       child: ListView.builder(
                         scrollDirection: Axis.horizontal,
-                        itemCount: 3,
+                        itemCount: listaOrdensAtendendo.length,
                         itemBuilder: (context, index) {
+                          final ordemNow = listaOrdensAtendendo[index];
                           return Padding(
                             padding: const EdgeInsets.only(left: 20),
                             child: AnimatedContainer(
@@ -119,7 +136,7 @@ class _TelaChamadaDePedidosState extends State<TelaChamadaDePedidos> {
                               width: tamanho * 1.3,
                               height: tamanho * 1.3,
                               curve: Curves.easeOutExpo,
-                              child: Center(child: Text('adas')),
+                              child: Center(child: Text('Pedido ${ordemNow}')),
                             ),
                           );
                         },
@@ -176,11 +193,14 @@ class _TelaChamadaDePedidosState extends State<TelaChamadaDePedidos> {
                             tamanho = tamanho * 0.5;
                             tamanhopadding = 15;
                             // tamanhobox = 10;
+                            print(todasChapas);
+                            print(listaOrdensAtendendo);
                           } else {
                             tamanhoboxyellow = 0;
                             tamanho = 150;
                             tamanhopadding = 40;
                             // tamanhobox = 20;
+
                           }
                         });
                       },
@@ -225,5 +245,35 @@ class _TelaChamadaDePedidosState extends State<TelaChamadaDePedidos> {
             )),
       ]),
     );
+  }
+}
+
+mixin CompleteStateMixin<T extends StatefulWidget> on State<T> {
+  void completeState();
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance?.addPostFrameCallback((_) {
+      context
+          .read<ConfiguracoesChapaBloc>()
+          .add(BuscarTodasChapasEventoConfiguracoesEventos());
+
+      completeState();
+    });
+  }
+}
+
+void uniqifyList(List<dynamic> list) {
+  for (int i = 0; i < list.length; i++) {
+    dynamic o = list[i];
+    int index;
+    // Remove duplicates
+    do {
+      index = list.indexOf(o, i + 1);
+      if (index != -1) {
+        list.removeRange(index, 1);
+      }
+    } while (index != -1);
   }
 }
