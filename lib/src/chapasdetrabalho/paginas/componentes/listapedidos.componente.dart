@@ -211,7 +211,7 @@ class _ListaPedidosComponenteState extends State<ListaPedidosComponente> {
                                 onPressed: () {
                                   context.read<ChapaDeTrabalhoBloc>().add(
                                       AtualizarEstadoPedidoChapaDeTrabalhoEventos(
-                                          'aguardando', index, chapa));
+                                          'feito', index, chapa));
                                 },
                                 icon: const Icon(
                                   Icons.check_box,

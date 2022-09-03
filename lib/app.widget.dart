@@ -5,6 +5,7 @@ import 'package:fastfood_inteligente_flutter/src/configuracoes/configuracoes.pro
 import 'package:fastfood_inteligente_flutter/src/configuracoes/pagina/configuracoes.page.dart';
 import 'package:fastfood_inteligente_flutter/src/entrada/entrada.modulos.dart';
 import 'package:fastfood_inteligente_flutter/src/entrada/pagina/entrada.pagina.dart';
+import 'package:fastfood_inteligente_flutter/src/inicio/pagina/home.page.dart';
 import 'package:fastfood_inteligente_flutter/src/produtos/produtos.modulos.dart';
 import 'package:fastfood_inteligente_flutter/src/chapasdetrabalho/paginas/chapa.pagina.dart';
 import 'package:fastfood_inteligente_flutter/src/chapasdetrabalho/selecao.chapa.modulos.dart';
@@ -27,9 +28,12 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         routes: <String, WidgetBuilder>{
-          '/': (_) => TelaChamadaDePedidos(),
+          '/': (_) => HomePage(),
           ChapaPagina.routeName: (_) => ChapaPagina(),
-          '/checkin': (_) => Container(),
+          '/config': (_) => ConfiguracoesPage(),
+          '/selecionesuachapa': (_) => SelecioneSuaChapaPagina(),
+          '/entrada': (_) => EntradaPagina(),
+          '/chamadapedidos': (_) => TelaChamadaDePedidosPage(),
         },
         title: 'Flutter Demo',
         theme: ThemeData.dark(),

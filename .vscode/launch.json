@@ -38,6 +38,12 @@
             "request": "launch",
             "type": "dart",
             "deviceId": "windows"
+        },
+        {
+            "name": "emulador-pixel2",
+            "request": "launch",
+            "type": "dart",
+            "deviceId": "emulator-5556"
         }
     ],
     "compounds": [
@@ -45,7 +51,7 @@
             "name": "Dois Dispositivos",
             "configurations": [
                 "emulador-pixel",
-                "web-device"
+                "web-device",
             ]
         }
     ]

@@ -5,14 +5,15 @@ import 'package:fastfood_inteligente_flutter/src/configuracoes/eventos/configura
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class TelaChamadaDePedidos extends StatefulWidget {
-  const TelaChamadaDePedidos({Key? key}) : super(key: key);
+class TelaChamadaDePedidosPage extends StatefulWidget {
+  const TelaChamadaDePedidosPage({Key? key}) : super(key: key);
 
   @override
-  State<TelaChamadaDePedidos> createState() => _TelaChamadaDePedidosState();
+  State<TelaChamadaDePedidosPage> createState() =>
+      _TelaChamadaDePedidosPageState();
 }
 
-class _TelaChamadaDePedidosState extends State<TelaChamadaDePedidos>
+class _TelaChamadaDePedidosPageState extends State<TelaChamadaDePedidosPage>
     with CompleteStateMixin {
   @override
   void completeState() {
@@ -22,12 +23,15 @@ class _TelaChamadaDePedidosState extends State<TelaChamadaDePedidos>
   }
 
   var listaOrdensAtendendo = [];
+  var listaOrdensAguardando = [];
+  var listaOrdensFeito = [];
   List todasChapas = [];
   bool clicado = false;
   double tamanho = 150;
   double tamanhobox = 200;
   double tamanhoboxyellow = 0;
   double tamanhopadding = 40;
+  double tamanhoLetraPedidosAguardando = 10;
   @override
   Widget build(BuildContext context) {
     final chapabloc = context.watch<ConfiguracoesChapaBloc>();
@@ -40,12 +44,43 @@ class _TelaChamadaDePedidosState extends State<TelaChamadaDePedidos>
               !listaOrdensAtendendo.contains(element.id)) {
             listaOrdensAtendendo.add(element.id);
           }
-          if (element.estado == EOrdermEstado.aguardando &&
-              listaOrdensAtendendo.contains(element.id)) {
+          if (element.estado == EOrdermEstado.aguardando ||
+              element.estado == EOrdermEstado.feito &&
+                  listaOrdensAtendendo.contains(element.id)) {
             listaOrdensAtendendo.remove(element.id);
+          }
+          if (element.estado == EOrdermEstado.aguardando &&
+              !listaOrdensAguardando.contains(element.id)) {
+            listaOrdensAguardando.add(element.id);
+          }
+          if (element.estado == EOrdermEstado.atendendo ||
+              element.estado == EOrdermEstado.feito &&
+                  listaOrdensAguardando.contains(element.id)) {
+            listaOrdensAguardando.remove(element.id);
+          }
+          if (element.estado == EOrdermEstado.feito &&
+              !listaOrdensFeito.contains(element.id)) {
+            listaOrdensFeito.add(element.id);
+          }
+          if (element.estado == EOrdermEstado.atendendo ||
+              element.estado == EOrdermEstado.aguardando &&
+                  listaOrdensFeito.contains(element.id)) {
+            listaOrdensFeito.remove(element.id);
           }
         });
       });
+    }
+    if (listaOrdensFeito.length >= 1) {
+      tamanhoboxyellow = 200;
+      tamanhoLetraPedidosAguardando = 13;
+      tamanho = 75;
+      tamanhopadding = 15;
+      print('valor de tamanho é ${tamanho}');
+    } else if (listaOrdensFeito.length <= 0) {
+      tamanhoboxyellow = 0;
+      tamanhoLetraPedidosAguardando = 10;
+      tamanho = 150;
+      tamanhopadding = 40;
     }
 
     return Scaffold(
@@ -73,8 +108,9 @@ class _TelaChamadaDePedidosState extends State<TelaChamadaDePedidos>
                       color: Colors.amber,
                       child: ListView.builder(
                         scrollDirection: Axis.horizontal,
-                        itemCount: 3,
+                        itemCount: listaOrdensFeito.length,
                         itemBuilder: (context, index) {
+                          final ordemNow = listaOrdensFeito[index];
                           return Padding(
                             padding: const EdgeInsets.only(right: 20),
                             child: AnimatedContainer(
@@ -83,18 +119,16 @@ class _TelaChamadaDePedidosState extends State<TelaChamadaDePedidos>
                               width: tamanhoboxyellow * 0.8,
                               height: tamanhoboxyellow * 0.8,
                               curve: Curves.easeOutExpo,
-                              child: Center(child: Text('asdddd')),
+                              child: Center(
+                                child: Text(
+                                  'Pedido ${ordemNow}',
+                                  style: TextStyle(color: Colors.black),
+                                ),
+                              ),
                             ),
                           );
                         },
                       )),
-
-                  // ListView.builder(
-                  //     itemCount: 3,
-                  //     itemBuilder: (context, index) {
-                  //       return Container(
-                  //           height: 10, width: 10, color: Colors.amber);
-                  //     }),
                 ],
               ),
             ),
@@ -102,7 +136,7 @@ class _TelaChamadaDePedidosState extends State<TelaChamadaDePedidos>
         ),
         AnimatedContainer(
           duration: Duration(seconds: 2),
-          color: Colors.purple,
+          color: Colors.black12,
           width: double.infinity,
           height: tamanho * 2.5,
           curve: Curves.easeOutExpo,
@@ -122,7 +156,6 @@ class _TelaChamadaDePedidosState extends State<TelaChamadaDePedidos>
                   Container(
                       width: MediaQuery.of(context).size.width * 0.9,
                       height: tamanho * 1.5,
-                      color: Colors.purple,
                       child: ListView.builder(
                         scrollDirection: Axis.horizontal,
                         itemCount: listaOrdensAtendendo.length,
@@ -141,70 +174,6 @@ class _TelaChamadaDePedidosState extends State<TelaChamadaDePedidos>
                           );
                         },
                       )),
-                  // SingleChildScrollView(
-                  //   child:
-                  //       ListView(scrollDirection: Axis.horizontal, children: [
-                  //     Container(
-                  //       width: 10,
-                  //       height: 10,
-                  //       color: Colors.amber,
-                  //     ),
-                  //     Container(
-                  //       width: 10,
-                  //       height: 10,
-                  //       color: Colors.amber,
-                  //     ),
-                  //     Container(
-                  //       width: 10,
-                  //       height: 10,
-                  //       color: Colors.amber,
-                  //     ),
-                  //   ]
-
-                  // AnimatedContainer(
-                  //   duration: Duration(seconds: 2),
-                  //   color: Colors.white,
-                  //   width: tamanhoboxyellow * 0.9,
-                  //   height: tamanhoboxyellow * 0.9,
-                  //   curve: Curves.easeOutExpo,
-                  //           // ),
-                  //           // AnimatedContainer(
-                  //           //   duration: Duration(seconds: 2),
-                  //           //   color: Colors.white,
-                  //           //   width: tamanhoboxyellow * 0.9,
-                  //           //   height: tamanhoboxyellow * 0.9,
-                  //           //   curve: Curves.easeOutExpo,
-                  //           // ),
-                  //           ),
-                  // ),
-                  // AnimatedContainer(
-                  //   duration: Duration(seconds: 2),
-                  //   color: Colors.white,
-                  //   width: tamanho * 1.3,
-                  //   height: tamanho * 1.3,
-                  //   curve: Curves.easeOutExpo,
-                  // ),
-                  TextButton(
-                      onPressed: () {
-                        setState(() {
-                          clicado = !clicado;
-                          if (clicado) {
-                            tamanhoboxyellow = 200;
-                            tamanho = tamanho * 0.5;
-                            tamanhopadding = 15;
-                            // tamanhobox = 10;
-                            print(todasChapas);
-                            print(listaOrdensAtendendo);
-                          } else {
-                            tamanhoboxyellow = 0;
-                            tamanho = 150;
-                            tamanhopadding = 40;
-                            // tamanhobox = 20;
-
-                          }
-                        });
-                      },
-                      child: Text('clicaaqui'))
                 ],
               ),
             ),
@@ -217,29 +186,48 @@ class _TelaChamadaDePedidosState extends State<TelaChamadaDePedidos>
               color: Colors.black12,
               child: Padding(
                 padding: const EdgeInsets.only(left: 40, top: 20, bottom: 20),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('Pedidos aguardando'),
-                    SizedBox(height: 5),
-                    AnimatedContainer(
-                      duration: Duration(seconds: 2),
-                      height: tamanho * 0.1,
-                      curve: Curves.easeOutExpo,
-                    ),
-                    AnimatedContainer(
-                      duration: Duration(seconds: 2),
-                      color: Colors.white,
-                      width: tamanho * 1,
-                      height: tamanho * 1,
-                      curve: Curves.easeOutExpo,
-                      // child: Center(
-                      //     child: Text(
-                      //   'Box',
-                      //   style: TextStyle(color: Colors.black38),
-                      // )),
-                    ),
-                  ],
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Pedidos aguardando'),
+                      SizedBox(height: 5),
+                      AnimatedContainer(
+                        duration: Duration(seconds: 2),
+                        height: tamanho * 0.1,
+                        curve: Curves.easeOutExpo,
+                      ),
+                      Container(
+                          width: MediaQuery.of(context).size.width * 0.9,
+                          height: tamanho,
+                          child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: listaOrdensAguardando.length,
+                            itemBuilder: (context, index) {
+                              final ordemNow = listaOrdensAguardando[index];
+                              return Padding(
+                                padding: const EdgeInsets.only(left: 20),
+                                child: AnimatedContainer(
+                                  duration: Duration(seconds: 2),
+                                  color: Colors.white,
+                                  width: tamanho,
+                                  height: tamanho,
+                                  curve: Curves.easeOutExpo,
+                                  child: Center(
+                                    child: Text(
+                                      'Pedido ${ordemNow}',
+                                      style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize:
+                                              tamanhoLetraPedidosAguardando),
+                                    ),
+                                  ),
+                                ),
+                              );
+                            },
+                          )),
+                    ],
+                  ),
                 ),
               ),
             )),

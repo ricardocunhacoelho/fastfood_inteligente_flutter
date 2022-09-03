@@ -22,18 +22,7 @@ class EntradaPagina extends StatefulWidget {
   State<EntradaPagina> createState() => _EntradaPaginaState();
 }
 
-class _EntradaPaginaState extends State<EntradaPagina> with CompleteStateMixin {
-  @override
-  void completeState() {
-    context
-        .read<ConfiguracoesProdutoBloc>()
-        .add(BuscarTodosProdutosEventoConfiguracoesEventos());
-    context.read<EntradaBloc>().add(BuscarOrdemBaseEntradaEventos());
-    context
-        .read<ConfiguracoesChapaBloc>()
-        .add(BuscarTodasChapasEventoConfiguracoesEventos());
-  }
-
+class _EntradaPaginaState extends State<EntradaPagina> {
   Ordem ordemInicial = Ordem(
       produtos: [],
       embalarParaViajem: false,
@@ -254,24 +243,4 @@ class _EntradaPaginaState extends State<EntradaPagina> with CompleteStateMixin {
           ),
         ]),
       );
-}
-
-mixin CompleteStateMixin<T extends StatefulWidget> on State<T> {
-  void completeState();
-
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance?.addPostFrameCallback((_) {
-      context
-          .read<ConfiguracoesProdutoBloc>()
-          .add(BuscarTodosProdutosEventoConfiguracoesEventos());
-      context.read<EntradaBloc>().add(BuscarOrdemBaseEntradaEventos());
-      context.read<EntradaBloc>().add(BuscarOrdemBaseEntradaEventos());
-      context
-          .read<ConfiguracoesChapaBloc>()
-          .add(BuscarTodasChapasEventoConfiguracoesEventos());
-      completeState();
-    });
-  }
 }

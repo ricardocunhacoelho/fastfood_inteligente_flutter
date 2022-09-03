@@ -47,7 +47,7 @@ class EntradaBloc extends Bloc<EntradaEventos, EntradaEstados> {
     on<SubtrairQuantidadeEntradaEventos>(_subtrairQuantidadeEntradaEventos,
         transformer: sequential());
     on<BuscarOrdemBaseEntradaEventos>(_buscarOrdemBaseEntradaEventos,
-        transformer: sequential());
+        transformer: restartable());
     on<AtualizarOrdemBaseEntradaEventos>(_atualizarOrdemBaseEntradaEventos,
         transformer: restartable());
     on<FinalizarImprimirPedidoEntradaEventos>(
