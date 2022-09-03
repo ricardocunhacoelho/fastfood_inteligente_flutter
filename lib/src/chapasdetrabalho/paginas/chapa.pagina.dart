@@ -34,21 +34,7 @@ class ChapaPagina extends StatefulWidget {
   State<ChapaPagina> createState() => _ChapaPaginaState();
 }
 
-class _ChapaPaginaState extends State<ChapaPagina> with CompleteStateMixin {
-  @override
-  void completeState() {
-    context
-        .read<ConfiguracoesProdutoBloc>()
-        .add(BuscarTodosProdutosEventoConfiguracoesEventos());
-    context
-        .read<ConfiguracoesChapaBloc>()
-        .add(BuscarTodasChapasEventoConfiguracoesEventos());
-
-    context
-        .read<ChapaDeTrabalhoBloc>()
-        .add(BuscarTodasSolicitacoesCancelamentoPedidoChapaDeTrabalhoEventos());
-  }
-
+class _ChapaPaginaState extends State<ChapaPagina> {
   bool isSwitched = false;
 
   @override
@@ -149,28 +135,5 @@ class _ChapaPaginaState extends State<ChapaPagina> with CompleteStateMixin {
         ),
       ),
     );
-  }
-}
-
-mixin CompleteStateMixin<T extends StatefulWidget> on State<T> {
-  void completeState();
-
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance?.addPostFrameCallback((_) {
-      context
-          .read<ConfiguracoesProdutoBloc>()
-          .add(BuscarTodosProdutosEventoConfiguracoesEventos());
-
-      context
-          .read<ConfiguracoesChapaBloc>()
-          .add(BuscarTodasChapasEventoConfiguracoesEventos());
-
-      context.read<ChapaDeTrabalhoBloc>().add(
-          BuscarTodasSolicitacoesCancelamentoPedidoChapaDeTrabalhoEventos());
-
-      completeState();
-    });
   }
 }

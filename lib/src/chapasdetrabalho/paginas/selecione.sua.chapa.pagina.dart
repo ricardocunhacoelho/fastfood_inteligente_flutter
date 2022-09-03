@@ -15,19 +15,7 @@ class SelecioneSuaChapaPagina extends StatefulWidget {
       _SelecioneSuaChapaPaginaState();
 }
 
-class _SelecioneSuaChapaPaginaState extends State<SelecioneSuaChapaPagina>
-    with CompleteStateMixin {
-  @override
-  void completeState() {
-    context
-        .read<ConfiguracoesChapaBloc>()
-        .add(BuscarTodasChapasEventoConfiguracoesEventos());
-
-    context
-        .read<ChapaDeTrabalhoBloc>()
-        .add(BuscarTodasSolicitacoesCancelamentoPedidoChapaDeTrabalhoEventos());
-  }
-
+class _SelecioneSuaChapaPaginaState extends State<SelecioneSuaChapaPagina> {
   var listChapas = [];
 
   @override
@@ -104,23 +92,5 @@ class _SelecioneSuaChapaPaginaState extends State<SelecioneSuaChapaPagina>
         ),
       ),
     );
-  }
-}
-
-mixin CompleteStateMixin<T extends StatefulWidget> on State<T> {
-  void completeState();
-
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance?.addPostFrameCallback((_) {
-      context
-          .read<ConfiguracoesChapaBloc>()
-          .add(BuscarTodasChapasEventoConfiguracoesEventos());
-      context.read<ChapaDeTrabalhoBloc>().add(
-          BuscarTodasSolicitacoesCancelamentoPedidoChapaDeTrabalhoEventos());
-
-      completeState();
-    });
   }
 }

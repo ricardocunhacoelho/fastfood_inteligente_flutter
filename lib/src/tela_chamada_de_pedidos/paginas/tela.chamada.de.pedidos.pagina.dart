@@ -13,15 +13,7 @@ class TelaChamadaDePedidosPage extends StatefulWidget {
       _TelaChamadaDePedidosPageState();
 }
 
-class _TelaChamadaDePedidosPageState extends State<TelaChamadaDePedidosPage>
-    with CompleteStateMixin {
-  @override
-  void completeState() {
-    context
-        .read<ConfiguracoesChapaBloc>()
-        .add(BuscarTodasChapasEventoConfiguracoesEventos());
-  }
-
+class _TelaChamadaDePedidosPageState extends State<TelaChamadaDePedidosPage> {
   var listaOrdensAtendendo = [];
   var listaOrdensAguardando = [];
   var listaOrdensFeito = [];
@@ -233,35 +225,5 @@ class _TelaChamadaDePedidosPageState extends State<TelaChamadaDePedidosPage>
             )),
       ]),
     );
-  }
-}
-
-mixin CompleteStateMixin<T extends StatefulWidget> on State<T> {
-  void completeState();
-
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance?.addPostFrameCallback((_) {
-      context
-          .read<ConfiguracoesChapaBloc>()
-          .add(BuscarTodasChapasEventoConfiguracoesEventos());
-
-      completeState();
-    });
-  }
-}
-
-void uniqifyList(List<dynamic> list) {
-  for (int i = 0; i < list.length; i++) {
-    dynamic o = list[i];
-    int index;
-    // Remove duplicates
-    do {
-      index = list.indexOf(o, i + 1);
-      if (index != -1) {
-        list.removeRange(index, 1);
-      }
-    } while (index != -1);
   }
 }

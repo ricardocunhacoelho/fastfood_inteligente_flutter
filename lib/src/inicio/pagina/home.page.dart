@@ -17,7 +17,23 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage> with CompleteStateMixin {
+  @override
+  void completeState() {
+    context.read<EntradaBloc>().add(BuscarOrdemBaseEntradaEventos());
+    context
+        .read<ConfiguracoesProdutoBloc>()
+        .add(BuscarTodosProdutosEventoConfiguracoesEventos());
+
+    context
+        .read<ConfiguracoesChapaBloc>()
+        .add(BuscarTodasChapasEventoConfiguracoesEventos());
+
+    context
+        .read<ChapaDeTrabalhoBloc>()
+        .add(BuscarTodasSolicitacoesCancelamentoPedidoChapaDeTrabalhoEventos());
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

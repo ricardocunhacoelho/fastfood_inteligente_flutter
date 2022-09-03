@@ -17,7 +17,6 @@ import 'package:fastfood_inteligente_flutter/src/configuracoes/componentes/solic
 import 'package:fastfood_inteligente_flutter/src/configuracoes/estados/configuracoes.chapa.estados.dart';
 import 'package:fastfood_inteligente_flutter/src/configuracoes/estados/configuracoes.produto.estados.dart';
 import 'package:fastfood_inteligente_flutter/src/configuracoes/eventos/configuracoes.chapa.eventos.dart';
-import 'package:fastfood_inteligente_flutter/src/configuracoes/eventos/configuracoes.produto.eventos.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -28,22 +27,7 @@ class ConfiguracoesPage extends StatefulWidget {
   State<ConfiguracoesPage> createState() => _ConfiguracoesPageState();
 }
 
-class _ConfiguracoesPageState extends State<ConfiguracoesPage>
-    with CompleteStateMixin {
-  @override
-  void completeState() {
-    context
-        .read<ConfiguracoesProdutoBloc>()
-        .add(BuscarTodosProdutosEventoConfiguracoesEventos());
-    context
-        .read<ConfiguracoesChapaBloc>()
-        .add(BuscarTodasChapasEventoConfiguracoesEventos());
-
-    context
-        .read<ChapaDeTrabalhoBloc>()
-        .add(BuscarTodasSolicitacoesCancelamentoPedidoChapaDeTrabalhoEventos());
-  }
-
+class _ConfiguracoesPageState extends State<ConfiguracoesPage> {
   bool isSwitched = false;
   List todasSolicitacoes = [];
   @override
@@ -359,28 +343,5 @@ class _ConfiguracoesPageState extends State<ConfiguracoesPage>
         ),
       ),
     );
-  }
-}
-
-mixin CompleteStateMixin<T extends StatefulWidget> on State<T> {
-  void completeState();
-
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance?.addPostFrameCallback((_) {
-      context
-          .read<ConfiguracoesProdutoBloc>()
-          .add(BuscarTodosProdutosEventoConfiguracoesEventos());
-
-      context
-          .read<ConfiguracoesChapaBloc>()
-          .add(BuscarTodasChapasEventoConfiguracoesEventos());
-
-      context.read<ChapaDeTrabalhoBloc>().add(
-          BuscarTodasSolicitacoesCancelamentoPedidoChapaDeTrabalhoEventos());
-
-      completeState();
-    });
   }
 }
