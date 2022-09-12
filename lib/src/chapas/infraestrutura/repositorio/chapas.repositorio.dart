@@ -132,4 +132,11 @@ class ChapaRepositorio implements IChapaRepositorio {
         SolicitacaoCancelamentoPedidoObjetoParaJson.paraMap(solicitacao);
     await fontededados.removerSolicitacaoCancelamentoPedido(mapSolicitacao);
   }
+
+  @override
+  Future<void> pausarVoltarChapa(ChapaEntidade chapa, String valor) async {
+    final map = ChapaEntidadeParaJson.paraMap(chapa);
+    map['estado'] = valor;
+    await fontededados.pausarVoltarChapa(map);
+  }
 }

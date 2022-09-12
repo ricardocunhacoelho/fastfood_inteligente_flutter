@@ -13,6 +13,7 @@ import 'package:fastfood_inteligente_flutter/src/chapas/dominio/casodeuso/calcul
 import 'package:fastfood_inteligente_flutter/src/chapas/dominio/casodeuso/deletarchapa.casodeuso.dart';
 import 'package:fastfood_inteligente_flutter/src/chapas/dominio/casodeuso/gerarordem.casodeuso.dart';
 import 'package:fastfood_inteligente_flutter/src/chapas/dominio/casodeuso/mover.pedido.entre.chapas.casodeuso.dart';
+import 'package:fastfood_inteligente_flutter/src/chapas/dominio/casodeuso/pausar.voltar.chapa.casodeuso.dart';
 import 'package:fastfood_inteligente_flutter/src/chapas/dominio/casodeuso/quantia.de.ordens.em.cada.chapa.casodeuso.dart';
 import 'package:fastfood_inteligente_flutter/src/chapas/dominio/casodeuso/remover.ordem.chapa.dart';
 import 'package:fastfood_inteligente_flutter/src/chapas/dominio/casodeuso/remover.solicitacao.cancelamento.pedido.usecase.dart';
@@ -75,6 +76,8 @@ final chapaModulos = [
   Provider<IRemoverSolicitacaoCancelamentoPedido>(
       create: (context) =>
           RemoverSolicitacaoCancelamentoPedido(context.read())),
+  Provider<IPausarVoltarChapa>(
+      create: (context) => PausarVoltarChapa(context.read())),
 ];
 
 

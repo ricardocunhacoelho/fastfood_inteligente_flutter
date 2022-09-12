@@ -1,6 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fastfood_inteligente_flutter/src/chapas/dominio/objetosdevalor/ordem.objeto.dart';
-import 'package:fastfood_inteligente_flutter/src/chapas/dominio/entidade/chapa.entidade.dart';
 import 'package:fastfood_inteligente_flutter/src/chapas/infraestrutura/fontededados/ichapa.fontededados.dart';
 
 class ChapaFirestore implements IChapaFonteDeDados {
@@ -188,5 +186,12 @@ class ChapaFirestore implements IChapaFonteDeDados {
     final ref = firestore.collection('solicitacoescancelamento');
     final doc = ref.doc(mapSolicitacao['id']);
     await doc.delete();
+  }
+
+  @override
+  Future<void> pausarVoltarChapa(Map<String, dynamic> map) async {
+    final ref = firestore.collection('chapa');
+    final doc = ref.doc(map['id']);
+    await doc.update(map);
   }
 }

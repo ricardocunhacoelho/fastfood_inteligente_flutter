@@ -37,29 +37,29 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyD3-4B4GYRpBQDUI1OFIjKRf8cagnz7Zq8',
-    appId: '1:673974094468:web:e7640bbf7efa7fc49210d1',
-    messagingSenderId: '673974094468',
-    projectId: 'maisumatela',
-    authDomain: 'maisumatela.firebaseapp.com',
-    storageBucket: 'maisumatela.appspot.com',
+    apiKey: 'AIzaSyA97RCnnuPtZb20QBhPPXgP7e9I3hNr5ME',
+    appId: '1:109664242814:web:55e14d443cf7d2ec055c2f',
+    messagingSenderId: '109664242814',
+    projectId: 'fastfood-inteligente',
+    authDomain: 'fastfood-inteligente.firebaseapp.com',
+    storageBucket: 'fastfood-inteligente.appspot.com',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBBoCXH7oKpYq0UBXAiGXnkCklc1k-LUkU',
-    appId: '1:673974094468:android:4a996bad5ef5ffd49210d1',
-    messagingSenderId: '673974094468',
-    projectId: 'maisumatela',
-    storageBucket: 'maisumatela.appspot.com',
+    apiKey: 'AIzaSyDiocKBP6IVt_n-DLMOtD2QvFy7H-MJfQY',
+    appId: '1:109664242814:android:db37fa7df49e2f03055c2f',
+    messagingSenderId: '109664242814',
+    projectId: 'fastfood-inteligente',
+    storageBucket: 'fastfood-inteligente.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyCa2ZLcQaqdeubVzNHuEwpnMABco7od9I8',
-    appId: '1:673974094468:ios:4d5e8f8bf641e55a9210d1',
-    messagingSenderId: '673974094468',
-    projectId: 'maisumatela',
-    storageBucket: 'maisumatela.appspot.com',
-    iosClientId: '673974094468-l3gr8d79irqjp0vqr6467njfcb16c1ka.apps.googleusercontent.com',
+    apiKey: 'AIzaSyC6TLf7P_g7I9lEE8Gu5-xNZjJ8L6_gHXs',
+    appId: '1:109664242814:ios:8b07714fc440f4e0055c2f',
+    messagingSenderId: '109664242814',
+    projectId: 'fastfood-inteligente',
+    storageBucket: 'fastfood-inteligente.appspot.com',
+    iosClientId: '109664242814-2s0gpk930bc8vkb7s160ctvjbg5d9bk3.apps.googleusercontent.com',
     iosBundleId: 'com.example.fastfoodInteligenteFlutter',
   );
 }

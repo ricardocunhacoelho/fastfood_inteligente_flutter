@@ -36,3 +36,10 @@ class RequisitarDeletarPedidoChapaDeTrabalhoEventos
 
 class BuscarTodasSolicitacoesCancelamentoPedidoChapaDeTrabalhoEventos
     implements ChapaDeTrabalhoEventos {}
+
+class PausarVoltarChapaDeTrabalhoEventos implements ChapaDeTrabalhoEventos {
+  final String valor;
+  final ChapaEntidade chapaEntidade;
+
+  PausarVoltarChapaDeTrabalhoEventos(this.valor, this.chapaEntidade);
+}

@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "673974094468",
-    "project_id": "maisumatela",
-    "storage_bucket": "maisumatela.appspot.com"
+    "project_number": "109664242814",
+    "project_id": "fastfood-inteligente",
+    "storage_bucket": "fastfood-inteligente.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:673974094468:android:4a996bad5ef5ffd49210d1",
+        "mobilesdk_app_id": "1:109664242814:android:db37fa7df49e2f03055c2f",
         "android_client_info": {
           "package_name": "com.example.fastfood_inteligente_flutter"
         }
       },
       "oauth_client": [
         {
-          "client_id": "673974094468-0jdlubkc0jq098qei9uo64bo6uus9ij0.apps.googleusercontent.com",
+          "client_id": "109664242814-k0keasopfvcq9mlojcsies17nonviadk.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBBoCXH7oKpYq0UBXAiGXnkCklc1k-LUkU"
+          "current_key": "AIzaSyDiocKBP6IVt_n-DLMOtD2QvFy7H-MJfQY"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "673974094468-0jdlubkc0jq098qei9uo64bo6uus9ij0.apps.googleusercontent.com",
+              "client_id": "109664242814-k0keasopfvcq9mlojcsies17nonviadk.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

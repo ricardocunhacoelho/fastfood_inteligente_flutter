@@ -1,4 +1,5 @@
 import 'package:fastfood_inteligente_flutter/src/chapas/dominio/entidade/chapa.entidade.dart';
+import 'package:fastfood_inteligente_flutter/src/chapas/dominio/objetosdevalor/ordem.objeto.dart';
 import 'package:fastfood_inteligente_flutter/src/chapas/dominio/objetosdevalor/solicitacoes/solicitacao.cancelamento.pedido.objeto.dart';
 import 'package:fastfood_inteligente_flutter/src/chapasdetrabalho/bloc/chapadetrabalho.bloc.dart';
 import 'package:fastfood_inteligente_flutter/src/chapasdetrabalho/estados/selecaochapa.estados.dart';
@@ -106,69 +107,89 @@ class _DetalhesChapaDialogComponenteState
                         solicitacaoPresente = element;
                       }
                     });
-                    return Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
-                              children: [
-                                Text('Pedido'),
-                                SizedBox(height: 10),
-                                Text('${ordem.id}'),
-                                SizedBox(height: 16),
-                                Text('Status'),
-                                SizedBox(height: 10),
-                                Text('${ordem.estado.name}')
-                              ],
+                    if (ordem.estado != EOrdermEstado.feito) {
+                      return Column(
+                        children: [
+                          Container(
+                            width: double.infinity,
+                            color: Colors.black26,
+                            child: Padding(
+                              padding: const EdgeInsets.all(15.0),
+                              child: Column(
+                                children: [
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Column(
+                                        children: [
+                                          Text('Pedido'),
+                                          SizedBox(height: 10),
+                                          Text('${ordem.id}'),
+                                          SizedBox(height: 16),
+                                          Text('Status'),
+                                          SizedBox(height: 10),
+                                          Text('${ordem.estado.name}')
+                                        ],
+                                      ),
+
+                                      SizedBox(width: 15),
+                                      if (isaSolicitacao)
+                                        IconButton(
+                                            color: Colors.orangeAccent,
+                                            onPressed: () {
+                                              showDialog(
+                                                  context: context,
+                                                  builder: (_) {
+                                                    return PedidoCancelamentoInsideDetalhesDialogComponente(
+                                                        solicitacaoPresente);
+                                                  });
+                                              //solicitacaoPresente
+                                            },
+                                            icon: const Icon(
+                                                Icons.notification_important)),
+
+                                      IconButton(
+                                          onPressed: () {
+                                            print(listChapasAptas.length);
+                                            showDialog(
+                                                context: context,
+                                                builder: (_) {
+                                                  return MoverPedidoEntreChapasDialogComponente(
+                                                      ordem,
+                                                      chapaSelecionada,
+                                                      listChapasAptas);
+                                                });
+                                            // context.read<ConfiguracoesChapaBloc>().add(
+                                            //     MoverPedidoEntreChapasEventoConfiguracoesEventos(
+                                            //         ordem,
+                                            //         widget.chapaEntidade,
+                                            //         widget.chapaEntidade));
+                                            // Navigator.pop(context);
+                                          },
+                                          icon:
+                                              const Icon(Icons.change_circle)),
+
+                                      // Icon(Icons.check_box),
+                                      // Icon(Icons.check_box),
+                                      // Icon(Icons.check_box),
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    height: 20,
+                                  )
+                                ],
+                              ),
                             ),
-
-                            SizedBox(width: 15),
-                            if (isaSolicitacao)
-                              IconButton(
-                                  color: Colors.orangeAccent,
-                                  onPressed: () {
-                                    showDialog(
-                                        context: context,
-                                        builder: (_) {
-                                          return PedidoCancelamentoInsideDetalhesDialogComponente(
-                                              solicitacaoPresente);
-                                        });
-                                    //solicitacaoPresente
-                                  },
-                                  icon:
-                                      const Icon(Icons.notification_important)),
-
-                            IconButton(
-                                onPressed: () {
-                                  print(listChapasAptas.length);
-                                  showDialog(
-                                      context: context,
-                                      builder: (_) {
-                                        return MoverPedidoEntreChapasDialogComponente(
-                                            ordem,
-                                            chapaSelecionada,
-                                            listChapasAptas);
-                                      });
-                                  // context.read<ConfiguracoesChapaBloc>().add(
-                                  //     MoverPedidoEntreChapasEventoConfiguracoesEventos(
-                                  //         ordem,
-                                  //         widget.chapaEntidade,
-                                  //         widget.chapaEntidade));
-                                  // Navigator.pop(context);
-                                },
-                                icon: const Icon(Icons.change_circle)),
-
-                            // Icon(Icons.check_box),
-                            // Icon(Icons.check_box),
-                            // Icon(Icons.check_box),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 20,
-                        )
-                      ],
-                    );
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          )
+                        ],
+                      );
+                    } else {
+                      return const SizedBox();
+                    }
                   }),
             ),
           ],

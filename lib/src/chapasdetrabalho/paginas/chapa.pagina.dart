@@ -20,6 +20,8 @@ import 'package:fastfood_inteligente_flutter/src/configuracoes/eventos/configura
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../componentes/pausa.voltar.dialog.componente.dart';
+
 class Argumentos {
   int numeroDaChapa = 0;
 
@@ -77,17 +79,45 @@ class _ChapaPaginaState extends State<ChapaPagina> {
           ),
         ),
         actions: [
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Row(
-              children: [
-                Text('Pausar :'),
-                SizedBox(width: 10),
-                IconButton(
-                    onPressed: () {}, icon: Icon(Icons.lock_clock_sharp)),
-              ],
+          if (chapa.estado == EChapaEstado.funcionando)
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Row(
+                children: [
+                  Text('Pausar :'),
+                  SizedBox(width: 10),
+                  IconButton(
+                      onPressed: () {
+                        showDialog(
+                            context: context,
+                            builder: (_) {
+                              return PausarVoltarDialogComponente(chapa);
+                            });
+                      },
+                      icon: Icon(Icons.lock_clock_sharp)),
+                ],
+              ),
             ),
-          ),
+          if (chapa.estado == EChapaEstado.pausada)
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Row(
+                children: [
+                  Text('Voltar :'),
+                  SizedBox(width: 10),
+                  IconButton(
+                      onPressed: () {
+                        showDialog(
+                            context: context,
+                            builder: (_) {
+                              return PausarVoltarDialogComponente(chapa);
+                            });
+                      },
+                      icon: Icon(Icons.lock_clock_sharp,
+                          color: Colors.blueAccent)),
+                ],
+              ),
+            ),
         ],
         toolbarHeight: 120,
       ),

@@ -35,4 +35,6 @@ abstract class IChapaFonteDeDados {
 
   Future<void> removerSolicitacaoCancelamentoPedido(
       Map<String, dynamic> mapSolicitacao);
+
+  Future<void> pausarVoltarChapa(Map<String, dynamic> map);
 }

@@ -38,4 +38,6 @@ abstract class IChapaRepositorio {
 
   Future<void> removerSolicitacaoCancelamentoPedido(
       SolicitacaoCancelamentoPedidoObjeto solicitacao);
+
+  Future<void> pausarVoltarChapa(ChapaEntidade chapa, String valor);
 }

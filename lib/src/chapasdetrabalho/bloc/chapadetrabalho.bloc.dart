@@ -2,6 +2,7 @@ import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:fastfood_inteligente_flutter/src/chapas/dominio/casodeuso/adicionar.solicitacao.cancelamento.casodeuso.dart';
 import 'package:fastfood_inteligente_flutter/src/chapas/dominio/casodeuso/atualizar.estado.pedido.casodeuso.dart';
 import 'package:fastfood_inteligente_flutter/src/chapas/dominio/casodeuso/buscar.todas.solicitacoes.cancelamento.pedido.casodeuso.dart';
+import 'package:fastfood_inteligente_flutter/src/chapas/dominio/casodeuso/pausar.voltar.chapa.casodeuso.dart';
 import 'package:fastfood_inteligente_flutter/src/chapas/dominio/casodeuso/remover.ordem.chapa.dart';
 import 'package:fastfood_inteligente_flutter/src/chapas/dominio/casodeuso/remover.solicitacao.cancelamento.pedido.usecase.dart';
 import 'package:fastfood_inteligente_flutter/src/chapas/dominio/casodeuso/vigiar.chapa.casodeuso.dart';
@@ -22,13 +23,15 @@ class ChapaDeTrabalhoBloc
       buscarTodasSolicitacoesCancelamentoPedidoUsecase;
   final IRemoverSolicitacaoCancelamentoPedido
       removerSolicitacaoCancelamentoPedidoUsecase;
+  final IPausarVoltarChapa pausarVoltarChapaUsecase;
   ChapaDeTrabalhoBloc(
       this.atualizarEstadoPedidoUsecase,
       this.vigiarChapaUsecase,
       this.removerOrdemChapaUsecase,
       this.adicionarSolicitacaoCancelamentoUsecase,
       this.buscarTodasSolicitacoesCancelamentoPedidoUsecase,
-      this.removerSolicitacaoCancelamentoPedidoUsecase)
+      this.removerSolicitacaoCancelamentoPedidoUsecase,
+      this.pausarVoltarChapaUsecase)
       : super(InicialChapaDeTrabalhoEstados()) {
     on<AtualizarEstadoPedidoChapaDeTrabalhoEventos>(
         _atualizarEstadoPedidoChapaDeTrabalhoEventos,
@@ -44,6 +47,8 @@ class ChapaDeTrabalhoBloc
     on<BuscarTodasSolicitacoesCancelamentoPedidoChapaDeTrabalhoEventos>(
         _buscarTodasSolicitacoesCancelamentoPedidoChapaDeTrabalhoEventos,
         transformer: restartable());
+    on<PausarVoltarChapaDeTrabalhoEventos>(_pausarVoltarChapaDeTrabalhoEventos,
+        transformer: sequential());
   }
 
   Future<void> _atualizarEstadoPedidoChapaDeTrabalhoEventos(
@@ -92,5 +97,11 @@ class ChapaDeTrabalhoBloc
       onError: (error, st) =>
           ErroBuscarSolicitacoesConfiguracoesChapaEstados(error.toString()),
     );
+  }
+
+  Future<void> _pausarVoltarChapaDeTrabalhoEventos(
+      PausarVoltarChapaDeTrabalhoEventos event,
+      Emitter<ChapaDeTrabalhoEstados> emit) async {
+    await pausarVoltarChapaUsecase.call(event.chapaEntidade, event.valor);
   }
 }
