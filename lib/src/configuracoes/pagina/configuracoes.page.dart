@@ -52,290 +52,299 @@ class _ConfiguracoesPageState extends State<ConfiguracoesPage> {
           children: [
             SingleChildScrollView(
               child: Padding(
-                padding: EdgeInsets.all(15),
-                child: Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text(
-                          'PRODUTOS',
-                          style: TextStyle(
-                            fontSize: 15,
+                padding: const EdgeInsets.all(25),
+                child: Container(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text(
+                            'PRODUTOS',
+                            style: TextStyle(
+                              fontSize: 15,
+                            ),
                           ),
-                        ),
-                        IconButton(
-                          onPressed: () {
-                            showDialog(
-                                context: context,
-                                builder: (_) {
-                                  return AdicionarProdutoDialogComponente();
-                                });
-                          },
-                          icon: const Icon(
-                            Icons.add_circle,
+                          IconButton(
+                            onPressed: () {
+                              showDialog(
+                                  context: context,
+                                  builder: (_) {
+                                    return AdicionarProdutoDialogComponente();
+                                  });
+                            },
+                            icon: const Icon(
+                              Icons.add_circle,
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                    if (produtostate is CompletoConfiguracoesProdutoEstados)
-                      ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: produtostate.lista.length,
-                        itemBuilder: (context, index) {
-                          final produto = produtostate.lista[index];
-                          return ListTile(
-                            title: Row(
-                              children: [
-                                Container(
-                                  width: 180,
-                                  child: SingleChildScrollView(
-                                    scrollDirection: Axis.horizontal,
-                                    child: Row(
-                                      children: [
-                                        Image.asset(
-                                          'assets/${produto.imagem}',
-                                          height: 45,
-                                          width: 45,
-                                          fit: BoxFit.fitWidth,
-                                        ),
-                                        SizedBox(
-                                          width: 10,
-                                        ),
-                                        Text(
-                                          '${produto.titulo} R\$${produto.preco}',
-                                          style: TextStyle(fontSize: 13),
-                                        ),
-                                      ],
+                        ],
+                      ),
+                      if (produtostate is CompletoConfiguracoesProdutoEstados)
+                        ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: produtostate.lista.length,
+                          itemBuilder: (context, index) {
+                            final produto = produtostate.lista[index];
+                            return ListTile(
+                              title: Row(
+                                children: [
+                                  Container(
+                                    width: 150,
+                                    child: Container(
+                                      width: 200,
+                                      child: Row(
+                                        children: [
+                                          Image.asset(
+                                            'assets/${produto.imagem}',
+                                            height: 45,
+                                            width: 45,
+                                            fit: BoxFit.fitWidth,
+                                          ),
+                                          SizedBox(
+                                            width: 10,
+                                          ),
+                                          Expanded(
+                                            child: Text(
+                                              '${produto.titulo} R\$${produto.preco}',
+                                              style: TextStyle(fontSize: 13),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ),
-                                ),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                Container(
-                                  width: 150,
-                                  alignment: Alignment.centerRight,
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      IconButton(
-                                        iconSize: 17,
-                                        onPressed: () {},
-                                        icon: Icon(
-                                          Icons.description_sharp,
-                                        ),
-                                      ),
-                                      IconButton(
-                                        iconSize: 17,
-                                        onPressed: () {
-                                          showDialog(
-                                              context: context,
-                                              builder: (_) {
-                                                return EditarProdutoDialogComponente(
-                                                    produto);
-                                              });
-                                        },
-                                        icon: Icon(
-                                          Icons.edit,
-                                        ),
-                                      ),
-                                      IconButton(
-                                        iconSize: 17,
-                                        onPressed: () {
-                                          showDialog(
-                                              context: context,
-                                              builder: (_) {
-                                                return DeletarProdutoDialogComponente(
-                                                    produto);
-                                              });
-                                        },
-                                        icon: Icon(
-                                          Icons.remove,
-                                        ),
-                                      ),
-                                    ],
+                                  SizedBox(
+                                    width: 10,
                                   ),
-                                ),
-                              ],
-                            ),
-                          );
-                        },
-                      ),
-                    const SizedBox(height: 25),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text(
-                          'CHAPAS',
-                          style: TextStyle(
-                            fontSize: 15,
-                          ),
-                        ),
-                        IconButton(
-                          onPressed: () {
-                            showDialog(
-                                context: context,
-                                builder: (_) {
-                                  return AdicionarChapaDialogComponente();
-                                });
-                          },
-                          icon: const Icon(
-                            Icons.add_circle,
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 10),
-                    if (chapastate is CompletoConfiguracoesChapaEstados)
-                      ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: chapastate.lista.length,
-                        itemBuilder: (context, index) {
-                          final chapa = chapastate.lista[index];
-                          return ListTile(
-                            title: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  '${chapa.titulo} - ${chapa.numerodachapa}',
-                                  style: TextStyle(fontSize: 15),
-                                ),
-                                Container(
-                                  width: 180,
-                                  alignment: Alignment.centerRight,
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      BotaoOnOffChapa(chapa),
-                                      IconButton(
-                                        iconSize: 17,
-                                        onPressed: () {
-                                          showDialog(
-                                              context: context,
-                                              builder: (_) {
-                                                return DetalhesChapaDialogComponente(
-                                                    chapa);
-                                              });
-                                        },
-                                        icon: Icon(Icons.description_sharp),
-                                      ),
-                                      IconButton(
-                                        iconSize: 17,
-                                        onPressed: () {
-                                          showDialog(
-                                              context: context,
-                                              builder: (_) {
-                                                return DeletarChapaDialogComponente(
-                                                    chapa);
-                                              });
-                                        },
-                                        icon: Icon(
-                                          Icons.remove,
+                                  Container(
+                                    width: 150,
+                                    color: Colors.amber,
+                                    alignment: Alignment.centerRight,
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        IconButton(
+                                          iconSize: 17,
+                                          onPressed: () {},
+                                          icon: Icon(
+                                            Icons.description_sharp,
+                                          ),
                                         ),
-                                      ),
-                                    ],
-                                  ),
-                                )
-                              ],
-                            ),
-                          );
-                        },
-                      ),
-                    SizedBox(height: 30),
-                    Container(
-                        color: Colors.black38,
-                        width: 200,
-                        height: 50,
-                        child: TextButton(
-                            onPressed: () {
-                              context.read<ConfiguracoesChapaBloc>().add(
-                                  ResetarTodosPedidosEventoConfiguracoesEventos());
-                            },
-                            child: Text('RESETAR PEDIDOS'))),
-                    const SizedBox(height: 40),
-                    if (todasSolicitacoes.length != 0)
-                      Container(
-                        width: double.infinity,
-                        child: const Text(
-                          'SOLICITAÇÕES',
-                          style: TextStyle(
-                            fontSize: 15,
-                          ),
-                        ),
-                      ),
-                    const SizedBox(height: 20),
-                    if (chapaTrabalhoEstado
-                        is CompletoBuscarSolicitacoesConfiguracoesChapaEstados)
-                      ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: chapaTrabalhoEstado.lista.length,
-                        itemBuilder: (context, index) {
-                          final solicitacao = chapaTrabalhoEstado.lista[index];
-                          return ListTile(
-                            title: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Expanded(
-                                  child: Text(
-                                    'Solicitação ${solicitacao.chapa.titulo} - Ordem ${solicitacao.ordem.id}',
-                                    style: TextStyle(fontSize: 15),
-                                  ),
-                                ),
-                                Container(
-                                  width: 180,
-                                  alignment: Alignment.centerRight,
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      IconButton(
+                                        IconButton(
                                           iconSize: 17,
                                           onPressed: () {
                                             showDialog(
                                                 context: context,
                                                 builder: (_) {
-                                                  return DetalhesSolicitacaoRemoverPedidoDialog(
-                                                      solicitacao);
+                                                  return EditarProdutoDialogComponente(
+                                                      produto);
                                                 });
                                           },
                                           icon: Icon(
-                                              Icons.library_books_rounded)),
-                                      IconButton(
-                                        iconSize: 17,
-                                        onPressed: () {
-                                          showDialog(
-                                              context: context,
-                                              builder: (_) {
-                                                return ConfirmarRemoverPedidoDialog(
-                                                    solicitacao);
-                                              });
-                                        },
-                                        icon: Icon(Icons.check),
-                                      ),
-                                      IconButton(
-                                        iconSize: 17,
-                                        onPressed: () {
-                                          showDialog(
-                                              context: context,
-                                              builder: (_) {
-                                                return NegarPedidoCancelamentoDialog(
-                                                    solicitacao);
-                                              });
-                                        },
-                                        icon: Icon(Icons.close),
-                                      ),
-                                    ],
+                                            Icons.edit,
+                                          ),
+                                        ),
+                                        IconButton(
+                                          iconSize: 17,
+                                          onPressed: () {
+                                            showDialog(
+                                                context: context,
+                                                builder: (_) {
+                                                  return DeletarProdutoDialogComponente(
+                                                      produto);
+                                                });
+                                          },
+                                          icon: Icon(
+                                            Icons.remove,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                )
-                              ],
+                                ],
+                              ),
+                            );
+                          },
+                        ),
+                      const SizedBox(height: 25),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text(
+                            'CHAPAS',
+                            style: TextStyle(
+                              fontSize: 15,
                             ),
-                          );
-                        },
+                          ),
+                          IconButton(
+                            onPressed: () {
+                              showDialog(
+                                  context: context,
+                                  builder: (_) {
+                                    return AdicionarChapaDialogComponente();
+                                  });
+                            },
+                            icon: const Icon(
+                              Icons.add_circle,
+                            ),
+                          ),
+                        ],
                       ),
-                  ],
+                      const SizedBox(height: 10),
+                      if (chapastate is CompletoConfiguracoesChapaEstados)
+                        ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: chapastate.lista.length,
+                          itemBuilder: (context, index) {
+                            final chapa = chapastate.lista[index];
+                            return ListTile(
+                              title: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    '${chapa.titulo} - ${chapa.numerodachapa}',
+                                    style: TextStyle(fontSize: 15),
+                                  ),
+                                  Container(
+                                    color: Colors.amber,
+                                    alignment: Alignment.centerRight,
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        BotaoOnOffChapa(chapa),
+                                        IconButton(
+                                          iconSize: 17,
+                                          onPressed: () {
+                                            showDialog(
+                                                context: context,
+                                                builder: (_) {
+                                                  return DetalhesChapaDialogComponente(
+                                                      chapa);
+                                                });
+                                          },
+                                          icon: Icon(Icons.description_sharp),
+                                        ),
+                                        IconButton(
+                                          iconSize: 17,
+                                          onPressed: () {
+                                            showDialog(
+                                                context: context,
+                                                builder: (_) {
+                                                  return DeletarChapaDialogComponente(
+                                                      chapa);
+                                                });
+                                          },
+                                          icon: Icon(
+                                            Icons.remove,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              ),
+                            );
+                          },
+                        ),
+                      SizedBox(height: 30),
+                      Container(
+                          color: Colors.black38,
+                          width: 200,
+                          height: 50,
+                          child: TextButton(
+                              onPressed: () {
+                                context.read<ConfiguracoesChapaBloc>().add(
+                                    ResetarTodosPedidosEventoConfiguracoesEventos());
+                              },
+                              child: Text('RESETAR PEDIDOS'))),
+                      const SizedBox(height: 40),
+                      if (todasSolicitacoes.length != 0)
+                        Container(
+                          width: double.infinity,
+                          child: const Text(
+                            'SOLICITAÇÕES',
+                            style: TextStyle(
+                              fontSize: 15,
+                            ),
+                          ),
+                        ),
+                      const SizedBox(height: 20),
+                      if (chapaTrabalhoEstado
+                          is CompletoBuscarSolicitacoesConfiguracoesChapaEstados)
+                        ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: chapaTrabalhoEstado.lista.length,
+                          itemBuilder: (context, index) {
+                            final solicitacao =
+                                chapaTrabalhoEstado.lista[index];
+                            return ListTile(
+                              title: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Expanded(
+                                    child: Text(
+                                      'Solicitação ${solicitacao.chapa.titulo} - Ordem ${solicitacao.ordem.id}',
+                                      style: TextStyle(fontSize: 15),
+                                    ),
+                                  ),
+                                  Container(
+                                    width: 180,
+                                    alignment: Alignment.centerRight,
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        IconButton(
+                                            iconSize: 17,
+                                            onPressed: () {
+                                              showDialog(
+                                                  context: context,
+                                                  builder: (_) {
+                                                    return DetalhesSolicitacaoRemoverPedidoDialog(
+                                                        solicitacao);
+                                                  });
+                                            },
+                                            icon: Icon(
+                                                Icons.library_books_rounded)),
+                                        IconButton(
+                                          iconSize: 17,
+                                          onPressed: () {
+                                            showDialog(
+                                                context: context,
+                                                builder: (_) {
+                                                  return ConfirmarRemoverPedidoDialog(
+                                                      solicitacao);
+                                                });
+                                          },
+                                          icon: Icon(Icons.check),
+                                        ),
+                                        IconButton(
+                                          iconSize: 17,
+                                          onPressed: () {
+                                            showDialog(
+                                                context: context,
+                                                builder: (_) {
+                                                  return NegarPedidoCancelamentoDialog(
+                                                      solicitacao);
+                                                });
+                                          },
+                                          icon: Icon(Icons.close),
+                                        ),
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              ),
+                            );
+                          },
+                        ),
+                    ],
+                  ),
                 ),
               ),
             ),

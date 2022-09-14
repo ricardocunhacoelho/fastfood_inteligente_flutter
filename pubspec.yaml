@@ -103,4 +103,24 @@ flutter:
   # see https://flutter.dev/custom-fonts/#from-packages
   assets:
     - assets/product-7.png
-    - assets/bacon_burguer.jpg
+    - assets/bacon_burguer.png
+    - assets/bifeenuget.png
+    - assets/burguersaladaesoja.png
+    - assets/chiken.png
+    - assets/duplocheddarebacon.png
+    - assets/duplocommorango.png
+    - assets/fritascommolho.png
+    - assets/cebolafrita.png
+    - assets/combomonstro.png
+    - assets/duplocomfritas.png
+    - assets/asadefrangocmfritas.png
+    - assets/choppduplo.png
+    - assets/hamburguercomcocaefritas.png
+    - assets/acai.png
+    - assets/sorvete.png
+    - assets/sundayromant.png
+    - assets/chopp.png
+    - assets/heineken.png
+    - assets/sucoacai.png
+    - assets/sucosmorangokiwiabacaxi.png
+
