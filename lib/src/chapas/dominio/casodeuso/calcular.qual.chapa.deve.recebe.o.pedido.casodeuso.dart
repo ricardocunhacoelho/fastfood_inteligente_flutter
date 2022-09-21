@@ -1,14 +1,22 @@
 abstract class ICalcularQualChapaDeveReceberOPedido {
-  int call(List<dynamic> listaQuantidadeDeOrdensNasChapas);
+  int call(List<dynamic> listaQuantidadeDeOrdensNasChapas,
+      List<dynamic> listaTodasChapas);
 }
 
 class CalcularQualChapaDeveReceberOPedido
     implements ICalcularQualChapaDeveReceberOPedido {
   @override
-  int call(List listaQuantidadeDeOrdensNasChapas) {
+  int call(List listaQuantidadeDeOrdensNasChapas, List listaTodasChapas) {
     int valorfinal = 0;
+    int retornar = 0;
+    List<dynamic> todasAsChapasNumero = [];
     List<dynamic> numerodeordensemcadachapa = listaQuantidadeDeOrdensNasChapas;
     List<int> ordenar = [];
+    listaTodasChapas.forEach((element) {
+      if (!todasAsChapasNumero.contains(element.numerodachapa)) {
+        todasAsChapasNumero.add(element.numerodachapa);
+      }
+    });
     ordenar.sort();
     var posicaoatual = 0;
     var map = Map();
@@ -54,6 +62,15 @@ class CalcularQualChapaDeveReceberOPedido
         // }
       }
     }
-    return (valorfinal + 1);
+    if (todasAsChapasNumero.length > 0) {
+      if (todasAsChapasNumero.contains(valorfinal + 1)) {
+        //contem a chapa referente ao numero retornar valorfinal+1
+        retornar = valorfinal + 1;
+      } else {
+        retornar = todasAsChapasNumero[valorfinal];
+      }
+    }
+
+    return retornar;
   }
 }

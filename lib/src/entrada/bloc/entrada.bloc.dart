@@ -94,8 +94,8 @@ class EntradaBloc extends Bloc<EntradaEventos, EntradaEstados> {
     final listaQuantidadeDeOrdensNasChapas =
         quantiaDeOrdensEmCadaChapaUsecase(event.listaChapas);
     final numeroDaChapaDeveReceberOPedido =
-        calcularQualChapaDeveReceberOPedidoUsecase
-            .call(listaQuantidadeDeOrdensNasChapas);
+        calcularQualChapaDeveReceberOPedidoUsecase.call(
+            listaQuantidadeDeOrdensNasChapas, event.listaChapas);
     final chapaEntidadeQueDeveReceberAOrdem = buscarChapaEntidadeNaListaUsecase
         .call(event.listaChapas, numeroDaChapaDeveReceberOPedido);
     final listaOrdensQueDevemSerAdicionadas = gerarOrdemUsecase.call(
