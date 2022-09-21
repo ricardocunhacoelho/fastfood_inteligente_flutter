@@ -4,7 +4,9 @@ class CalculoNumeroChapa {
   final List listanumerosdechapa = [];
   int calcular(List<ChapaEntidade>? todasChapas) {
     todasChapas!.forEach((chapa) {
-      listanumerosdechapa.add(chapa.numerodachapa);
+      if (!listanumerosdechapa.contains(chapa.numerodachapa)) {
+        listanumerosdechapa.add(chapa.numerodachapa);
+      }
     });
     if (listanumerosdechapa.length == 0) {
       return 1;
@@ -14,8 +16,15 @@ class CalculoNumeroChapa {
       return 1;
     } else {
       listanumerosdechapa.sort((b, a) => a.compareTo(b));
-      if ((listanumerosdechapa.length - (listanumerosdechapa.first - 1)) <= 0) {
+      if (((listanumerosdechapa.length - (listanumerosdechapa.first - 1)) <=
+              0) &&
+          listanumerosdechapa.last > 1) {
         return listanumerosdechapa.last - 1;
+      }
+      if (((listanumerosdechapa.length - (listanumerosdechapa.first - 1)) <=
+              0) &&
+          listanumerosdechapa.last < 1) {
+        return listanumerosdechapa.last + 1;
       }
       int valorasersomado = 0;
       bool continuar = true;
