@@ -13,7 +13,8 @@ class AdicionarProdutoDialogComponente extends StatefulWidget {
 
 class _AdicionarProdutoDialogComponenteState
     extends State<AdicionarProdutoDialogComponente> {
-  var produto = ConfiguracoesProdutoModelo.empty();
+  ConfiguracoesProdutoModelo produto = ConfiguracoesProdutoModelo.empty();
+
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -23,7 +24,10 @@ class _AdicionarProdutoDialogComponenteState
             mainAxisSize: MainAxisSize.min,
             children: [
               TextFormField(
-                onChanged: (value) => produto = produto.copyWith(titulo: value),
+                onChanged: (value) {
+                  produto = produto.copyWith(titulo: value);
+                  produto = produto.copyWith(id: 'id${value}');
+                },
                 decoration: InputDecoration(
                   labelText: 'Produto',
                   border: OutlineInputBorder(),

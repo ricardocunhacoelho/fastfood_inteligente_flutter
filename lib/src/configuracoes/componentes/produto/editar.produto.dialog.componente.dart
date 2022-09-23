@@ -30,7 +30,10 @@ class _EditarProdutoDialogComponenteState
         children: [
           TextFormField(
             initialValue: produto.titulo,
-            onChanged: (value) => produto = produto.copyWith(titulo: value),
+            onChanged: (value) {
+              produto = produto.copyWith(titulo: value);
+              produto = produto.copyWith(id: 'id${value}');
+            },
             decoration: InputDecoration(
               labelText: 'Produto',
               border: OutlineInputBorder(),

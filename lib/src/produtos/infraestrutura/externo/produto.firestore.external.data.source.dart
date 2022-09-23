@@ -26,8 +26,7 @@ class ProdutoFirestore implements IProdutoDataSource {
   @override
   Future<void> adicionarProduto(Map<String, dynamic> map) async {
     final ref = firestore.collection('produtos');
-    map.remove('id');
-    await ref.add(map);
+    await ref.doc(map['id']).set(map);
   }
 
   @override
