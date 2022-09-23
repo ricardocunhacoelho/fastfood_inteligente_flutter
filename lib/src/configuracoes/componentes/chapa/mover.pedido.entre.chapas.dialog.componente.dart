@@ -31,18 +31,19 @@ class _MoverPedidoEntreChapasDialogComponenteState
   ConfiguracoesChapaModelo chapaDestino = ConfiguracoesChapaModelo.empty();
   @override
   void initState() {
-    print(widget.listaChapasAptas[1].titulo);
-    chapaDestinoSelecionada =
-        ConfiguracoesChapaModelo.converter(widget.listaChapasAptas[0]);
+    if (widget.listaChapasAptas.length > 0) {
+      chapaDestinoSelecionada =
+          ConfiguracoesChapaModelo.converter(widget.listaChapasAptas[0]);
+    }
     widget.listaChapasAptas.forEach((element) {
-      nomeTodasAsChapasAptas.add(element.titulo);
+      if (!nomeTodasAsChapasAptas.contains(element.titulo)) {
+        nomeTodasAsChapasAptas.add(element.titulo);
+      }
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    var tamanhoDaLista = widget.listaChapasAptas.length;
-    var listaAdd = new List<int>.generate(tamanhoDaLista, (i) => 1000);
     return AlertDialog(
       content: Column(
         mainAxisSize: MainAxisSize.min,

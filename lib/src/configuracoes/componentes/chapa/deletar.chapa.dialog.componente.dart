@@ -18,7 +18,7 @@ class _DeletarChapaDialogComponenteState
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text('Deseja remover esta fila?'),
+      title: Text('Deseja remover esta chapa?'),
       actions: <Widget>[
         TextButton(
             onPressed: () {

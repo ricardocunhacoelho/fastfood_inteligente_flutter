@@ -28,7 +28,7 @@
             "deviceId": "chrome"
         },
         {
-            "name": "emulador-pixel",
+            "name": "emulador-pixel1",
             "request": "launch",
             "type": "dart",
             "deviceId": "emulator-5554"
@@ -50,7 +50,7 @@
         {
             "name": "Dois Dispositivos",
             "configurations": [
-                "emulador-pixel",
+                "emulador-pixel1",
                 "web-device",
             ]
         }

@@ -17,52 +17,57 @@ class _AdicionarProdutoDialogComponenteState
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          TextFormField(
-            onChanged: (value) => produto = produto.copyWith(titulo: value),
-            decoration: InputDecoration(
-              labelText: 'Produto',
-              border: OutlineInputBorder(),
-            ),
+      content: SingleChildScrollView(
+        child: Container(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextFormField(
+                onChanged: (value) => produto = produto.copyWith(titulo: value),
+                decoration: InputDecoration(
+                  labelText: 'Produto',
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              SizedBox(height: 10),
+              TextFormField(
+                onChanged: (value) =>
+                    produto = produto.copyWith(descricao: value),
+                decoration: InputDecoration(
+                  labelText: 'Descrição',
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              SizedBox(height: 10),
+              TextFormField(
+                onChanged: (value) => produto = produto.copyWith(
+                  preco: double.tryParse(value),
+                ),
+                decoration: InputDecoration(
+                  labelText: 'Preço',
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              DropdownButton<String>(
+                value: produto.categoria.name,
+                onChanged: (String? newValue) {
+                  setState(() {
+                    produto = produto.copyWith(
+                        categoria: EProdutoCategorias.values
+                            .firstWhere((element) => element.name == newValue));
+                  });
+                },
+                items: <String>['lanche', 'bebida', 'sobremesa', 'combo']
+                    .map<DropdownMenuItem<String>>((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value),
+                  );
+                }).toList(),
+              ),
+            ],
           ),
-          SizedBox(height: 10),
-          TextFormField(
-            onChanged: (value) => produto = produto.copyWith(descricao: value),
-            decoration: InputDecoration(
-              labelText: 'Descrição',
-              border: OutlineInputBorder(),
-            ),
-          ),
-          SizedBox(height: 10),
-          TextFormField(
-            onChanged: (value) => produto = produto.copyWith(
-              preco: double.tryParse(value),
-            ),
-            decoration: InputDecoration(
-              labelText: 'Preço',
-              border: OutlineInputBorder(),
-            ),
-          ),
-          DropdownButton<String>(
-            value: produto.categoria.name,
-            onChanged: (String? newValue) {
-              setState(() {
-                produto = produto.copyWith(
-                    categoria: EProdutoCategorias.values
-                        .firstWhere((element) => element.name == newValue));
-              });
-            },
-            items: <String>['lanche', 'bebida', 'sobremesa', 'combo']
-                .map<DropdownMenuItem<String>>((String value) {
-              return DropdownMenuItem<String>(
-                value: value,
-                child: Text(value),
-              );
-            }).toList(),
-          ),
-        ],
+        ),
       ),
       actions: <Widget>[
         TextButton(

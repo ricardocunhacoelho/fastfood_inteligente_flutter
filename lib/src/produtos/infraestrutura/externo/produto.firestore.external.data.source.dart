@@ -6,7 +6,7 @@ class ProdutoFirestore implements IProdutoDataSource {
   ProdutoFirestore(this.firestore);
   @override
   Stream<List<Map>> buscarTodosProdutos() {
-    final ref = firestore.collection('queue');
+    final ref = firestore.collection('produtos');
     final snapshots = ref.snapshots();
 
     return snapshots.map((e) => e.docs).map(_convert);
@@ -25,41 +25,41 @@ class ProdutoFirestore implements IProdutoDataSource {
 
   @override
   Future<void> adicionarProduto(Map<String, dynamic> map) async {
-    final ref = firestore.collection('queue');
+    final ref = firestore.collection('produtos');
     map.remove('id');
     await ref.add(map);
   }
 
   @override
   Future<void> deletarProdutoCasodeUso(Map<String, dynamic> map) async {
-    final ref = firestore.collection('queue');
+    final ref = firestore.collection('produtos');
     final doc = ref.doc(map['id']);
     await doc.delete();
   }
 
   @override
   Future<void> editarProduto(Map<String, dynamic> map) async {
-    final ref = firestore.collection('queue');
+    final ref = firestore.collection('produtos');
     final doc = ref.doc(map['id']);
     await doc.update(map);
   }
 
   @override
   Future<void> adicionarQuantidade(Map<String, dynamic> map) async {
-    final ref = firestore.collection('queue').doc(map['id']);
+    final ref = firestore.collection('produtos').doc(map['id']);
     ref.update({"quantidade": map['quantidade'] + 1});
   }
 
   @override
   Future subtrairQuantidade(Map<String, dynamic> map) async {
-    final ref = firestore.collection('queue').doc(map['id']);
+    final ref = firestore.collection('produtos').doc(map['id']);
     ref.update({"quantidade": map['quantidade'] - 1});
   }
 
   @override
   Future<List<QueryDocumentSnapshot<Map<String, dynamic>>>>
       buscarTodosDocumentos() async {
-    final ref = firestore.collection('queue');
+    final ref = firestore.collection('produtos');
     final query = await ref.get();
     final docs = query.docs;
     return docs;
@@ -67,7 +67,7 @@ class ProdutoFirestore implements IProdutoDataSource {
 
   @override
   Future<void> resetarProdutosReceberamIncrementoQuantidade() async {
-    final ref = firestore.collection('queue');
+    final ref = firestore.collection('produtos');
     final snapshot = await ref.get();
     for (var docs in snapshot.docs) {
       final map = docs.data();

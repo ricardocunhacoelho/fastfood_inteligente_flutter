@@ -18,7 +18,7 @@ class _DeletarProdutoDialogComponenteState
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text('Deseja remover esta fila?'),
+      title: Text('Deseja remover este produto?'),
       actions: <Widget>[
         TextButton(
             onPressed: () {

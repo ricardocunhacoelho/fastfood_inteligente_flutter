@@ -10,6 +10,7 @@ import 'package:fastfood_inteligente_flutter/src/configuracoes/componentes/chapa
 import 'package:fastfood_inteligente_flutter/src/configuracoes/componentes/chapa/ligadeslig.chapa.botao.componente.dart';
 import 'package:fastfood_inteligente_flutter/src/configuracoes/componentes/produto/adicionar.produto.dialog.componente.dart';
 import 'package:fastfood_inteligente_flutter/src/configuracoes/componentes/produto/deletar.produto.dialog.componente.dart';
+import 'package:fastfood_inteligente_flutter/src/configuracoes/componentes/produto/detalhes.produto.dialog.componente.dart';
 import 'package:fastfood_inteligente_flutter/src/configuracoes/componentes/produto/editar.produto.dialog.componente.dart';
 import 'package:fastfood_inteligente_flutter/src/configuracoes/componentes/solicitacoes/confirmar.remover.pedido.dialog.componente.dart';
 import 'package:fastfood_inteligente_flutter/src/configuracoes/componentes/solicitacoes/detalhes.solicitacao.remover.pedido.dialog.componente.dart';
@@ -17,6 +18,9 @@ import 'package:fastfood_inteligente_flutter/src/configuracoes/componentes/solic
 import 'package:fastfood_inteligente_flutter/src/configuracoes/estados/configuracoes.chapa.estados.dart';
 import 'package:fastfood_inteligente_flutter/src/configuracoes/estados/configuracoes.produto.estados.dart';
 import 'package:fastfood_inteligente_flutter/src/configuracoes/eventos/configuracoes.chapa.eventos.dart';
+import 'package:fastfood_inteligente_flutter/src/configuracoes/eventos/configuracoes.produto.eventos.dart';
+import 'package:fastfood_inteligente_flutter/src/entrada/bloc/entrada.bloc.dart';
+import 'package:fastfood_inteligente_flutter/src/entrada/eventos/entrada.eventos.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -27,7 +31,24 @@ class ConfiguracoesPage extends StatefulWidget {
   State<ConfiguracoesPage> createState() => _ConfiguracoesPageState();
 }
 
-class _ConfiguracoesPageState extends State<ConfiguracoesPage> {
+class _ConfiguracoesPageState extends State<ConfiguracoesPage>
+    with CompleteStateMixin {
+  @override
+  void completeState() {
+    context.read<EntradaBloc>().add(BuscarOrdemBaseEntradaEventos());
+    context
+        .read<ConfiguracoesProdutoBloc>()
+        .add(BuscarTodosProdutosEventoConfiguracoesEventos());
+
+    context
+        .read<ConfiguracoesChapaBloc>()
+        .add(BuscarTodasChapasEventoConfiguracoesEventos());
+
+    context
+        .read<ChapaDeTrabalhoBloc>()
+        .add(BuscarTodasSolicitacoesCancelamentoPedidoChapaDeTrabalhoEventos());
+  }
+
   bool isSwitched = false;
   List todasSolicitacoes = [];
   @override
@@ -48,40 +69,57 @@ class _ConfiguracoesPageState extends State<ConfiguracoesPage> {
         title: const Text('Configurações'),
       ),
       body: Container(
-        child: ListView(
-          children: [
-            SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.all(25),
-                child: Container(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const Text(
-                            'PRODUTOS',
-                            style: TextStyle(
-                              fontSize: 15,
-                            ),
+        child: Scrollbar(
+          isAlwaysShown: true,
+          showTrackOnHover: true,
+          child: ListView(
+            children: [
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(height: 10),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                        left: 40, right: 40, top: 20, bottom: 15),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text(
+                          'PRODUTOS',
+                          style: TextStyle(
+                            fontSize: 15,
                           ),
-                          IconButton(
-                            onPressed: () {
-                              showDialog(
-                                  context: context,
-                                  builder: (_) {
-                                    return AdicionarProdutoDialogComponente();
-                                  });
-                            },
-                            icon: const Icon(
-                              Icons.add_circle,
-                            ),
+                        ),
+                        IconButton(
+                          onPressed: () {
+                            showDialog(
+                                context: context,
+                                builder: (_) {
+                                  return AdicionarProdutoDialogComponente();
+                                });
+                          },
+                          icon: const Icon(
+                            Icons.add_circle,
                           ),
-                        ],
-                      ),
-                      if (produtostate is CompletoConfiguracoesProdutoEstados)
-                        ListView.builder(
+                        ),
+                      ],
+                    ),
+                  ),
+                  if (produtostate is CarregandoConfiguracoesProdutoEstados)
+                    Container(
+                        color: Colors.black26,
+                        width: MediaQuery.of(context).size.width * 0.9,
+                        height: MediaQuery.of(context).size.width * 0.8,
+                        child: Center(
+                          child: CircularProgressIndicator(),
+                        )),
+                  if (produtostate is CompletoConfiguracoesProdutoEstados)
+                    Container(
+                      color: Colors.black26,
+                      width: MediaQuery.of(context).size.width * 0.9,
+                      height: MediaQuery.of(context).size.width * 0.8,
+                      child: Scrollbar(
+                        child: ListView.builder(
                           shrinkWrap: true,
                           itemCount: produtostate.lista.length,
                           itemBuilder: (context, index) {
@@ -119,7 +157,6 @@ class _ConfiguracoesPageState extends State<ConfiguracoesPage> {
                                   ),
                                   Container(
                                     width: 150,
-                                    color: Colors.amber,
                                     alignment: Alignment.centerRight,
                                     child: Row(
                                       mainAxisAlignment:
@@ -127,7 +164,14 @@ class _ConfiguracoesPageState extends State<ConfiguracoesPage> {
                                       children: [
                                         IconButton(
                                           iconSize: 17,
-                                          onPressed: () {},
+                                          onPressed: () {
+                                            showDialog(
+                                                context: context,
+                                                builder: (_) {
+                                                  return DetalhesProdutoDialogComponente(
+                                                      produto);
+                                                });
+                                          },
                                           icon: Icon(
                                             Icons.description_sharp,
                                           ),
@@ -168,189 +212,254 @@ class _ConfiguracoesPageState extends State<ConfiguracoesPage> {
                             );
                           },
                         ),
-                      const SizedBox(height: 25),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const Text(
-                            'CHAPAS',
-                            style: TextStyle(
-                              fontSize: 15,
-                            ),
-                          ),
-                          IconButton(
-                            onPressed: () {
-                              showDialog(
-                                  context: context,
-                                  builder: (_) {
-                                    return AdicionarChapaDialogComponente();
-                                  });
-                            },
-                            icon: const Icon(
-                              Icons.add_circle,
-                            ),
-                          ),
-                        ],
                       ),
-                      const SizedBox(height: 10),
-                      if (chapastate is CompletoConfiguracoesChapaEstados)
-                        ListView.builder(
+                    ),
+                ],
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(
+                        left: 40, right: 40, top: 20, bottom: 15),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text(
+                          'CHAPAS',
+                          style: TextStyle(
+                            fontSize: 15,
+                          ),
+                        ),
+                        IconButton(
+                          onPressed: () {
+                            showDialog(
+                                context: context,
+                                builder: (_) {
+                                  return AdicionarChapaDialogComponente();
+                                });
+                          },
+                          icon: const Icon(
+                            Icons.add_circle,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  if (chapastate is CompletoConfiguracoesChapaEstados)
+                    Container(
+                      color: Colors.black12,
+                      width: MediaQuery.of(context).size.width * 0.9,
+                      height: MediaQuery.of(context).size.width * 0.5,
+                      child: Scrollbar(
+                        child: ListView.builder(
                           shrinkWrap: true,
                           itemCount: chapastate.lista.length,
                           itemBuilder: (context, index) {
                             final chapa = chapastate.lista[index];
-                            return ListTile(
-                              title: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    '${chapa.titulo} - ${chapa.numerodachapa}',
-                                    style: TextStyle(fontSize: 15),
-                                  ),
-                                  Container(
-                                    color: Colors.amber,
-                                    alignment: Alignment.centerRight,
-                                    child: Row(
+                            return Column(
+                              children: [
+                                Container(
+                                  child: ListTile(
+                                    title: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       children: [
-                                        BotaoOnOffChapa(chapa),
-                                        IconButton(
-                                          iconSize: 17,
-                                          onPressed: () {
-                                            showDialog(
-                                                context: context,
-                                                builder: (_) {
-                                                  return DetalhesChapaDialogComponente(
-                                                      chapa);
-                                                });
-                                          },
-                                          icon: Icon(Icons.description_sharp),
+                                        Text(
+                                          '${chapa.titulo} - ${chapa.numerodachapa}',
+                                          style: TextStyle(fontSize: 15),
                                         ),
-                                        IconButton(
+                                        Container(
+                                          alignment: Alignment.centerRight,
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              BotaoOnOffChapa(chapa),
+                                              IconButton(
+                                                iconSize: 17,
+                                                onPressed: () {
+                                                  showDialog(
+                                                      context: context,
+                                                      builder: (_) {
+                                                        return DetalhesChapaDialogComponente(
+                                                            chapa);
+                                                      });
+                                                },
+                                                icon: Icon(
+                                                    Icons.description_sharp),
+                                              ),
+                                              IconButton(
+                                                iconSize: 17,
+                                                onPressed: () {
+                                                  showDialog(
+                                                      context: context,
+                                                      builder: (_) {
+                                                        return DeletarChapaDialogComponente(
+                                                            chapa);
+                                                      });
+                                                },
+                                                icon: Icon(
+                                                  Icons.remove,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                              ],
+                            );
+                          },
+                        ),
+                      ),
+                    ),
+                ],
+              ),
+              SizedBox(height: 35),
+              Center(
+                child: Container(
+                    color: Colors.black38,
+                    width: 200,
+                    height: 50,
+                    child: TextButton(
+                        onPressed: () {
+                          context.read<ConfiguracoesChapaBloc>().add(
+                              ResetarTodosPedidosEventoConfiguracoesEventos());
+                        },
+                        child: Text('RESETAR PEDIDOS'))),
+              ),
+              if (todasSolicitacoes.length == 0)
+                SizedBox(
+                  height: 35,
+                ),
+              if (todasSolicitacoes.length != 0)
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      height: 30,
+                    ),
+                    Container(
+                      width: double.infinity,
+                      color: Colors.black38,
+                      child: Center(
+                        child: const Text(
+                          'SOLICITAÇÕES',
+                          style: TextStyle(
+                            fontSize: 15,
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    if (chapaTrabalhoEstado
+                        is CompletoBuscarSolicitacoesConfiguracoesChapaEstados)
+                      ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: chapaTrabalhoEstado.lista.length,
+                        itemBuilder: (context, index) {
+                          final solicitacao = chapaTrabalhoEstado.lista[index];
+                          return ListTile(
+                            title: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Expanded(
+                                  child: Text(
+                                    'Solicitação ${solicitacao.chapa.titulo} - Ordem ${solicitacao.ordem.id}',
+                                    style: TextStyle(fontSize: 15),
+                                  ),
+                                ),
+                                Container(
+                                  width: 180,
+                                  alignment: Alignment.centerRight,
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      IconButton(
                                           iconSize: 17,
                                           onPressed: () {
                                             showDialog(
                                                 context: context,
                                                 builder: (_) {
-                                                  return DeletarChapaDialogComponente(
-                                                      chapa);
+                                                  return DetalhesSolicitacaoRemoverPedidoDialog(
+                                                      solicitacao);
                                                 });
                                           },
                                           icon: Icon(
-                                            Icons.remove,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  )
-                                ],
-                              ),
-                            );
-                          },
-                        ),
-                      SizedBox(height: 30),
-                      Container(
-                          color: Colors.black38,
-                          width: 200,
-                          height: 50,
-                          child: TextButton(
-                              onPressed: () {
-                                context.read<ConfiguracoesChapaBloc>().add(
-                                    ResetarTodosPedidosEventoConfiguracoesEventos());
-                              },
-                              child: Text('RESETAR PEDIDOS'))),
-                      const SizedBox(height: 40),
-                      if (todasSolicitacoes.length != 0)
-                        Container(
-                          width: double.infinity,
-                          child: const Text(
-                            'SOLICITAÇÕES',
-                            style: TextStyle(
-                              fontSize: 15,
-                            ),
-                          ),
-                        ),
-                      const SizedBox(height: 20),
-                      if (chapaTrabalhoEstado
-                          is CompletoBuscarSolicitacoesConfiguracoesChapaEstados)
-                        ListView.builder(
-                          shrinkWrap: true,
-                          itemCount: chapaTrabalhoEstado.lista.length,
-                          itemBuilder: (context, index) {
-                            final solicitacao =
-                                chapaTrabalhoEstado.lista[index];
-                            return ListTile(
-                              title: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Expanded(
-                                    child: Text(
-                                      'Solicitação ${solicitacao.chapa.titulo} - Ordem ${solicitacao.ordem.id}',
-                                      style: TextStyle(fontSize: 15),
-                                    ),
+                                              Icons.library_books_rounded)),
+                                      IconButton(
+                                        iconSize: 17,
+                                        onPressed: () {
+                                          showDialog(
+                                              context: context,
+                                              builder: (_) {
+                                                return ConfirmarRemoverPedidoDialog(
+                                                    solicitacao);
+                                              });
+                                        },
+                                        icon: Icon(Icons.check),
+                                      ),
+                                      IconButton(
+                                        iconSize: 17,
+                                        onPressed: () {
+                                          showDialog(
+                                              context: context,
+                                              builder: (_) {
+                                                return NegarPedidoCancelamentoDialog(
+                                                    solicitacao);
+                                              });
+                                        },
+                                        icon: Icon(Icons.close),
+                                      ),
+                                    ],
                                   ),
-                                  Container(
-                                    width: 180,
-                                    alignment: Alignment.centerRight,
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        IconButton(
-                                            iconSize: 17,
-                                            onPressed: () {
-                                              showDialog(
-                                                  context: context,
-                                                  builder: (_) {
-                                                    return DetalhesSolicitacaoRemoverPedidoDialog(
-                                                        solicitacao);
-                                                  });
-                                            },
-                                            icon: Icon(
-                                                Icons.library_books_rounded)),
-                                        IconButton(
-                                          iconSize: 17,
-                                          onPressed: () {
-                                            showDialog(
-                                                context: context,
-                                                builder: (_) {
-                                                  return ConfirmarRemoverPedidoDialog(
-                                                      solicitacao);
-                                                });
-                                          },
-                                          icon: Icon(Icons.check),
-                                        ),
-                                        IconButton(
-                                          iconSize: 17,
-                                          onPressed: () {
-                                            showDialog(
-                                                context: context,
-                                                builder: (_) {
-                                                  return NegarPedidoCancelamentoDialog(
-                                                      solicitacao);
-                                                });
-                                          },
-                                          icon: Icon(Icons.close),
-                                        ),
-                                      ],
-                                    ),
-                                  )
-                                ],
-                              ),
-                            );
-                          },
-                        ),
-                    ],
-                  ),
+                                )
+                              ],
+                            ),
+                          );
+                        },
+                      ),
+                    SizedBox(height: 30),
+                  ],
                 ),
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
+  }
+}
+
+mixin CompleteStateMixin<T extends StatefulWidget> on State<T> {
+  void completeState();
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance?.addPostFrameCallback((_) {
+      context.read<EntradaBloc>().add(BuscarOrdemBaseEntradaEventos());
+      context
+          .read<ConfiguracoesProdutoBloc>()
+          .add(BuscarTodosProdutosEventoConfiguracoesEventos());
+
+      context
+          .read<ConfiguracoesChapaBloc>()
+          .add(BuscarTodasChapasEventoConfiguracoesEventos());
+
+      context.read<ChapaDeTrabalhoBloc>().add(
+          BuscarTodasSolicitacoesCancelamentoPedidoChapaDeTrabalhoEventos());
+
+      completeState();
+    });
   }
 }
