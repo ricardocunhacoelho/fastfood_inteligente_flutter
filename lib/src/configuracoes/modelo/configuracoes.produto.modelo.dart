@@ -29,7 +29,7 @@ class ConfiguracoesProdutoModelo extends ProdutoEntidade {
       id: id ?? this.id,
       categoria: categoria ?? this.categoria,
       titulo: titulo ?? this.titulo,
-      imagem: id ?? this.imagem,
+      imagem: imagem ?? this.imagem,
       descricao: descricao ?? this.descricao,
       preco: preco ?? this.preco,
       quantidade: quantidade ?? this.quantidade,

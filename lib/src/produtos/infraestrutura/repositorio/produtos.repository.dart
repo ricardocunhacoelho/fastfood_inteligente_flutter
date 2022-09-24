@@ -21,6 +21,7 @@ class ProdutoRepositorio implements IProdutoRepositorio {
 
   @override
   Future<void> adicionarProduto(ProdutoEntidade produto) async {
+    print(produto.imagem.toString());
     final map = ProdutosEntidadeToJson.toMap(produto);
     await fontededados.adicionarProduto(map);
   }

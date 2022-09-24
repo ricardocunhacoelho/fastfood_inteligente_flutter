@@ -32,7 +32,7 @@ class _EditarProdutoDialogComponenteState
             initialValue: produto.titulo,
             onChanged: (value) {
               produto = produto.copyWith(titulo: value);
-              produto = produto.copyWith(id: 'id${value}');
+              produto = produto.copyWith(id: value.removeAllWhitespace());
             },
             decoration: InputDecoration(
               labelText: 'Produto',
@@ -94,5 +94,13 @@ class _EditarProdutoDialogComponenteState
             child: Text('Salvar')),
       ],
     );
+  }
+}
+
+extension ExtendedString on String {
+  /// The string without any whitespace.
+  String removeAllWhitespace() {
+    // Remove all white space.
+    return this.replaceAll(RegExp(r"\s+"), "");
   }
 }
