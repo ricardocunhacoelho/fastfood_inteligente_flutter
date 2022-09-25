@@ -8,6 +8,7 @@ import 'package:fastfood_inteligente_flutter/src/entrada/bloc/entrada.bloc.dart'
 import 'package:fastfood_inteligente_flutter/src/entrada/componentes/contadorquantidade.entrada.componente.dart';
 import 'package:fastfood_inteligente_flutter/src/entrada/componentes/finalizarpedido.dialog.componente.dart';
 import 'package:fastfood_inteligente_flutter/src/entrada/componentes/mostrarpreco.entrada.componente.dart';
+import 'package:fastfood_inteligente_flutter/src/entrada/componentes/recomecar.dialog.componente.dart';
 import 'package:fastfood_inteligente_flutter/src/entrada/estados/entrada.estados.dart';
 import 'package:fastfood_inteligente_flutter/src/entrada/eventos/entrada.eventos.dart';
 import 'package:fastfood_inteligente_flutter/src/entrada/modelo/entrada.ordem.model.dart';
@@ -31,6 +32,7 @@ class _EntradaPaginaState extends State<EntradaPagina> {
       datahora: DateTime.now(),
       observacao: '',
       posicao: 1);
+  double tamanho = 90;
 
   @override
   Widget build(BuildContext context) {
@@ -51,6 +53,15 @@ class _EntradaPaginaState extends State<EntradaPagina> {
     final valor = checarSeFoiAdicionadoProduto.call(produtostate);
     if (valor > 0) {
       habilitar = true;
+    }
+    if (habilitar) {
+      setState(() {
+        tamanho = 108;
+      });
+    } else {
+      setState(() {
+        tamanho = 90;
+      });
     }
     return DefaultTabController(
       length: 5,
@@ -93,9 +104,10 @@ class _EntradaPaginaState extends State<EntradaPagina> {
               ),
             ),
             Container(
+              // duration: Duration(seconds: 1),
               width: double.infinity,
               color: Colors.black12,
-              height: 90,
+              height: tamanho,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
@@ -107,13 +119,49 @@ class _EntradaPaginaState extends State<EntradaPagina> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Container(
-                          child: Text(
-                            "TOTAL",
-                            textAlign: TextAlign.start,
-                          ),
+                        Row(
+                          children: [
+                            Container(
+                              child: Text(
+                                "TOTAL",
+                                textAlign: TextAlign.start,
+                              ),
+                            ),
+                            if (habilitar)
+                              Container(
+                                margin: EdgeInsets.all(
+                                  15,
+                                ),
+                                width: 100,
+                                height: 25,
+                                decoration: BoxDecoration(
+                                  color:
+                                      habilitar ? Colors.blue : Colors.black12,
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(
+                                      5,
+                                    ),
+                                  ),
+                                ),
+                                child: TextButton(
+                                    onPressed: () {
+                                      showDialog(
+                                          context: context,
+                                          builder: (_) {
+                                            return RecomecarDialogComponente();
+                                          });
+                                    },
+                                    child: Center(
+                                      child: Text(
+                                        'Recomeçar',
+                                        style: TextStyle(
+                                            color: Colors.white, fontSize: 10),
+                                      ),
+                                    )),
+                              ),
+                          ],
                         ),
-                        MostrarPrecoEntrada(),
+                        Container(child: MostrarPrecoEntrada()),
                       ],
                     ),
                   ),
