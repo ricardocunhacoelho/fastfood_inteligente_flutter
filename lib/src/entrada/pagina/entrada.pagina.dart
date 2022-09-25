@@ -175,6 +175,7 @@ class _EntradaPaginaState extends State<EntradaPagina> {
             Expanded(
               child: Scrollbar(
                 showTrackOnHover: true,
+                isAlwaysShown: true,
                 child: ListView.builder(
                   shrinkWrap: true,
                   itemCount: produtostate.lista.length,
@@ -182,103 +183,69 @@ class _EntradaPaginaState extends State<EntradaPagina> {
                     final produto = produtostate.lista[index];
                     if (pagina.toLowerCase() == 'todos') {
                       return ListTile(
-                        title: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        minLeadingWidth: 15,
+                        horizontalTitleGap: 18,
+                        contentPadding: EdgeInsets.all(10),
+                        trailing: Container(
+                          alignment: Alignment.centerRight,
+                          width: 150,
+                          child: ContadorQuantidadeComponente(produto: produto),
+                        ),
+                        leading: Image.asset(
+                          'assets/${produto.imagem}',
+                          height: 45,
+                          width: 45,
+                          fit: BoxFit.fitWidth,
+                        ),
+                        subtitle: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Container(
-                              width: 225,
-                              child: SingleChildScrollView(
-                                scrollDirection: Axis.horizontal,
-                                child: Row(
-                                  children: [
-                                    Image.asset(
-                                      'assets/${produto.imagem}',
-                                      height: 45,
-                                      width: 45,
-                                      fit: BoxFit.fitWidth,
-                                    ),
-                                    const SizedBox(
-                                      width: 10,
-                                    ),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          '${produto.titulo} R\$${produto.preco}',
-                                          style: TextStyle(fontSize: 13),
-                                        ),
-                                        SizedBox(
-                                          height: 3,
-                                        ),
-                                        Text(
-                                          '${produto.descricao}',
-                                          style: TextStyle(fontSize: 11),
-                                        ),
-                                      ],
-                                    )
-                                  ],
-                                ),
-                              ),
+                            SizedBox(
+                              height: 5,
                             ),
-                            Container(
-                              alignment: Alignment.centerRight,
-                              width: 150,
-                              child: ContadorQuantidadeComponente(
-                                  produto: produto),
+                            Text(
+                              '${produto.descricao}',
+                              style: TextStyle(fontSize: 11),
                             ),
                           ],
+                        ),
+                        title: Text(
+                          '${produto.titulo} R\$${produto.preco}',
+                          style: TextStyle(fontSize: 13),
                         ),
                       );
                     }
                     if (produto.categoria.name == pagina.toLowerCase()) {
                       return ListTile(
-                        title: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        minLeadingWidth: 15,
+                        horizontalTitleGap: 18,
+                        contentPadding: EdgeInsets.all(10),
+                        trailing: Container(
+                          alignment: Alignment.centerRight,
+                          width: 150,
+                          child: ContadorQuantidadeComponente(produto: produto),
+                        ),
+                        leading: Image.asset(
+                          'assets/${produto.imagem}',
+                          height: 45,
+                          width: 45,
+                          fit: BoxFit.fitWidth,
+                        ),
+                        subtitle: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Container(
-                              width: 225,
-                              child: SingleChildScrollView(
-                                scrollDirection: Axis.horizontal,
-                                child: Row(
-                                  children: [
-                                    Image.asset(
-                                      'assets/${produto.imagem}',
-                                      height: 45,
-                                      width: 45,
-                                      fit: BoxFit.fitWidth,
-                                    ),
-                                    const SizedBox(
-                                      width: 10,
-                                    ),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          '${produto.titulo} R\$${produto.preco}',
-                                          style: TextStyle(fontSize: 13),
-                                        ),
-                                        SizedBox(
-                                          height: 3,
-                                        ),
-                                        Text(
-                                          '${produto.descricao}',
-                                          style: TextStyle(fontSize: 11),
-                                        ),
-                                      ],
-                                    )
-                                  ],
-                                ),
-                              ),
+                            SizedBox(
+                              height: 5,
                             ),
-                            Container(
-                              alignment: Alignment.centerRight,
-                              width: 150,
-                              child: ContadorQuantidadeComponente(
-                                  produto: produto),
+                            Text(
+                              '${produto.descricao}',
+                              style: TextStyle(fontSize: 11),
                             ),
                           ],
+                        ),
+                        title: Text(
+                          '${produto.titulo} R\$${produto.preco}',
+                          style: TextStyle(fontSize: 13),
                         ),
                       );
                     } else {
