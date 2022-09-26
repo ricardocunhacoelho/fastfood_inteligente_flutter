@@ -61,79 +61,68 @@ class _FinalizarPedidoDialogComponenteState
           SizedBox(height: 20),
           if (produtostate is CompletoConfiguracoesProdutoEstados)
             Container(
+              color: Colors.amber,
               width: MediaQuery.of(context).size.width * 0.75,
-              height: MediaQuery.of(context).size.width * 0.6,
-              child: ListView.builder(
-                  itemCount: produtostate.lista.length,
-                  itemBuilder: (context, index) {
-                    final produto = produtostate.lista[index];
-                    return Column(
-                      children: [
-                        if (produto.quantidade >= 1)
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text('${produto.quantidade} - ${produto.titulo}'),
-                              const Text('-------------'),
-                              Text(
-                                  '${(produto.preco * produto.quantidade).toStringAsFixed(2)}'),
-                            ],
-                          ),
-                        SizedBox(
-                          height: 20,
-                        )
-                      ],
-                    );
-                  }),
+              height: MediaQuery.of(context).size.width * 0.2,
+              child: Scrollbar(
+                isAlwaysShown: true,
+                showTrackOnHover: true,
+                child: ListView.builder(
+                    itemCount: produtostate.lista.length,
+                    itemBuilder: (context, index) {
+                      final produto = produtostate.lista[index];
+
+                      return Column(
+                        children: [
+                          if (produto.quantidade >= 1)
+                            ListTile(
+                              leading: Text('${produto.quantidade}'),
+                              title: Text('${produto.titulo}'),
+                              trailing: Text(
+                                  'R\$ ${(produto.preco * produto.quantidade).toStringAsFixed(2)}'),
+                            ),
+                        ],
+                      );
+                    }),
+              ),
             ),
-          // const Text('------------------------------'),
           SizedBox(height: 25),
-          Center(
-            child: Column(
-              children: [
-                Column(
-                  children: [
-                    TextFormField(
-                      initialValue: ordem.observacao,
-                      onChanged: (value) {
-                        ordem = ordem.copyWith(observacao: value);
-                        context
-                            .read<EntradaBloc>()
-                            .add(AtualizarOrdemBaseEntradaEventos(ordem));
-                      },
-                      decoration: InputDecoration(
-                        labelText: 'Fazer Observação',
-                        border: OutlineInputBorder(),
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 25),
-                Row(
-                  children: [
-                    Text('Embalar para viajem? '),
-                    Checkbox(
-                        value: ordem.embalarParaViajem,
-                        onChanged: (value) {
-                          setState(() {
-                            ordem = ordem.copyWith(embalarParaViajem: value);
-                          });
-                          context
-                              .read<EntradaBloc>()
-                              .add(AtualizarOrdemBaseEntradaEventos(ordem));
-                        }),
-                  ],
-                ),
-                SizedBox(height: 25),
-                Row(
-                  children: [
-                    Text('Total : '),
-                    precoTotal,
-                  ],
-                ),
-              ],
+          TextFormField(
+            initialValue: ordem.observacao,
+            onChanged: (value) {
+              ordem = ordem.copyWith(observacao: value);
+              context
+                  .read<EntradaBloc>()
+                  .add(AtualizarOrdemBaseEntradaEventos(ordem));
+            },
+            decoration: InputDecoration(
+              labelText: 'Fazer Observação',
+              border: OutlineInputBorder(),
             ),
-          )
+          ),
+          SizedBox(height: 25),
+          Row(
+            children: [
+              Text('Embalar para viajem? '),
+              Checkbox(
+                  value: ordem.embalarParaViajem,
+                  onChanged: (value) {
+                    setState(() {
+                      ordem = ordem.copyWith(embalarParaViajem: value);
+                    });
+                    context
+                        .read<EntradaBloc>()
+                        .add(AtualizarOrdemBaseEntradaEventos(ordem));
+                  }),
+            ],
+          ),
+          SizedBox(height: 25),
+          Row(
+            children: [
+              Text('Total : '),
+              precoTotal,
+            ],
+          ),
         ],
       ),
       actions: <Widget>[
@@ -192,10 +181,6 @@ class _FinalizarPedidoDialogComponenteState
                           .read<EntradaBloc>()
                           .add(ResetarOrdemBaseEntradaEventos());
 
-                      // final String observacao;
-                      // final bool embalarParaViajem;
-                      // final List<ProdutoEntidade> produtos;
-                      // final List<ChapaEntidade> listaChapas;
                       Navigator.pop(context);
                     },
                     child: Text('Imprimir')),
