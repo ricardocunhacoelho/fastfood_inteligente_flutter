@@ -9,7 +9,7 @@ class JsonToProdutoEntity {
       titulo: map['titulo'],
       imagem: map['imagem'] ?? '',
       descricao: map['descricao'] ?? '',
-      preco: map['preco'] ?? 0,
+      preco: map['preco'].toDouble() ?? 0,
       quantidade: map['quantidade'] ?? 0,
     );
   }
