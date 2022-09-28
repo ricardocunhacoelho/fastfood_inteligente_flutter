@@ -100,6 +100,21 @@ class _HomePageState extends State<HomePage> with CompleteStateMixin {
                       child: Text('Chamada de pedidos tela')),
                 ),
               ),
+              SizedBox(
+                height: 20,
+              ),
+              Center(
+                child: Container(
+                  width: 201,
+                  height: 40,
+                  color: Colors.white,
+                  child: TextButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/entradachrome');
+                      },
+                      child: Text('Entrada chrome')),
+                ),
+              ),
             ],
           ),
         ),
