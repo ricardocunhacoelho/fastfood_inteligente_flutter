@@ -105,6 +105,8 @@ class _ConfiguracoesPageState extends State<ConfiguracoesPage>
                       ],
                     ),
                   ),
+                  if (produtostate is ErroConfiguracoesProdutoEstados)
+                    Text(produtostate.menssagem),
                   if (produtostate is CarregandoConfiguracoesProdutoEstados)
                     Container(
                         color: Colors.black26,

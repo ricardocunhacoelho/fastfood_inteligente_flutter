@@ -103,7 +103,9 @@ class _EntradaPaginaVerticalState extends State<EntradaPaginaVertical> {
         ),
         Column(
           children: [
-            criarPagina(pagina, produtostate, habilitar, ordemInicial),
+            Expanded(
+                child:
+                    criarPagina(pagina, produtostate, habilitar, ordemInicial)),
           ],
         )
       ]),
@@ -119,92 +121,99 @@ class _EntradaPaginaVerticalState extends State<EntradaPaginaVertical> {
             pagina.toUpperCase(),
           ),
           SizedBox(height: 25),
-          if (produtostate is CarregandoConfiguracoesProdutoEstados)
-            Center(child: CircularProgressIndicator()),
-          if (produtostate is CompletoConfiguracoesProdutoEstados)
-            Expanded(
-              child: Scrollbar(
-                showTrackOnHover: true,
-                isAlwaysShown: true,
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: produtostate.lista.length,
-                  itemBuilder: (context, index) {
-                    final produto = produtostate.lista[index];
-                    if (pagina.toLowerCase() == 'todos') {
-                      return ListTile(
-                        minLeadingWidth: 15,
-                        horizontalTitleGap: 18,
-                        contentPadding: EdgeInsets.all(10),
-                        trailing: Container(
-                          alignment: Alignment.centerRight,
-                          width: 150,
-                          child: ContadorQuantidadeComponente(produto: produto),
-                        ),
-                        leading: Image.asset(
-                          'assets/${produto.imagem}',
-                          height: 45,
-                          width: 45,
-                          fit: BoxFit.fitWidth,
-                        ),
-                        subtitle: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox(
-                              height: 5,
-                            ),
-                            Text(
-                              '${produto.descricao}',
-                              style: TextStyle(fontSize: 11),
-                            ),
-                          ],
-                        ),
-                        title: Text(
-                          '${produto.titulo} R\$${produto.preco}',
-                          style: TextStyle(fontSize: 13),
-                        ),
-                      );
-                    }
-                    if (produto.categoria.name == pagina.toLowerCase()) {
-                      return ListTile(
-                        minLeadingWidth: 15,
-                        horizontalTitleGap: 18,
-                        contentPadding: EdgeInsets.all(10),
-                        trailing: Container(
-                          alignment: Alignment.centerRight,
-                          width: 150,
-                          child: ContadorQuantidadeComponente(produto: produto),
-                        ),
-                        leading: Image.asset(
-                          'assets/${produto.imagem}',
-                          height: 45,
-                          width: 45,
-                          fit: BoxFit.fitWidth,
-                        ),
-                        subtitle: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox(
-                              height: 5,
-                            ),
-                            Text(
-                              '${produto.descricao}',
-                              style: TextStyle(fontSize: 11),
-                            ),
-                          ],
-                        ),
-                        title: Text(
-                          '${produto.titulo} R\$${produto.preco}',
-                          style: TextStyle(fontSize: 13),
-                        ),
-                      );
-                    } else {
-                      return Container();
-                    }
-                  },
-                ),
-              ),
-            ),
+          ListView.builder(
+              scrollDirection: Axis.vertical,
+              itemCount: 3,
+              itemBuilder: (context, index) {
+                return Text('data');
+              }),
+
+          // if (produtostate is CarregandoConfiguracoesProdutoEstados)
+          //   Center(child: CircularProgressIndicator()),
+          // if (produtostate is CompletoConfiguracoesProdutoEstados)
+          // Expanded(
+          //   child: Scrollbar(
+          //     showTrackOnHover: true,
+          //     isAlwaysShown: true,
+          //     child: ListView.builder(
+          //       shrinkWrap: true,
+          //       itemCount: 3,
+          //       itemBuilder: (context, index) {
+          //         final produto = produtostate.lista[index];
+          //         if (pagina.toLowerCase() == 'todos') {
+          //           return ListTile(
+          //             minLeadingWidth: 15,
+          //             horizontalTitleGap: 18,
+          //             contentPadding: EdgeInsets.all(10),
+          //             trailing: Container(
+          //               alignment: Alignment.centerRight,
+          //               width: 150,
+          //               child: ContadorQuantidadeComponente(produto: produto),
+          //             ),
+          //             leading: Image.asset(
+          //               'assets/${produto.imagem}',
+          //               height: 45,
+          //               width: 45,
+          //               fit: BoxFit.fitWidth,
+          //             ),
+          //             subtitle: Column(
+          //               crossAxisAlignment: CrossAxisAlignment.start,
+          //               children: [
+          //                 SizedBox(
+          //                   height: 5,
+          //                 ),
+          //                 Text(
+          //                   '${produto.descricao}',
+          //                   style: TextStyle(fontSize: 11),
+          //                 ),
+          //               ],
+          //             ),
+          //             title: Text(
+          //               '${produto.titulo} R\$${produto.preco}',
+          //               style: TextStyle(fontSize: 13),
+          //             ),
+          //           );
+          //         }
+          //         if (produto.categoria.name == pagina.toLowerCase()) {
+          //           return ListTile(
+          //             minLeadingWidth: 15,
+          //             horizontalTitleGap: 18,
+          //             contentPadding: EdgeInsets.all(10),
+          //             trailing: Container(
+          //               alignment: Alignment.centerRight,
+          //               width: 150,
+          //               child: ContadorQuantidadeComponente(produto: produto),
+          //             ),
+          //             leading: Image.asset(
+          //               'assets/${produto.imagem}',
+          //               height: 45,
+          //               width: 45,
+          //               fit: BoxFit.fitWidth,
+          //             ),
+          //             subtitle: Column(
+          //               crossAxisAlignment: CrossAxisAlignment.start,
+          //               children: [
+          //                 SizedBox(
+          //                   height: 5,
+          //                 ),
+          //                 Text(
+          //                   '${produto.descricao}',
+          //                   style: TextStyle(fontSize: 11),
+          //                 ),
+          //               ],
+          //             ),
+          //             title: Text(
+          //               '${produto.titulo} R\$${produto.preco}',
+          //               style: TextStyle(fontSize: 13),
+          //             ),
+          //           );
+          //         } else {
+          //           return Container();
+          //         }
+          //       },
+          //     ),
+          //   ),
+          // ),
         ]),
       );
 }
