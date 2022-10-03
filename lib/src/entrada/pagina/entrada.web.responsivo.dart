@@ -1,7 +1,6 @@
 import 'package:fastfood_inteligente_flutter/src/configuracoes/bloc/configuracoes.produto.bloc.dart';
 import 'package:fastfood_inteligente_flutter/src/entrada/bloc/entrada.bloc.dart';
 import 'package:fastfood_inteligente_flutter/src/entrada/componentes/pagina.produtos.dart';
-import 'package:fastfood_inteligente_flutter/src/entrada/componentes/preco.finalizar.dart';
 import 'package:fastfood_inteligente_flutter/src/entrada/estados/entrada.estados.dart';
 import 'package:fastfood_inteligente_flutter/src/entrada/modelo/entrada.ordem.model.dart';
 import 'package:fastfood_inteligente_flutter/src/produtos/dominio/casodeuso/checarsefoiadicionadoproduto.casodeuso.dart';
@@ -50,62 +49,47 @@ class _EntradaWebResponsivoState extends State<EntradaWebResponsivo> {
     final List<Widget> _screens = [
       paginaProdutos('lanche', produtostate, habilitar, ordemInicial),
       paginaProdutos('bebida', produtostate, habilitar, ordemInicial),
-      paginaProdutos('todos', produtostate, habilitar, ordemInicial),
+      paginaProdutos('combo', produtostate, habilitar, ordemInicial),
       paginaProdutos('sobremesa', produtostate, habilitar, ordemInicial),
-      paginaProdutos('lanche', produtostate, habilitar, ordemInicial),
+      paginaProdutos('todos', produtostate, habilitar, ordemInicial),
     ];
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Responsive site'),
-      ),
-      bottomNavigationBar: MediaQuery.of(context).size.width < 640
-          ? BottomNavigationBar(
-              currentIndex: _selectedIndex,
-              unselectedItemColor: Colors.grey,
-              selectedItemColor: Colors.indigoAccent,
-              onTap: (int index) {
-                setState(() {
-                  _selectedIndex = index;
-                });
-              },
-              items: const [
-                  BottomNavigationBarItem(
-                      icon: Icon(Icons.food_bank), label: 'Todos'),
-                  BottomNavigationBarItem(
-                      icon: Icon(Icons.all_inclusive_outlined),
-                      label: 'Lanche'),
-                  BottomNavigationBarItem(
-                      icon: Icon(Icons.cabin), label: 'Bebida'),
-                  BottomNavigationBarItem(
-                      icon: Icon(Icons.food_bank), label: 'Combo'),
-                  BottomNavigationBarItem(
-                      icon: Icon(Icons.food_bank), label: 'Sobremesa'),
-                ])
-          : null,
+      // appBar: AppBar(
+      //   title: const Text('Responsive site'),
+      // ),
       body: Row(
         children: [
-          if (MediaQuery.of(context).size.width >= 640)
-            NavigationRail(
-              onDestinationSelected: (int index) {
-                setState(() {
-                  _selectedIndex = index;
-                });
-              },
-              selectedIndex: _selectedIndex,
-              destinations: const <NavigationRailDestination>[
-                NavigationRailDestination(
-                    icon: Icon(Icons.food_bank), label: Text('Todos')),
-                NavigationRailDestination(
-                    icon: Icon(Icons.all_inclusive_outlined),
-                    label: Text('Lanche')),
-                NavigationRailDestination(
-                    icon: Icon(Icons.cabin), label: Text('Bebida')),
-                NavigationRailDestination(
-                    icon: Icon(Icons.food_bank), label: Text('Combo')),
-                NavigationRailDestination(
-                    icon: Icon(Icons.food_bank), label: Text('Sobremesa')),
+          NavigationRail(
+            leading: Column(
+              children: [
+                SizedBox(height: 40),
+                Icon(Icons.accessibility_new_outlined),
+                SizedBox(height: 30),
               ],
             ),
+            useIndicator: true,
+            extended: true,
+            minExtendedWidth: 170,
+            onDestinationSelected: (int index) {
+              setState(() {
+                _selectedIndex = index;
+              });
+            },
+            selectedIndex: _selectedIndex,
+            destinations: const <NavigationRailDestination>[
+              NavigationRailDestination(
+                  icon: Icon(Icons.food_bank), label: Text('Lanche')),
+              NavigationRailDestination(
+                  icon: Icon(Icons.all_inclusive_outlined),
+                  label: Text('Bebida')),
+              NavigationRailDestination(
+                  icon: Icon(Icons.cabin), label: Text('Combo')),
+              NavigationRailDestination(
+                  icon: Icon(Icons.food_bank), label: Text('Sobremesa')),
+              NavigationRailDestination(
+                  icon: Icon(Icons.food_bank), label: Text('Todos')),
+            ],
+          ),
           Expanded(child: _screens[_selectedIndex]),
         ],
       ),

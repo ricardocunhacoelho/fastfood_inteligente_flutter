@@ -7,11 +7,12 @@ Widget paginaProdutos(String pagina, ConfiguracoesProdutoEstados produtostate,
         bool habilitar, Ordem ordemInicial) =>
     Container(
       child: Column(children: [
-        SizedBox(height: 30),
+        SizedBox(height: 40),
         Text(
           pagina.toUpperCase(),
+          style: TextStyle(fontSize: 20),
         ),
-        SizedBox(height: 25),
+        SizedBox(height: 30),
         if (produtostate is CarregandoConfiguracoesProdutoEstados)
           Center(child: CircularProgressIndicator()),
         if (produtostate is CompletoConfiguracoesProdutoEstados)
@@ -62,7 +63,7 @@ Widget paginaProdutos(String pagina, ConfiguracoesProdutoEstados produtostate,
                     return ListTile(
                       minLeadingWidth: 15,
                       horizontalTitleGap: 18,
-                      contentPadding: EdgeInsets.all(10),
+                      contentPadding: EdgeInsets.all(30),
                       trailing: Container(
                         alignment: Alignment.centerRight,
                         width: 150,
@@ -98,5 +99,9 @@ Widget paginaProdutos(String pagina, ConfiguracoesProdutoEstados produtostate,
               ),
             ),
           ),
+        FloatingActionButton(
+          onPressed: () {},
+          child: Text('Finalizar'),
+        ),
       ]),
     );
