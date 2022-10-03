@@ -63,7 +63,9 @@ class _FinalizarPedidoDialogComponenteState
               if (produtostate is CompletoConfiguracoesProdutoEstados)
                 Container(
                   width: MediaQuery.of(context).size.width * 0.9,
-                  height: MediaQuery.of(context).size.width * 0.6,
+                  height: MediaQuery.of(context).size.width < 640
+                      ? MediaQuery.of(context).size.width * 0.6
+                      : MediaQuery.of(context).size.width * 0.2,
                   child: ListView.builder(
                       itemCount: produtostate.lista.length,
                       itemBuilder: (context, index) {
