@@ -12,7 +12,7 @@ Widget paginaProdutos(String pagina, ConfiguracoesProdutoEstados produtostate,
           pagina.toUpperCase(),
           style: TextStyle(fontSize: 20),
         ),
-        SizedBox(height: 15),
+        SizedBox(height: 20),
         if (produtostate is CarregandoConfiguracoesProdutoEstados)
           Center(child: CircularProgressIndicator()),
         if (produtostate is CompletoConfiguracoesProdutoEstados)
@@ -29,8 +29,9 @@ Widget paginaProdutos(String pagina, ConfiguracoesProdutoEstados produtostate,
                     final produto = produtostate.lista[index];
                     if (pagina.toLowerCase() == 'todos') {
                       return ListTile(
+                        hoverColor: Colors.black12,
                         horizontalTitleGap: 18,
-                        contentPadding: EdgeInsets.all(5),
+                        contentPadding: EdgeInsets.all(18),
                         trailing: Container(
                           alignment: Alignment.centerRight,
                           width: 150,
@@ -38,9 +39,9 @@ Widget paginaProdutos(String pagina, ConfiguracoesProdutoEstados produtostate,
                         ),
                         leading: Image.asset(
                           'assets/${produto.imagem}',
-                          height: 80,
-                          width: 80,
-                          fit: BoxFit.fitWidth,
+                          height: 100,
+                          width: 100,
+                          fit: BoxFit.contain,
                         ),
                         subtitle: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -64,7 +65,7 @@ Widget paginaProdutos(String pagina, ConfiguracoesProdutoEstados produtostate,
                       return ListTile(
                         minLeadingWidth: 15,
                         horizontalTitleGap: 18,
-                        contentPadding: EdgeInsets.all(30),
+                        contentPadding: EdgeInsets.all(18),
                         trailing: Container(
                           alignment: Alignment.centerRight,
                           width: 150,
@@ -72,9 +73,9 @@ Widget paginaProdutos(String pagina, ConfiguracoesProdutoEstados produtostate,
                         ),
                         leading: Image.asset(
                           'assets/${produto.imagem}',
-                          height: 80,
-                          width: 80,
-                          fit: BoxFit.fitWidth,
+                          height: 100,
+                          width: 100,
+                          fit: BoxFit.contain,
                         ),
                         subtitle: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -101,17 +102,6 @@ Widget paginaProdutos(String pagina, ConfiguracoesProdutoEstados produtostate,
               ),
             ),
           ),
-        // Padding(
-        //   padding: const EdgeInsets.only(bottom: 20.0, top: 15.0),
-        //   child: Container(
-        //     width: 80,
-        //     height: 80,
-        //     child: FloatingActionButton(
-        //       onPressed: () {},
-        //       child: Icon(Icons.check),
-        //     ),
-        //   ),
-        // ),
-        SizedBox(height: 15)
+        SizedBox(height: 20)
       ]),
     );
