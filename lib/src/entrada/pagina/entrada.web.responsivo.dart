@@ -1,5 +1,6 @@
 import 'package:fastfood_inteligente_flutter/src/configuracoes/bloc/configuracoes.produto.bloc.dart';
 import 'package:fastfood_inteligente_flutter/src/entrada/bloc/entrada.bloc.dart';
+import 'package:fastfood_inteligente_flutter/src/entrada/componentes/caixa.recomecar.valor.finalizar.componente.web.dart';
 import 'package:fastfood_inteligente_flutter/src/entrada/componentes/finalizar.botao.componente.dart';
 import 'package:fastfood_inteligente_flutter/src/entrada/componentes/finalizarpedido.dialog.componente.dart';
 import 'package:fastfood_inteligente_flutter/src/entrada/componentes/pagina.produtos.dart';
@@ -97,6 +98,27 @@ class _EntradaWebResponsivoState extends State<EntradaWebResponsivo> {
               NavigationRailDestination(
                   icon: Icon(Icons.food_bank), label: Text('Todos')),
             ],
+            trailing: Expanded(
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: Container(
+                  padding: const EdgeInsets.only(bottom: 20.0),
+                  child: CaixaValorRecomecarFinalizarRecepcaoWeb(),
+                ),
+              ),
+            ),
+            //   SingleChildScrollView(
+            //     child: Column(
+            //       mainAxisAlignment: MainAxisAlignment.end,
+            //       mainAxisSize: MainAxisSize.max,
+            //       children: [
+            //         Container(
+            //             color: Colors.amber,
+            //             child: CaixaValorRecomecarFinalizarRecepcaoWeb()),
+            //       ],
+            //     ),
+            //   ),
+            // ),
           ),
           Expanded(child: _screens[_selectedIndex]),
         ],

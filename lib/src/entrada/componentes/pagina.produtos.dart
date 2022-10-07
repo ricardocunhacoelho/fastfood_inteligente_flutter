@@ -29,7 +29,6 @@ Widget paginaProdutos(String pagina, ConfiguracoesProdutoEstados produtostate,
                     final produto = produtostate.lista[index];
                     if (pagina.toLowerCase() == 'todos') {
                       return ListTile(
-                        hoverColor: Colors.black12,
                         horizontalTitleGap: 18,
                         contentPadding: EdgeInsets.all(18),
                         trailing: Container(

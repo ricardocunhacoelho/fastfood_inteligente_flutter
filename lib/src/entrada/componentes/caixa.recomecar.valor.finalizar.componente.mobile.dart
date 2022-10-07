@@ -1,8 +1,10 @@
 import 'package:fastfood_inteligente_flutter/src/chapas/dominio/objetosdevalor/ordem.objeto.dart';
 import 'package:fastfood_inteligente_flutter/src/configuracoes/bloc/configuracoes.produto.bloc.dart';
 import 'package:fastfood_inteligente_flutter/src/entrada/bloc/entrada.bloc.dart';
+import 'package:fastfood_inteligente_flutter/src/entrada/componentes/finalizar.botao.componente.dart';
 import 'package:fastfood_inteligente_flutter/src/entrada/componentes/finalizarpedido.dialog.componente.dart';
 import 'package:fastfood_inteligente_flutter/src/entrada/componentes/mostrarpreco.entrada.componente.dart';
+import 'package:fastfood_inteligente_flutter/src/entrada/componentes/recomecar.botao.componente.dart';
 import 'package:fastfood_inteligente_flutter/src/entrada/componentes/recomecar.dialog.componente.dart';
 import 'package:fastfood_inteligente_flutter/src/entrada/estados/entrada.estados.dart';
 import 'package:fastfood_inteligente_flutter/src/entrada/modelo/entrada.ordem.model.dart';
@@ -12,20 +14,19 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:provider/provider.dart';
 
-class RecomecarBotao extends StatefulWidget {
-  final double largura;
-  final double altura;
-
-  const RecomecarBotao({Key? key, required this.largura, required this.altura})
+class CaixaValorRecomecarFinalizarRecepcaoMobile extends StatefulWidget {
+  const CaixaValorRecomecarFinalizarRecepcaoMobile({Key? key})
       : super(key: key);
 
   @override
-  State<RecomecarBotao> createState() => _RecomecarBotaoState();
+  State<CaixaValorRecomecarFinalizarRecepcaoMobile> createState() =>
+      _CaixaValorRecomecarFinalizarRecepcaoMobileState();
 }
 
 bool habilitar = false;
 
-class _RecomecarBotaoState extends State<RecomecarBotao> {
+class _CaixaValorRecomecarFinalizarRecepcaoMobileState
+    extends State<CaixaValorRecomecarFinalizarRecepcaoMobile> {
   Ordem ordemInicial = Ordem(
       produtos: [],
       embalarParaViajem: false,
@@ -59,34 +60,51 @@ class _RecomecarBotaoState extends State<RecomecarBotao> {
       });
     }
 
+    if (habilitar) {
+      setState(() {
+        tamanho = 108;
+      });
+    } else {
+      setState(() {
+        tamanho = 90;
+      });
+    }
     return Container(
-      margin: EdgeInsets.all(15),
-      width: widget.largura,
-      height: widget.altura,
-      decoration: BoxDecoration(
-        color: habilitar ? Colors.blue : Colors.black12,
-        borderRadius: BorderRadius.all(
-          Radius.circular(5),
-        ),
-      ),
-      child: TextButton(
-          onPressed: () {
-            showDialog(
-                context: context,
-                builder: (_) {
-                  return RecomecarDialogComponente();
-                });
-
-            setState(() {
-              valor;
-            });
-          },
-          child: const Center(
-            child: Text(
-              'Recomeçar',
-              style: TextStyle(color: Colors.white, fontSize: 10),
+      width: double.infinity,
+      color: Colors.black12,
+      height: tamanho,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          Padding(
+            padding: EdgeInsets.all(
+              15,
             ),
-          )),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Row(
+                  children: [
+                    Container(
+                      child: const Text(
+                        "TOTAL",
+                        textAlign: TextAlign.start,
+                        style: TextStyle(
+                            color: Color.fromARGB(255, 230, 225, 225)),
+                      ),
+                    ),
+                    if (habilitar)
+                      const RecomecarBotao(largura: 100, altura: 25),
+                  ],
+                ),
+                const MostrarPrecoEntrada(),
+              ],
+            ),
+          ),
+          const FinalizarBotao(largura: 160, altura: 50)
+        ],
+      ),
     );
   }
 }

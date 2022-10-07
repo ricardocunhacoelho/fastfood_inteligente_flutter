@@ -41,6 +41,7 @@ class _MostrarPrecoEntradaState extends State<MostrarPrecoEntrada> {
       style: const TextStyle(
         fontSize: 18,
         fontWeight: FontWeight.bold,
+        color: Color.fromARGB(255, 245, 241, 241),
       ),
     );
   }
