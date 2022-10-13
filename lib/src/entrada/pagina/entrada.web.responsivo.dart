@@ -69,11 +69,24 @@ class _EntradaWebResponsivoState extends State<EntradaWebResponsivo> {
       body: Row(
         children: [
           NavigationRail(
+            selectedLabelTextStyle: const TextStyle(
+              color: Colors.orangeAccent,
+            ),
+            indicatorColor: Colors.orangeAccent,
             leading: Column(
               children: [
-                SizedBox(height: 40),
-                Icon(Icons.accessibility_new_outlined),
-                SizedBox(height: 30),
+                SizedBox(
+                    height:
+                        MediaQuery.of(context).size.height <= 720 ? 15 : 40),
+                Image.asset(
+                  'assets/logo.png',
+                  width: 85,
+                  height: 85,
+                  fit: BoxFit.contain,
+                ),
+                SizedBox(
+                    height:
+                        MediaQuery.of(context).size.height <= 720 ? 15 : 30),
               ],
             ),
             useIndicator: true,
@@ -87,38 +100,55 @@ class _EntradaWebResponsivoState extends State<EntradaWebResponsivo> {
             selectedIndex: _selectedIndex,
             destinations: const <NavigationRailDestination>[
               NavigationRailDestination(
-                  icon: Icon(Icons.food_bank), label: Text('Lanche')),
+                  selectedIcon: ImageIcon(
+                      AssetImage("assets/hamburguericone.png"),
+                      size: 28,
+                      color: Colors.redAccent),
+                  icon: ImageIcon(
+                    AssetImage("assets/hamburguericone.png"),
+                    size: 28,
+                  ),
+                  label: Text('Lanche')),
               NavigationRailDestination(
-                  icon: Icon(Icons.all_inclusive_outlined),
+                  selectedIcon: ImageIcon(AssetImage("assets/bebidasicone.png"),
+                      size: 28, color: Colors.redAccent),
+                  icon: ImageIcon(
+                    AssetImage("assets/bebidasicone.png"),
+                    size: 28,
+                  ),
                   label: Text('Bebida')),
               NavigationRailDestination(
-                  icon: Icon(Icons.cabin), label: Text('Combo')),
+                  selectedIcon: ImageIcon(AssetImage("assets/combosicone.png"),
+                      size: 28, color: Colors.redAccent),
+                  icon: ImageIcon(
+                    AssetImage("assets/combosicone.png"),
+                    size: 28,
+                  ),
+                  label: Text('Combo')),
               NavigationRailDestination(
-                  icon: Icon(Icons.food_bank), label: Text('Sobremesa')),
+                  selectedIcon: ImageIcon(
+                      AssetImage("assets/sobremesaicone.png"),
+                      size: 28,
+                      color: Colors.redAccent),
+                  icon: ImageIcon(
+                    AssetImage("assets/sobremesaicone.png"),
+                    size: 28,
+                  ),
+                  label: Text('Sobremesa')),
               NavigationRailDestination(
-                  icon: Icon(Icons.food_bank), label: Text('Todos')),
+                  selectedIcon: ImageIcon(AssetImage("assets/todosicone.png"),
+                      size: 28, color: Colors.redAccent),
+                  icon: ImageIcon(
+                    AssetImage("assets/todosicone.png"),
+                    size: 28,
+                  ),
+                  label: Text('All in')),
             ],
-            trailing: Expanded(
+            trailing: const Expanded(
               child: Align(
-                alignment: Alignment.bottomCenter,
-                child: Container(
-                  padding: const EdgeInsets.only(bottom: 20.0),
-                  child: CaixaValorRecomecarFinalizarRecepcaoWeb(),
-                ),
-              ),
+                  alignment: Alignment.bottomCenter,
+                  child: CaixaValorRecomecarFinalizarRecepcaoWeb()),
             ),
-            //   SingleChildScrollView(
-            //     child: Column(
-            //       mainAxisAlignment: MainAxisAlignment.end,
-            //       mainAxisSize: MainAxisSize.max,
-            //       children: [
-            //         Container(
-            //             color: Colors.amber,
-            //             child: CaixaValorRecomecarFinalizarRecepcaoWeb()),
-            //       ],
-            //     ),
-            //   ),
-            // ),
           ),
           Expanded(child: _screens[_selectedIndex]),
         ],

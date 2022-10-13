@@ -23,8 +23,6 @@ class FinalizarBotao extends StatefulWidget {
   State<FinalizarBotao> createState() => _FinalizarBotaoState();
 }
 
-bool habilitar = false;
-
 class _FinalizarBotaoState extends State<FinalizarBotao> {
   Ordem ordemInicial = Ordem(
       produtos: [],
@@ -42,6 +40,7 @@ class _FinalizarBotaoState extends State<FinalizarBotao> {
 
   @override
   Widget build(BuildContext context) {
+    bool habilitar = false;
     final produtobloc = context.watch<ConfiguracoesProdutoBloc>();
     final produtostate = produtobloc.state;
     final entradabloc = context.watch<EntradaBloc>();
@@ -75,7 +74,7 @@ class _FinalizarBotaoState extends State<FinalizarBotao> {
       width: 160,
       height: 50,
       decoration: BoxDecoration(
-        color: habilitar ? Colors.blue : Colors.black12,
+        color: habilitar ? Colors.orangeAccent : Colors.black12,
         borderRadius: BorderRadius.all(
           Radius.circular(
             5,

@@ -81,7 +81,9 @@ class _PrecofinalizarState extends State<Precofinalizar> {
                           width: 100,
                           height: 25,
                           decoration: BoxDecoration(
-                            color: habilitar ? Colors.blue : Colors.black12,
+                            color: habilitar
+                                ? Colors.orangeAccent
+                                : Colors.black12,
                             borderRadius: BorderRadius.all(
                               Radius.circular(
                                 5,
@@ -117,7 +119,7 @@ class _PrecofinalizarState extends State<Precofinalizar> {
               width: 160,
               height: 50,
               decoration: BoxDecoration(
-                color: habilitar ? Colors.blue : Colors.black12,
+                color: habilitar ? Colors.orangeAccent : Colors.black12,
                 borderRadius: BorderRadius.all(
                   Radius.circular(
                     5,
@@ -165,7 +167,7 @@ class _PrecofinalizarState extends State<Precofinalizar> {
               width: 100,
               height: 25,
               decoration: BoxDecoration(
-                color: habilitar ? Colors.blue : Colors.black12,
+                color: habilitar ? Colors.orangeAccent : Colors.black12,
                 borderRadius: BorderRadius.all(
                   Radius.circular(
                     5,

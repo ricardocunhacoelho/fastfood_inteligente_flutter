@@ -18,8 +18,6 @@ class CaixaValorRecomecarFinalizarRecepcaoWeb extends StatefulWidget {
       _CaixaValorRecomecarFinalizarRecepcaoWebState();
 }
 
-bool habilitar = false;
-
 class _CaixaValorRecomecarFinalizarRecepcaoWebState
     extends State<CaixaValorRecomecarFinalizarRecepcaoWeb> {
   Ordem ordemInicial = Ordem(
@@ -38,6 +36,7 @@ class _CaixaValorRecomecarFinalizarRecepcaoWebState
 
   @override
   Widget build(BuildContext context) {
+    bool habilitar = false;
     final produtobloc = context.watch<ConfiguracoesProdutoBloc>();
     final produtostate = produtobloc.state;
     final entradabloc = context.watch<EntradaBloc>();
@@ -55,24 +54,30 @@ class _CaixaValorRecomecarFinalizarRecepcaoWebState
       });
     }
 
-    return Padding(
-      padding: EdgeInsets.all(10),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          SizedBox(height: 25),
-          Container(
-            child: const Text(
-              "TOTAL",
-              textAlign: TextAlign.start,
-              style: TextStyle(
-                  fontSize: 20, color: Color.fromARGB(255, 241, 237, 237)),
+    return Container(
+      alignment: Alignment.bottomCenter,
+      child: Padding(
+        padding: habilitar
+            ? EdgeInsets.only(left: 10, right: 10)
+            : EdgeInsets.all(10),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: <Widget>[
+            if (MediaQuery.of(context).size.height > 720) SizedBox(height: 25),
+            SizedBox(height: habilitar ? 10 : 25),
+            Container(
+              child: const Text(
+                "TOTAL",
+                textAlign: TextAlign.start,
+                style: TextStyle(
+                    fontSize: 20, color: Color.fromARGB(255, 241, 237, 237)),
+              ),
             ),
-          ),
-          SizedBox(height: 15),
-          const MostrarPrecoEntrada(),
-          if (habilitar) const RecomecarBotao(largura: 100, altura: 25),
-        ],
+            SizedBox(height: 15),
+            const MostrarPrecoEntrada(),
+            if (habilitar) const RecomecarBotao(largura: 100, altura: 25),
+          ],
+        ),
       ),
     );
   }

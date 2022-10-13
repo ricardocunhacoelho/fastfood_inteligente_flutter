@@ -64,7 +64,7 @@ class _RecomecarBotaoState extends State<RecomecarBotao> {
       width: widget.largura,
       height: widget.altura,
       decoration: BoxDecoration(
-        color: habilitar ? Colors.blue : Colors.black12,
+        color: habilitar ? Colors.orangeAccent : Colors.black12,
         borderRadius: BorderRadius.all(
           Radius.circular(5),
         ),

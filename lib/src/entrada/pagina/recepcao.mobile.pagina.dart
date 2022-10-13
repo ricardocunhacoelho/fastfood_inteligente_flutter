@@ -1,13 +1,12 @@
 import 'package:fastfood_inteligente_flutter/src/chapas/dominio/objetosdevalor/ordem.objeto.dart';
-import 'package:fastfood_inteligente_flutter/src/configuracoes/bloc/configuracoes.chapa.bloc.dart';
 import 'package:fastfood_inteligente_flutter/src/configuracoes/bloc/configuracoes.produto.bloc.dart';
 import 'package:fastfood_inteligente_flutter/src/configuracoes/estados/configuracoes.produto.estados.dart';
-import 'package:fastfood_inteligente_flutter/src/configuracoes/eventos/configuracoes.chapa.eventos.dart';
-import 'package:fastfood_inteligente_flutter/src/configuracoes/eventos/configuracoes.produto.eventos.dart';
 import 'package:fastfood_inteligente_flutter/src/entrada/bloc/entrada.bloc.dart';
 import 'package:fastfood_inteligente_flutter/src/entrada/componentes/contadorquantidade.entrada.componente.dart';
+import 'package:fastfood_inteligente_flutter/src/entrada/componentes/finalizar.botao.componente.dart';
 import 'package:fastfood_inteligente_flutter/src/entrada/componentes/finalizarpedido.dialog.componente.dart';
 import 'package:fastfood_inteligente_flutter/src/entrada/componentes/mostrarpreco.entrada.componente.dart';
+import 'package:fastfood_inteligente_flutter/src/entrada/componentes/recomecar.botao.componente.dart';
 import 'package:fastfood_inteligente_flutter/src/entrada/componentes/recomecar.dialog.componente.dart';
 import 'package:fastfood_inteligente_flutter/src/entrada/estados/entrada.estados.dart';
 import 'package:fastfood_inteligente_flutter/src/entrada/modelo/entrada.ordem.model.dart';
@@ -127,77 +126,14 @@ class _RecepcaoMobileState extends State<RecepcaoMobile> {
                               ),
                             ),
                             if (habilitar)
-                              Container(
-                                margin: EdgeInsets.all(
-                                  15,
-                                ),
-                                width: 100,
-                                height: 25,
-                                decoration: BoxDecoration(
-                                  color:
-                                      habilitar ? Colors.blue : Colors.black12,
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(
-                                      5,
-                                    ),
-                                  ),
-                                ),
-                                child: TextButton(
-                                    onPressed: () {
-                                      showDialog(
-                                          context: context,
-                                          builder: (_) {
-                                            return RecomecarDialogComponente();
-                                          });
-                                    },
-                                    child: Center(
-                                      child: Text(
-                                        'Recomeçar',
-                                        style: TextStyle(
-                                            color: Colors.white, fontSize: 10),
-                                      ),
-                                    )),
-                              ),
+                              RecomecarBotao(largura: 100, altura: 25),
                           ],
                         ),
                         Container(child: MostrarPrecoEntrada()),
                       ],
                     ),
                   ),
-                  Container(
-                    margin: EdgeInsets.all(
-                      15,
-                    ),
-                    width: 160,
-                    height: 50,
-                    decoration: BoxDecoration(
-                      color: habilitar ? Colors.blue : Colors.black12,
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(
-                          5,
-                        ),
-                      ),
-                    ),
-                    child: TextButton(
-                      style: TextButton.styleFrom(minimumSize: Size.infinite),
-                      onPressed: habilitar
-                          ? () {
-                              showDialog(
-                                  context: context,
-                                  builder: (_) {
-                                    return FinalizarPedidoDialogComponente(
-                                        ordemInicial);
-                                  });
-                            }
-                          : null,
-                      child: Text(
-                        "Finalizar",
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ),
+                  FinalizarBotao(largura: 160, altura: 50),
                 ],
               ),
             ),

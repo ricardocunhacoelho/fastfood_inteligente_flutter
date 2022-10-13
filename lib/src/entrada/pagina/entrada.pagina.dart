@@ -28,7 +28,8 @@ class EntradaPagina extends StatefulWidget {
 class _EntradaPaginaState extends State<EntradaPagina> {
   @override
   Widget build(BuildContext context) {
-    if (MediaQuery.of(context).size.width >= 640) {
+    if (MediaQuery.of(context).size.width >= 640 &&
+        MediaQuery.of(context).size.width >= 720) {
       return EntradaWebResponsivo();
     } else {
       return RecepcaoMobile();

@@ -30,7 +30,8 @@ Widget paginaProdutos(String pagina, ConfiguracoesProdutoEstados produtostate,
                     if (pagina.toLowerCase() == 'todos') {
                       return ListTile(
                         horizontalTitleGap: 18,
-                        contentPadding: EdgeInsets.all(18),
+                        contentPadding: const EdgeInsets.only(
+                            left: 18, right: 18, top: 20, bottom: 20),
                         trailing: Container(
                           alignment: Alignment.centerRight,
                           width: 150,
@@ -38,8 +39,8 @@ Widget paginaProdutos(String pagina, ConfiguracoesProdutoEstados produtostate,
                         ),
                         leading: Image.asset(
                           'assets/${produto.imagem}',
-                          height: 100,
-                          width: 100,
+                          height: 160,
+                          width: 160,
                           fit: BoxFit.contain,
                         ),
                         subtitle: Column(
@@ -64,7 +65,8 @@ Widget paginaProdutos(String pagina, ConfiguracoesProdutoEstados produtostate,
                       return ListTile(
                         minLeadingWidth: 15,
                         horizontalTitleGap: 18,
-                        contentPadding: EdgeInsets.all(18),
+                        contentPadding: EdgeInsets.only(
+                            left: 18, right: 18, top: 20, bottom: 20),
                         trailing: Container(
                           alignment: Alignment.centerRight,
                           width: 150,
@@ -72,8 +74,8 @@ Widget paginaProdutos(String pagina, ConfiguracoesProdutoEstados produtostate,
                         ),
                         leading: Image.asset(
                           'assets/${produto.imagem}',
-                          height: 100,
-                          width: 100,
+                          height: 160,
+                          width: 160,
                           fit: BoxFit.contain,
                         ),
                         subtitle: Column(
@@ -101,6 +103,6 @@ Widget paginaProdutos(String pagina, ConfiguracoesProdutoEstados produtostate,
               ),
             ),
           ),
-        SizedBox(height: 20)
+        SizedBox(height: 15)
       ]),
     );

@@ -213,7 +213,7 @@ class _FinalizarPedidoDialogComponenteState
         Padding(
           padding: const EdgeInsets.all(15.0),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Container(
                 color: Colors.black12,
@@ -221,6 +221,7 @@ class _FinalizarPedidoDialogComponenteState
                 height: 50,
                 child: TextButton(
                     style: TextButton.styleFrom(
+                      primary: Colors.orangeAccent,
                       minimumSize: Size.infinite,
                     ),
                     onPressed: () {
@@ -228,25 +229,27 @@ class _FinalizarPedidoDialogComponenteState
                     },
                     child: Text('Voltar')),
               ),
+              // Container(
+              //   color: Colors.black12,
+              //   width: 90,
+              //   height: 50,
+              //   child: TextButton(
+              //       style: TextButton.styleFrom(
+              //         primary: Colors.orangeAccent,
+              //         minimumSize: Size.infinite,
+              //       ),
+              //       onPressed: () {
+              //         Navigator.pop(context);
+              //       },
+              //       child: Text('Pagar')),
+              // ),
               Container(
                 color: Colors.black12,
                 width: 90,
                 height: 50,
                 child: TextButton(
                     style: TextButton.styleFrom(
-                      minimumSize: Size.infinite,
-                    ),
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    child: Text('Pagar')),
-              ),
-              Container(
-                color: Colors.black12,
-                width: 90,
-                height: 50,
-                child: TextButton(
-                    style: TextButton.styleFrom(
+                      primary: Colors.orangeAccent,
                       minimumSize: Size.infinite,
                     ),
                     onPressed: () {

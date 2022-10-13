@@ -103,6 +103,12 @@ flutter:
   # see https://flutter.dev/custom-fonts/#from-packages
   assets:
     - assets/product-7.png
+    - assets/logo.png
+    - assets/sobremesaicone.png
+    - assets/bebidasicone.png
+    - assets/combosicone.png
+    - assets/todosicone.png
+    - assets/hamburguericone.png
     - assets/bacon_burguer.png
     - assets/bifeenuget.png
     - assets/burguersaladaesoja.png
