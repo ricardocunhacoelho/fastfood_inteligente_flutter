@@ -3,8 +3,11 @@ import 'package:fastfood_inteligente_flutter/src/configuracoes/estados/configura
 import 'package:fastfood_inteligente_flutter/src/entrada/componentes/contadorquantidade.entrada.componente.dart';
 import 'package:flutter/material.dart';
 
-Widget paginaProdutos(String pagina, ConfiguracoesProdutoEstados produtostate,
-        bool habilitar, Ordem ordemInicial) =>
+Widget listaProdutosRecepcaoWeb(
+        String pagina,
+        ConfiguracoesProdutoEstados produtostate,
+        bool habilitar,
+        Ordem ordemInicial) =>
     Container(
       child: Column(children: [
         SizedBox(height: 40),
@@ -30,7 +33,7 @@ Widget paginaProdutos(String pagina, ConfiguracoesProdutoEstados produtostate,
                     if (pagina.toLowerCase() == 'todos') {
                       return ListTile(
                         horizontalTitleGap: 18,
-                        contentPadding: const EdgeInsets.only(
+                        contentPadding: EdgeInsets.only(
                             left: 18, right: 18, top: 20, bottom: 20),
                         trailing: Container(
                           alignment: Alignment.centerRight,

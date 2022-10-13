@@ -3,7 +3,7 @@ import 'package:fastfood_inteligente_flutter/src/entrada/bloc/entrada.bloc.dart'
 import 'package:fastfood_inteligente_flutter/src/entrada/componentes/caixa.recomecar.valor.finalizar.componente.web.dart';
 import 'package:fastfood_inteligente_flutter/src/entrada/componentes/finalizar.botao.componente.dart';
 import 'package:fastfood_inteligente_flutter/src/entrada/componentes/finalizarpedido.dialog.componente.dart';
-import 'package:fastfood_inteligente_flutter/src/entrada/componentes/pagina.produtos.dart';
+import 'package:fastfood_inteligente_flutter/src/entrada/componentes/lista.produtos.recepcao.componente.dart';
 import 'package:fastfood_inteligente_flutter/src/entrada/estados/entrada.estados.dart';
 import 'package:fastfood_inteligente_flutter/src/entrada/modelo/entrada.ordem.model.dart';
 import 'package:fastfood_inteligente_flutter/src/produtos/dominio/casodeuso/checarsefoiadicionadoproduto.casodeuso.dart';
@@ -56,11 +56,12 @@ class _EntradaWebResponsivoState extends State<EntradaWebResponsivo> {
     }
 
     final List<Widget> _screens = [
-      paginaProdutos('lanche', produtostate, habilitar, ordemInicial),
-      paginaProdutos('bebida', produtostate, habilitar, ordemInicial),
-      paginaProdutos('combo', produtostate, habilitar, ordemInicial),
-      paginaProdutos('sobremesa', produtostate, habilitar, ordemInicial),
-      paginaProdutos('todos', produtostate, habilitar, ordemInicial),
+      listaProdutosRecepcaoWeb('lanche', produtostate, habilitar, ordemInicial),
+      listaProdutosRecepcaoWeb('bebida', produtostate, habilitar, ordemInicial),
+      listaProdutosRecepcaoWeb('combo', produtostate, habilitar, ordemInicial),
+      listaProdutosRecepcaoWeb(
+          'sobremesa', produtostate, habilitar, ordemInicial),
+      listaProdutosRecepcaoWeb('todos', produtostate, habilitar, ordemInicial),
     ];
     return Scaffold(
       // appBar: AppBar(
