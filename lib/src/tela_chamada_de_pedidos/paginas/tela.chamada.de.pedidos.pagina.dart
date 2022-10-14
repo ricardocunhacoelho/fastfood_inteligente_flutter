@@ -19,6 +19,7 @@ class _TelaChamadaDePedidosPageState extends State<TelaChamadaDePedidosPage> {
   var listaOrdensFeito = [];
   List todasChapas = [];
   bool clicado = false;
+  double tamanhoSendoFeito = 150;
   double tamanho = 150;
   double tamanhobox = 200;
   double tamanhoboxyellow = 0;
@@ -62,17 +63,31 @@ class _TelaChamadaDePedidosPageState extends State<TelaChamadaDePedidosPage> {
         });
       });
     }
-    if (listaOrdensFeito.length >= 1) {
+    if (listaOrdensFeito.isNotEmpty) {
       tamanhoboxyellow = 200;
       tamanhoLetraPedidosAguardando = 13;
       tamanho = 75;
       tamanhopadding = 15;
       print('valor de tamanho é ${tamanho}');
-    } else if (listaOrdensFeito.length <= 0) {
+    } else if (listaOrdensFeito.isEmpty) {
       tamanhoboxyellow = 0;
       tamanhoLetraPedidosAguardando = 10;
       tamanho = 150;
       tamanhopadding = 40;
+    }
+
+    if (listaOrdensAtendendo.isNotEmpty) {
+      tamanhoboxyellow = 200;
+      tamanhoLetraPedidosAguardando = 13;
+      tamanhoSendoFeito = 75;
+      tamanhopadding = 15;
+      print('valor de tamanho é ${tamanho}');
+    } else if (listaOrdensAtendendo.isEmpty) {
+      tamanhoboxyellow = 0;
+      tamanhoLetraPedidosAguardando = 10;
+      tamanho = 150;
+      tamanhopadding = 40;
+      tamanhoSendoFeito = 0;
     }
 
     return Scaffold(
@@ -130,7 +145,7 @@ class _TelaChamadaDePedidosPageState extends State<TelaChamadaDePedidosPage> {
           duration: Duration(seconds: 2),
           color: Colors.black12,
           width: double.infinity,
-          height: tamanho * 2.5,
+          height: tamanhoSendoFeito * 2.5,
           curve: Curves.easeOutExpo,
           child: Padding(
             padding: EdgeInsets.all(tamanhopadding),
@@ -142,12 +157,12 @@ class _TelaChamadaDePedidosPageState extends State<TelaChamadaDePedidosPage> {
                   SizedBox(height: 5),
                   AnimatedContainer(
                     duration: Duration(seconds: 2),
-                    height: tamanho * 0.12,
+                    height: tamanhoSendoFeito * 0.12,
                     curve: Curves.easeOutExpo,
                   ),
                   Container(
                       width: MediaQuery.of(context).size.width * 0.9,
-                      height: tamanho * 1.5,
+                      height: tamanhoSendoFeito * 1.5,
                       child: ListView.builder(
                         scrollDirection: Axis.horizontal,
                         itemCount: listaOrdensAtendendo.length,
@@ -158,8 +173,8 @@ class _TelaChamadaDePedidosPageState extends State<TelaChamadaDePedidosPage> {
                             child: AnimatedContainer(
                               duration: Duration(seconds: 2),
                               color: Colors.amber,
-                              width: tamanho * 1.3,
-                              height: tamanho * 1.3,
+                              width: tamanhoSendoFeito * 1.3,
+                              height: tamanhoSendoFeito * 1.3,
                               curve: Curves.easeOutExpo,
                               child: Center(child: Text('Pedido ${ordemNow}')),
                             ),

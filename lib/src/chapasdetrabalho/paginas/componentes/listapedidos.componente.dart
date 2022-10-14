@@ -28,14 +28,13 @@ class _ListaPedidosComponenteState extends State<ListaPedidosComponente> {
   List todasSolicitacoes = [];
   List listChapas = [];
   var todasSolicitacoesCancelamento = [];
-  bool repetida = false;
   var solicitacao = ChapasDeTrabalhoSolicitacoesModelo.empty();
   SolicitacaoCancelamentoPedidoObjeto solicitacaoPresente =
       ChapasDeTrabalhoSolicitacoesModelo.empty();
   @override
   Widget build(BuildContext context) {
+    MainAxisAlignment alinhamento = MainAxisAlignment.spaceBetween;
     ChapaEntidade chapa = ConfiguracoesChapaModelo.empty();
-    bool repetida = false;
     var todasSolicitacoesCancelamento = [];
     final chapaTrabalhoBloc = context.watch<ChapaDeTrabalhoBloc>();
     final chapaTrabalhoestado = chapaTrabalhoBloc.state;
@@ -78,83 +77,93 @@ class _ListaPedidosComponenteState extends State<ListaPedidosComponente> {
                   Container(
                     height: 100,
                     color: Colors.black38,
-                    child: ListTile(
-                      title: Padding(
-                        padding: const EdgeInsets.only(
-                            right: 10, top: 15, bottom: 15),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
-                              children: [
-                                Text('Pedido'),
-                                SizedBox(height: 10),
-                                Text('${ordem.id}')
-                              ],
-                            ),
-                            SizedBox(width: 17),
-                            Column(
-                              children: [
-                                Text('Status'),
-                                SizedBox(height: 10),
-                                Text('${ordem.estado.name}')
-                              ],
-                            ),
-                            SizedBox(width: 30),
-                            if (!isaSolicitacao)
+                    child: Center(
+                      child: ListTile(
+                        trailing: Container(
+                          height: double.infinity,
+                          width: 160,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              if (!isaSolicitacao)
+                                IconButton(
+                                    onPressed: () async {
+                                      showDialog(
+                                          context: context,
+                                          builder: (_) {
+                                            return RequisitarDeletarPedidoDialogComponente(
+                                                solicitacao,
+                                                chapa,
+                                                ordem,
+                                                index);
+                                          });
+                                    },
+                                    icon: const Icon(
+                                        Icons.restore_from_trash_rounded)),
+                              if (!isaSolicitacao)
+                                IconButton(
+                                    onPressed: () {
+                                      context.read<ChapaDeTrabalhoBloc>().add(
+                                          AtualizarEstadoPedidoChapaDeTrabalhoEventos(
+                                              'atendendo', index, chapa));
+                                    },
+                                    icon: const Icon(Icons.check_box)),
+                              if (isaSolicitacao)
+                                IconButton(
+                                    color: Colors.orangeAccent,
+                                    onPressed: () async {
+                                      showDialog(
+                                          context: context,
+                                          builder: (_) {
+                                            return RequisitarDeletarPedidoDialogComponente(
+                                                solicitacao,
+                                                chapa,
+                                                ordem,
+                                                index);
+                                          });
+                                    },
+                                    icon: const Icon(
+                                        Icons.notification_important)),
                               IconButton(
-                                  onPressed: () async {
+                                  onPressed: () {
                                     showDialog(
                                         context: context,
                                         builder: (_) {
-                                          return RequisitarDeletarPedidoDialogComponente(
-                                              solicitacao, chapa, ordem, index);
+                                          return DetalhesPedidoDialogComponente(
+                                              ordem);
                                         });
                                   },
-                                  icon: const Icon(
-                                      Icons.restore_from_trash_rounded)),
-                            IconButton(
-                                onPressed: () {
-                                  context.read<ChapaDeTrabalhoBloc>().add(
-                                      AtualizarEstadoPedidoChapaDeTrabalhoEventos(
-                                          'atendendo', index, chapa));
-                                },
-                                icon: const Icon(
-                                  Icons.check_box,
-                                  // color: Colors.lightGreen,
-                                )),
-                            if (isaSolicitacao)
-                              IconButton(
-                                  color: Colors.orangeAccent,
-                                  onPressed: () async {
-                                    showDialog(
-                                        context: context,
-                                        builder: (_) {
-                                          return RequisitarDeletarPedidoDialogComponente(
-                                              solicitacao, chapa, ordem, index);
-                                        });
-                                  },
-                                  icon:
-                                      const Icon(Icons.notification_important)),
-
-                            IconButton(
-                                onPressed: () {
-                                  showDialog(
-                                      context: context,
-                                      builder: (_) {
-                                        return DetalhesPedidoDialogComponente(
-                                            ordem);
-                                      });
-                                },
-                                icon: const Icon(Icons.library_books)),
-
-                            // Icon(Icons.check_box),
-                            // Icon(Icons.check_box),
-                            // Icon(Icons.check_box),
-                          ],
+                                  icon: const Icon(Icons.library_books)),
+                            ],
+                          ),
+                        ),
+                        title: Container(
+                          alignment: Alignment.center,
+                          width: 70,
+                          child: Row(
+                            children: [
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  const Text('Pedido'),
+                                  const SizedBox(height: 10),
+                                  Text(ordem.id)
+                                ],
+                              ),
+                              const SizedBox(width: 20),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  const Text('Status'),
+                                  const SizedBox(height: 10),
+                                  Text(ordem.estado.name)
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                      subtitle: Row(),
                     ),
                   ),
                   const SizedBox(height: 25),
@@ -227,10 +236,6 @@ class _ListaPedidosComponenteState extends State<ListaPedidosComponente> {
                                       });
                                 },
                                 icon: const Icon(Icons.library_books)),
-
-                            // Icon(Icons.check_box),
-                            // Icon(Icons.check_box),
-                            // Icon(Icons.check_box),
                           ],
                         ),
                       ),

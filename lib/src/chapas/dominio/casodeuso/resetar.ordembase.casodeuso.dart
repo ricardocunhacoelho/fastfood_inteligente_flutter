@@ -1,6 +1,5 @@
-import 'package:fastfood_inteligente_flutter/src/chapas/dominio/casodeuso/atualizarordembase.casodeuso.dart';
 import 'package:fastfood_inteligente_flutter/src/chapas/dominio/irepositorio/ichapa.repositorio.dart';
-import 'package:fastfood_inteligente_flutter/src/entrada/modelo/entrada.ordem.model.dart';
+import 'package:fastfood_inteligente_flutter/src/recepcao/modelo/entrada.ordem.model.dart';
 
 abstract class IResetarOrdemBase {
   Future<void> call();

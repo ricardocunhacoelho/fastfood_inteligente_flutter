@@ -8,11 +8,11 @@ import 'package:fastfood_inteligente_flutter/src/chapas/dominio/casodeuso/geraro
 import 'package:fastfood_inteligente_flutter/src/chapas/dominio/casodeuso/quantia.de.ordens.em.cada.chapa.casodeuso.dart';
 import 'package:fastfood_inteligente_flutter/src/chapas/dominio/casodeuso/resetar.ordembase.casodeuso.dart';
 import 'package:fastfood_inteligente_flutter/src/chapas/dominio/objetosdevalor/ordem.objeto.dart';
-import 'package:fastfood_inteligente_flutter/src/entrada/estados/entrada.estados.dart';
-import 'package:fastfood_inteligente_flutter/src/entrada/eventos/entrada.eventos.dart';
 import 'package:fastfood_inteligente_flutter/src/produtos/dominio/casodeuso/adicionarquantidade.casodeuso.dart';
 import 'package:fastfood_inteligente_flutter/src/produtos/dominio/casodeuso/resetar.produtos.receberam.incremento.quantidade.casodeuso.dart';
 import 'package:fastfood_inteligente_flutter/src/produtos/dominio/casodeuso/subtrairquantidade.casodeuso.dart';
+import 'package:fastfood_inteligente_flutter/src/recepcao/estados/entrada.estados.dart';
+import 'package:fastfood_inteligente_flutter/src/recepcao/eventos/entrada.eventos.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class EntradaBloc extends Bloc<EntradaEventos, EntradaEstados> {

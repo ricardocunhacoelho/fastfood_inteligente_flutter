@@ -1,3 +1,5 @@
+import 'package:fastfood_inteligente_flutter/src/recepcao/bloc/entrada.bloc.dart';
+import 'package:fastfood_inteligente_flutter/src/recepcao/eventos/entrada.eventos.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -7,8 +9,6 @@ import '../../configuracoes/bloc/configuracoes.chapa.bloc.dart';
 import '../../configuracoes/bloc/configuracoes.produto.bloc.dart';
 import '../../configuracoes/eventos/configuracoes.chapa.eventos.dart';
 import '../../configuracoes/eventos/configuracoes.produto.eventos.dart';
-import '../../entrada/bloc/entrada.bloc.dart';
-import '../../entrada/eventos/entrada.eventos.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -38,7 +38,7 @@ class _HomePageState extends State<HomePage> with CompleteStateMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('HomePage'),
+        title: const Text('HomePage'),
       ),
       body: Container(
         child: Padding(

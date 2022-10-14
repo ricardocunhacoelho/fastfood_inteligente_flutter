@@ -3,16 +3,17 @@ import 'package:fastfood_inteligente_flutter/src/chapasdetrabalho/paginas/seleci
 import 'package:fastfood_inteligente_flutter/src/configuracoes/configuracoes.chapa.modulos.dart';
 import 'package:fastfood_inteligente_flutter/src/configuracoes/configuracoes.produto.modulos.dart';
 import 'package:fastfood_inteligente_flutter/src/configuracoes/pagina/configuracoes.page.dart';
-import 'package:fastfood_inteligente_flutter/src/entrada/entrada.modulos.dart';
-import 'package:fastfood_inteligente_flutter/src/entrada/pagina/entrada.pagina.dart';
-import 'package:fastfood_inteligente_flutter/src/entrada/pagina/entrada.web.responsivo.dart';
 import 'package:fastfood_inteligente_flutter/src/inicio/pagina/home.page.dart';
 import 'package:fastfood_inteligente_flutter/src/produtos/produtos.modulos.dart';
 import 'package:fastfood_inteligente_flutter/src/chapasdetrabalho/paginas/chapa.pagina.dart';
 import 'package:fastfood_inteligente_flutter/src/chapasdetrabalho/selecao.chapa.modulos.dart';
+import 'package:fastfood_inteligente_flutter/src/recepcao/entrada.modulos.dart';
+import 'package:fastfood_inteligente_flutter/src/recepcao/pagina/entrada.pagina.dart';
 import 'package:fastfood_inteligente_flutter/src/tela_chamada_de_pedidos/paginas/tela.chamada.de.pedidos.pagina.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import 'src/recepcao/pagina/entrada.web.responsivo.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -29,13 +30,13 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         routes: <String, WidgetBuilder>{
-          '/': (_) => HomePage(),
-          ChapaPagina.routeName: (_) => ChapaPagina(),
-          '/config': (_) => ConfiguracoesPage(),
-          '/selecionesuachapa': (_) => SelecioneSuaChapaPagina(),
-          '/entrada': (_) => EntradaPagina(),
-          '/chamadapedidos': (_) => TelaChamadaDePedidosPage(),
-          '/entradachrome': (_) => EntradaWebResponsivo(),
+          '/': (_) => const HomePage(),
+          ChapaPagina.routeName: (_) => const ChapaPagina(),
+          '/config': (_) => const ConfiguracoesPage(),
+          '/selecionesuachapa': (_) => const SelecioneSuaChapaPagina(),
+          '/entrada': (_) => const EntradaPagina(),
+          '/chamadapedidos': (_) => const TelaChamadaDePedidosPage(),
+          '/entradachrome': (_) => const EntradaWebResponsivo(),
         },
         title: 'Flutter Demo',
         theme: ThemeData.dark(),

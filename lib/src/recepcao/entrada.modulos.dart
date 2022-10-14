@@ -1,4 +1,4 @@
-import 'package:fastfood_inteligente_flutter/src/entrada/bloc/entrada.bloc.dart';
+import 'package:fastfood_inteligente_flutter/src/recepcao/bloc/entrada.bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 final entradaModulos = [

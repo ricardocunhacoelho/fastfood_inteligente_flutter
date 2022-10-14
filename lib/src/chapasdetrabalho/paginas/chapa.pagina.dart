@@ -1,22 +1,10 @@
 import 'package:fastfood_inteligente_flutter/src/chapas/dominio/entidade/chapa.entidade.dart';
 import 'package:fastfood_inteligente_flutter/src/chapas/dominio/objetosdevalor/ordem.objeto.dart';
 import 'package:fastfood_inteligente_flutter/src/chapasdetrabalho/bloc/chapadetrabalho.bloc.dart';
-import 'package:fastfood_inteligente_flutter/src/chapasdetrabalho/estados/selecaochapa.estados.dart';
-import 'package:fastfood_inteligente_flutter/src/chapasdetrabalho/eventos/selecaochapa.eventos.dart';
 import 'package:fastfood_inteligente_flutter/src/chapasdetrabalho/paginas/componentes/listapedidos.componente.dart';
 import 'package:fastfood_inteligente_flutter/src/configuracoes/bloc/configuracoes.chapa.bloc.dart';
 import 'package:fastfood_inteligente_flutter/src/configuracoes/bloc/configuracoes.produto.bloc.dart';
-import 'package:fastfood_inteligente_flutter/src/configuracoes/componentes/chapa/adicionar.chapa.dialog.componente.dart';
-import 'package:fastfood_inteligente_flutter/src/configuracoes/componentes/chapa/deletar.chapa.dialog.componente.dart';
-import 'package:fastfood_inteligente_flutter/src/configuracoes/componentes/chapa/editar.chapa.dialog.componente.dart';
-import 'package:fastfood_inteligente_flutter/src/configuracoes/componentes/chapa/ligadeslig.chapa.botao.componente.dart';
-import 'package:fastfood_inteligente_flutter/src/configuracoes/componentes/produto/adicionar.produto.dialog.componente.dart';
-import 'package:fastfood_inteligente_flutter/src/configuracoes/componentes/produto/deletar.produto.dialog.componente.dart';
-import 'package:fastfood_inteligente_flutter/src/configuracoes/componentes/produto/editar.produto.dialog.componente.dart';
 import 'package:fastfood_inteligente_flutter/src/configuracoes/estados/configuracoes.chapa.estados.dart';
-import 'package:fastfood_inteligente_flutter/src/configuracoes/estados/configuracoes.produto.estados.dart';
-import 'package:fastfood_inteligente_flutter/src/configuracoes/eventos/configuracoes.chapa.eventos.dart';
-import 'package:fastfood_inteligente_flutter/src/configuracoes/eventos/configuracoes.produto.eventos.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -42,14 +30,9 @@ class _ChapaPaginaState extends State<ChapaPagina> {
   @override
   Widget build(BuildContext context) {
     final argumentos = ModalRoute.of(context)!.settings.arguments as Argumentos;
-    final produtobloc = context.watch<ConfiguracoesProdutoBloc>();
-    final produtostate = produtobloc.state;
     final chapabloc = context.watch<ConfiguracoesChapaBloc>();
     final chapastate = chapabloc.state;
-    final chapaTrabalhoBloc = context.watch<ChapaDeTrabalhoBloc>();
-    final chapaTrabalhoEstado = chapaTrabalhoBloc.state;
     int numeroDaChapa = argumentos.numeroDaChapa;
-    String titulo = 'Carregando...';
     var chapa = ChapaEntidade(
         estado: EChapaEstado.desligada,
         id: '',
@@ -70,11 +53,9 @@ class _ChapaPaginaState extends State<ChapaPagina> {
           padding: const EdgeInsets.all(10.0),
           child: Column(
             children: [
-              Text('Chapa:'),
-              SizedBox(
-                height: 10,
-              ),
-              Text('${chapa.titulo}')
+              const Text('Chapa:'),
+              const SizedBox(height: 10),
+              Text(chapa.titulo)
             ],
           ),
         ),
@@ -84,8 +65,8 @@ class _ChapaPaginaState extends State<ChapaPagina> {
               padding: const EdgeInsets.all(20.0),
               child: Row(
                 children: [
-                  Text('Pausar :'),
-                  SizedBox(width: 10),
+                  const Text('Pausar :'),
+                  const SizedBox(width: 10),
                   IconButton(
                       onPressed: () {
                         showDialog(
@@ -94,7 +75,7 @@ class _ChapaPaginaState extends State<ChapaPagina> {
                               return PausarVoltarDialogComponente(chapa);
                             });
                       },
-                      icon: Icon(Icons.lock_clock_sharp)),
+                      icon: const Icon(Icons.lock_clock_sharp)),
                 ],
               ),
             ),
@@ -103,8 +84,8 @@ class _ChapaPaginaState extends State<ChapaPagina> {
               padding: const EdgeInsets.all(20.0),
               child: Row(
                 children: [
-                  Text('Voltar :'),
-                  SizedBox(width: 10),
+                  const Text('Voltar :'),
+                  const SizedBox(width: 10),
                   IconButton(
                       onPressed: () {
                         showDialog(
@@ -113,7 +94,7 @@ class _ChapaPaginaState extends State<ChapaPagina> {
                               return PausarVoltarDialogComponente(chapa);
                             });
                       },
-                      icon: Icon(Icons.lock_clock_sharp,
+                      icon: const Icon(Icons.lock_clock_sharp,
                           color: Colors.blueAccent)),
                 ],
               ),

@@ -1,6 +1,6 @@
 import 'package:fastfood_inteligente_flutter/src/configuracoes/modelo/configuracoes.produto.modelo.dart';
-import 'package:fastfood_inteligente_flutter/src/entrada/bloc/entrada.bloc.dart';
-import 'package:fastfood_inteligente_flutter/src/entrada/eventos/entrada.eventos.dart';
+import 'package:fastfood_inteligente_flutter/src/recepcao/bloc/entrada.bloc.dart';
+import 'package:fastfood_inteligente_flutter/src/recepcao/eventos/entrada.eventos.dart';
 import 'package:fastfood_inteligente_flutter/src/produtos/dominio/entidade/produto.entidade.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
