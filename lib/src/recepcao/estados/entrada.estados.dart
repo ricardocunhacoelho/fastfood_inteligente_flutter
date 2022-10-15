@@ -38,3 +38,22 @@ class AtualizarPrecoEntradaEstados implements EntradaEstados {
 
   AtualizarPrecoEntradaEstados(this.precoAtt);
 }
+
+class CarregaListaProdutosAdicionadosPedidoEntradaEstados
+    implements EntradaEstados {
+  final List<ProdutoEntidade> produtos;
+
+  CarregaListaProdutosAdicionadosPedidoEntradaEstados(this.produtos);
+}
+
+class AdicionaProdutoEntradaEstados implements EntradaEstados {
+  final ProdutoEntidade produto;
+
+  AdicionaProdutoEntradaEstados(this.produto);
+}
+
+class SubtraiProdutoEntradaEstados implements EntradaEstados {
+  final ProdutoEntidade produto;
+
+  SubtraiProdutoEntradaEstados(this.produto);
+}

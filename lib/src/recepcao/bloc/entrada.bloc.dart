@@ -58,18 +58,21 @@ class EntradaBloc extends Bloc<EntradaEventos, EntradaEstados> {
         transformer: restartable());
     on<ResetarOrdemBaseEntradaEventos>(_resetarOrdemBaseEntradaEventos,
         transformer: restartable());
+    on<AtualizarListaProdutosAdicionadosPedidoEntradaEventos>(
+        _atualizarListaProdutosAdicionadosPedidoEntradaEventos,
+        transformer: restartable());
   }
 
   Future<void> _adicionarQuantidadeEntradaEventos(
       AdicionarQuantidadeEntradaEventos event,
       Emitter<EntradaEstados> emit) async {
-    await adicionarQuantidadeUsecase.call(event.produto);
+    emit(AdicionaProdutoEntradaEstados(event.produto));
   }
 
   Future<void> _subtrairQuantidadeEntradaEventos(
       SubtrairQuantidadeEntradaEventos event,
       Emitter<EntradaEstados> emit) async {
-    await subtrairQuantidadeUsecase.call(event.produto);
+    emit(SubtraiProdutoEntradaEstados(event.produto));
   }
 
   Future<void> _buscarOrdemBaseEntradaEventos(
@@ -118,5 +121,11 @@ class EntradaBloc extends Bloc<EntradaEventos, EntradaEstados> {
       ResetarOrdemBaseEntradaEventos event,
       Emitter<EntradaEstados> emit) async {
     await resetarOrdemBaseUsecase.call();
+  }
+
+  Future<void> _atualizarListaProdutosAdicionadosPedidoEntradaEventos(
+      AtualizarListaProdutosAdicionadosPedidoEntradaEventos event,
+      Emitter<EntradaEstados> emit) async {
+    emit(CarregaListaProdutosAdicionadosPedidoEntradaEstados(event.produtos));
   }
 }

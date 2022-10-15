@@ -46,3 +46,10 @@ class ResetarProdutosReceberamIncrementoQuantidadeEntradaEventos
     implements EntradaEventos {}
 
 class ResetarOrdemBaseEntradaEventos implements EntradaEventos {}
+
+class AtualizarListaProdutosAdicionadosPedidoEntradaEventos
+    implements EntradaEventos {
+  final List<ProdutoEntidade> produtos;
+
+  AtualizarListaProdutosAdicionadosPedidoEntradaEventos(this.produtos);
+}
