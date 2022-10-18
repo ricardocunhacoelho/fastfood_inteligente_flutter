@@ -1,5 +1,7 @@
 import 'package:fastfood_inteligente_flutter/src/configuracoes/modelo/configuracoes.produto.modelo.dart';
+import 'package:fastfood_inteligente_flutter/src/produtos/modelos/produto.modelo.dart';
 import 'package:fastfood_inteligente_flutter/src/recepcao/bloc/entrada.bloc.dart';
+import 'package:fastfood_inteligente_flutter/src/recepcao/controle/recepcao.controle.dart';
 import 'package:fastfood_inteligente_flutter/src/recepcao/estados/entrada.estados.dart';
 import 'package:fastfood_inteligente_flutter/src/recepcao/eventos/entrada.eventos.dart';
 import 'package:fastfood_inteligente_flutter/src/produtos/dominio/entidade/produto.entidade.dart';
@@ -19,17 +21,16 @@ class ContadorQuantidadeComponente extends StatefulWidget {
 
 class _ContadorQuantidadeComponenteState
     extends State<ContadorQuantidadeComponente> {
+  
+  RecepcaoControle controle = RecepcaoControle();
+
   int index = 0;
-  var produtocriado = ConfiguracoesProdutoModelo.empty();
-  List<ProdutoEntidade> produtos = [];
-  List<String> produtosNomes = [];
+  var produtocriado = ProdutoModelo.empty();
   int contador = 0;
-  int contadorHerdado = 0;
-  bool jaAdd = false;
 
   void initState() {
     super.initState();
-    produtocriado = ConfiguracoesProdutoModelo.converter(widget.produto);
+    produtocriado = ProdutoModelo.converter(widget.produto);
   }
 
   @override
@@ -37,22 +38,18 @@ class _ContadorQuantidadeComponenteState
     final entradabloc = context.watch<EntradaBloc>();
     final entradastate = entradabloc.state;
 
-    if (entradastate is CarregaListaProdutosAdicionadosPedidoEntradaEstados) {
-      produtos = entradastate.produtos;
+    if (entradastate is CarregaListaProdutosAdicionadosPedidoEntradaEstados &&
+        entradastate.produtos.isNotEmpty) {
+    if(controle.valueByKey(produtocriado.id, entradastate.produtos) == true && produtocriado.quantidade == 0){
+      var indice = controle.indexOfValue([], produtocriado.id, entradastate.produtos.map((e) => ProdutoModelo.toModel(e)).toList());
+      setState(() {
+          produtocriado = produtocriado.copyWith(quantidade: entradastate.produtos[indice].quantidade);
+          contador = entradastate.produtos[indice].quantidade;
+        });
+    }
     }
 
-    for (int i = 0; i < produtos.length; i++) {
-      if (produtos[i].titulo == widget.produto.titulo) {
-        index = i;
-      }
-    }
-    if (index >= 1 && produtocriado.quantidade == 0) {
-      setState(() {
-        produtocriado =
-            produtocriado.copyWith(quantidade: produtos[index].quantidade);
-        contador = produtos[index].quantidade;
-      });
-    }
+   
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [

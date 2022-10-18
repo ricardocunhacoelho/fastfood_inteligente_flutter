@@ -4,12 +4,9 @@ import 'package:fastfood_inteligente_flutter/src/recepcao/componentes/caixa.reco
 import 'package:fastfood_inteligente_flutter/src/recepcao/componentes/finalizar.botao.componente.dart';
 import 'package:fastfood_inteligente_flutter/src/recepcao/componentes/lista.produtos.recepcao.componente.dart';
 import 'package:fastfood_inteligente_flutter/src/recepcao/estados/entrada.estados.dart';
-import 'package:fastfood_inteligente_flutter/src/recepcao/modelo/entrada.ordem.model.dart';
-import 'package:fastfood_inteligente_flutter/src/produtos/dominio/casodeuso/checarsefoiadicionadoproduto.casodeuso.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../chapas/dominio/objetosdevalor/ordem.objeto.dart';
 
 class EntradaWebResponsivo extends StatefulWidget {
   const EntradaWebResponsivo({Key? key}) : super(key: key);
@@ -23,35 +20,18 @@ bool habilitar = false;
 int _selectedIndex = 0;
 
 class _EntradaWebResponsivoState extends State<EntradaWebResponsivo> {
-  Ordem ordemInicial = Ordem(
-      produtos: [],
-      embalarParaViajem: false,
-      estado: EOrdermEstado.aguardando,
-      id: 'ordem1',
-      datahora: DateTime.now(),
-      observacao: '',
-      posicao: 1);
-
-  final IChecarSeFoiAdicionadoProduto checarSeFoiAdicionadoProduto =
-      ChecarSeFoiAdicionadoProduto();
-
   @override
   Widget build(BuildContext context) {
     final produtobloc = context.watch<ConfiguracoesProdutoBloc>();
     final produtostate = produtobloc.state;
     final entradabloc = context.watch<EntradaBloc>();
     final entradastates = entradabloc.state;
-    if (entradastates is CarregandoOrdemBaseEstados) {
-      ordemInicial = EntradaOrdemModelo.empty();
-    }
-    if (entradastates is CompletoOrdemBaseEstados) {
-      ordemInicial = entradastates.lista.first;
-    }
-    final valor = checarSeFoiAdicionadoProduto.call(produtostate);
-    if (valor > 0) {
-      setState(() {
-        habilitar = true;
-      });
+    if (entradastates is CarregaListaProdutosAdicionadosPedidoEntradaEstados) {
+      if (entradastates.produtos.isNotEmpty) {
+        setState(() {
+          habilitar = true;
+        });
+      }
     }
 
     final List<Widget> _listaProdutos = [

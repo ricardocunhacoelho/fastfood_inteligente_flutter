@@ -1,5 +1,7 @@
 import 'package:fastfood_inteligente_flutter/src/produtos/dominio/entidade/produto.entidade.dart';
+import 'package:fastfood_inteligente_flutter/src/produtos/modelos/produto.modelo.dart';
 import 'package:fastfood_inteligente_flutter/src/recepcao/bloc/entrada.bloc.dart';
+import 'package:fastfood_inteligente_flutter/src/recepcao/controle/recepcao.controle.dart';
 import 'package:fastfood_inteligente_flutter/src/recepcao/estados/entrada.estados.dart';
 import 'package:fastfood_inteligente_flutter/src/recepcao/eventos/entrada.eventos.dart';
 import 'package:fastfood_inteligente_flutter/src/recepcao/pagina/entrada.web.responsivo.dart';
@@ -15,55 +17,40 @@ class EntradaPagina extends StatefulWidget {
 }
 
 class _EntradaPaginaState extends State<EntradaPagina> {
-  List<ProdutoEntidade> produtos = [];
+  RecepcaoControle controle = RecepcaoControle();
+  
   List<String> tituloProdutosJaAdicionados = [];
+  
   @override
   Widget build(BuildContext context) {
+    List<ProdutoModelo> produtos = [];
     final entradabloc = context.watch<EntradaBloc>();
     final entradastate = entradabloc.state;
     //QUANDO CLICA EM ADICIONAR
     if (entradastate is AdicionaProdutoEntradaEstados) {
-      if (!tituloProdutosJaAdicionados.contains(entradastate.produto.titulo)) {
-        produtos.add(entradastate.produto);
-        tituloProdutosJaAdicionados.add(entradastate.produto.titulo);
-        print(
-            'quantidade do produto ${entradastate.produto.titulo} que chega para a lista ${entradastate.produto.quantidade}');
-      } else if (tituloProdutosJaAdicionados
-          .contains(entradastate.produto.titulo)) {
-        produtos[tituloProdutosJaAdicionados
-            .indexOf(entradastate.produto.titulo)] = entradastate.produto;
-        print(
-            'quantidade do produto ${entradastate.produto.titulo} que chega para a lista ${entradastate.produto.quantidade}');
+      if(controle.valueByKey(entradastate.produto.id, produtos) == null){
+        produtos.add(ProdutoModelo.toModel(entradastate.produto));
+      }else if (controle.valueByKey(entradastate.produto.id, produtos) == true){
+        controle.changeValue([] ,entradastate.produto.id ,entradastate.produto.quantidade ,produtos);
       }
       context
           .read<EntradaBloc>()
           .add(AtualizarListaProdutosAdicionadosPedidoEntradaEventos(produtos));
+      print(entradastate.produto.titulo);
+      print(produtos.length);
     }
     //QUANDO CLICA EM SUBTRAIR
     if (entradastate is SubtraiProdutoEntradaEstados) {
+
       if (entradastate.produto.quantidade == 0) {
-        int index = 0;
-        for (int i = 0; i < produtos.length; i++) {
-          if (produtos[i].titulo == entradastate.produto.titulo) {
-            index = i;
-          }
-        }
-        tituloProdutosJaAdicionados.remove(entradastate.produto.titulo);
-        produtos.removeAt(index);
-      } else {
-        int index = 0;
-        for (int i = 0; i < produtos.length; i++) {
-          if (produtos[i].titulo == entradastate.produto.titulo) {
-            index = i;
-          }
-        }
-        produtos[index] = entradastate.produto;
-        print(
-            'quantidade do produto ${entradastate.produto.titulo} que chega para a lista ${entradastate.produto.quantidade}');
+        controle.deletValue(entradastate.produto.id, [], produtos);
+      } else if (entradastate.produto.quantidade > 0) {
+        controle.changeValue([] ,entradastate.produto.id ,entradastate.produto.quantidade ,produtos);
       }
       context
           .read<EntradaBloc>()
           .add(AtualizarListaProdutosAdicionadosPedidoEntradaEventos(produtos));
+    print(produtos.length);
     }
 
     if (MediaQuery.of(context).size.width >= 640 &&
@@ -74,3 +61,6 @@ class _EntradaPaginaState extends State<EntradaPagina> {
     }
   }
 }
+
+
+

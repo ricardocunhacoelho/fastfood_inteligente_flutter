@@ -2,6 +2,8 @@ import 'package:fastfood_inteligente_flutter/src/configuracoes/estados/configura
 import 'package:fastfood_inteligente_flutter/src/recepcao/componentes/contadorquantidade.entrada.componente.dart';
 import 'package:flutter/material.dart';
 
+ScrollController controller = ScrollController();
+
 Widget listaProdutosRecepcaoWeb(
         String pagina, ConfiguracoesProdutoEstados produtostate) =>
     Container(
@@ -19,9 +21,11 @@ Widget listaProdutosRecepcaoWeb(
             child: Padding(
               padding: const EdgeInsets.only(bottom: 100.0),
               child: Scrollbar(
+                controller: controller,
                 showTrackOnHover: true,
                 isAlwaysShown: true,
                 child: ListView.builder(
+                  controller: controller,
                   shrinkWrap: true,
                   itemCount: produtostate.lista.length,
                   itemBuilder: (context, index) {

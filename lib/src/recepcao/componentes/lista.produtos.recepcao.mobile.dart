@@ -16,9 +16,12 @@ Widget listaProdutosRecepcaoMobile(
         if (produtostate is CompletoConfiguracoesProdutoEstados)
           Expanded(
             child: Scrollbar(
-              showTrackOnHover: true,
-              isAlwaysShown: true,
+              // isAlwaysShown: true, // deprecated
+              thickness: 5, // Optional: Thickness
+              radius: Radius.circular(5), // Optional: Radius
               child: ListView.builder(
+                scrollDirection: Axis.vertical,
+                physics: ScrollPhysics(),
                 shrinkWrap: true,
                 itemCount: produtostate.lista.length,
                 itemBuilder: (context, index) {

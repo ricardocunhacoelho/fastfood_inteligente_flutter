@@ -1,9 +1,7 @@
 import 'package:fastfood_inteligente_flutter/src/chapas/dominio/objetosdevalor/ordem.objeto.dart';
-import 'package:fastfood_inteligente_flutter/src/configuracoes/bloc/configuracoes.produto.bloc.dart';
 import 'package:fastfood_inteligente_flutter/src/recepcao/bloc/entrada.bloc.dart';
 import 'package:fastfood_inteligente_flutter/src/recepcao/componentes/finalizarpedido.dialog.componente.dart';
 import 'package:fastfood_inteligente_flutter/src/recepcao/estados/entrada.estados.dart';
-import 'package:fastfood_inteligente_flutter/src/recepcao/modelo/entrada.ordem.model.dart';
 import 'package:fastfood_inteligente_flutter/src/produtos/dominio/casodeuso/checarsefoiadicionadoproduto.casodeuso.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -37,21 +35,14 @@ class _FinalizarBotaoState extends State<FinalizarBotao> {
   @override
   Widget build(BuildContext context) {
     bool habilitar = false;
-    final produtobloc = context.watch<ConfiguracoesProdutoBloc>();
-    final produtostate = produtobloc.state;
     final entradabloc = context.watch<EntradaBloc>();
     final entradastates = entradabloc.state;
-    if (entradastates is CarregandoOrdemBaseEstados) {
-      ordemInicial = EntradaOrdemModelo.empty();
-    }
-    if (entradastates is CompletoOrdemBaseEstados) {
-      ordemInicial = entradastates.lista.first;
-    }
-    final valor = checarSeFoiAdicionadoProduto.call(produtostate);
-    if (valor > 0) {
-      setState(() {
-        habilitar = true;
-      });
+    if (entradastates is CarregaListaProdutosAdicionadosPedidoEntradaEstados) {
+      if (entradastates.produtos.isNotEmpty) {
+        setState(() {
+          habilitar = true;
+        });
+      }
     }
 
     if (habilitar) {
@@ -63,18 +54,15 @@ class _FinalizarBotaoState extends State<FinalizarBotao> {
         tamanho = 90;
       });
     }
+
     return Container(
-      margin: EdgeInsets.all(
-        15,
-      ),
+      margin: const EdgeInsets.all(15),
       width: 160,
       height: 50,
       decoration: BoxDecoration(
         color: habilitar ? Colors.orangeAccent : Colors.black12,
-        borderRadius: BorderRadius.all(
-          Radius.circular(
-            5,
-          ),
+        borderRadius: const BorderRadius.all(
+          Radius.circular(5),
         ),
       ),
       child: TextButton(
@@ -88,7 +76,7 @@ class _FinalizarBotaoState extends State<FinalizarBotao> {
                     });
               }
             : null,
-        child: Text(
+        child: const Text(
           "Finalizar",
           style: TextStyle(
             color: Colors.white,

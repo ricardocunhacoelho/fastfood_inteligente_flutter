@@ -36,7 +36,6 @@ class MyApp extends StatelessWidget {
           '/selecionesuachapa': (_) => const SelecioneSuaChapaPagina(),
           '/entrada': (_) => const EntradaPagina(),
           '/chamadapedidos': (_) => const TelaChamadaDePedidosPage(),
-          '/entradachrome': (_) => const EntradaWebResponsivo(),
         },
         title: 'Flutter Demo',
         theme: ThemeData.dark(),

@@ -1,7 +1,9 @@
 import 'package:fastfood_inteligente_flutter/src/configuracoes/bloc/configuracoes.produto.bloc.dart';
+import 'package:fastfood_inteligente_flutter/src/recepcao/bloc/entrada.bloc.dart';
 import 'package:fastfood_inteligente_flutter/src/recepcao/componentes/caixa.recomecar.valor.finalizar.componente.mobile.dart';
 import 'package:fastfood_inteligente_flutter/src/recepcao/componentes/lista.produtos.recepcao.mobile.dart';
 import 'package:fastfood_inteligente_flutter/src/produtos/dominio/casodeuso/checarsefoiadicionadoproduto.casodeuso.dart';
+import 'package:fastfood_inteligente_flutter/src/recepcao/estados/entrada.estados.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -18,15 +20,16 @@ class _RecepcaoMobileState extends State<RecepcaoMobile> {
   @override
   Widget build(BuildContext context) {
     bool habilitar = false;
-    final IChecarSeFoiAdicionadoProduto checarSeFoiAdicionadoProduto =
-        ChecarSeFoiAdicionadoProduto();
-
     final produtobloc = context.watch<ConfiguracoesProdutoBloc>();
     final produtostate = produtobloc.state;
-
-    final valor = checarSeFoiAdicionadoProduto.call(produtostate);
-    if (valor > 0) {
-      habilitar = true;
+    final entradabloc = context.watch<EntradaBloc>();
+    final entradastates = entradabloc.state;
+    if (entradastates is CarregaListaProdutosAdicionadosPedidoEntradaEstados) {
+      if (entradastates.produtos.isNotEmpty) {
+        setState(() {
+          habilitar = true;
+        });
+      }
     }
     if (habilitar) {
       setState(() {
