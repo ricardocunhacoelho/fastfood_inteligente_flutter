@@ -31,15 +31,19 @@ class _EntradaWebResponsivoState extends State<EntradaWebResponsivo> {
         setState(() {
           habilitar = true;
         });
+      }else{
+        setState(() {
+          habilitar = false;
+        });
       }
     }
 
     final List<Widget> _listaProdutos = [
-      listaProdutosRecepcaoWeb('lanche', produtostate),
-      listaProdutosRecepcaoWeb('bebida', produtostate),
-      listaProdutosRecepcaoWeb('combo', produtostate),
-      listaProdutosRecepcaoWeb('sobremesa', produtostate),
-      listaProdutosRecepcaoWeb('todos', produtostate),
+      listaProdutosRecepcaoWeb('lanche', produtostate, entradastates),
+      listaProdutosRecepcaoWeb('bebida', produtostate, entradastates),
+      listaProdutosRecepcaoWeb('combo', produtostate, entradastates),
+      listaProdutosRecepcaoWeb('sobremesa', produtostate, entradastates),
+      listaProdutosRecepcaoWeb('sacola', produtostate, entradastates),
     ];
     return Scaffold(
       // appBar: AppBar(
@@ -121,12 +125,15 @@ class _EntradaWebResponsivoState extends State<EntradaWebResponsivo> {
                     AssetImage("assets/todosicone.png"),
                     size: 28,
                   ),
-                  label: Text('All in')),
+                  label: Text('Sacola')),
             ],
-            trailing: const Expanded(
+            trailing:  Expanded(
               child: Align(
                   alignment: Alignment.bottomCenter,
-                  child: CaixaValorRecomecarFinalizarRecepcaoWeb()),
+                  child: Padding(
+                    padding: MediaQuery.of(context).size.height <= 720 ? EdgeInsets.only(bottom: habilitar ? 20 : 60) : EdgeInsets.only(bottom: habilitar ? 40 : 80),
+                    child: const CaixaValorRecomecarFinalizarRecepcaoWeb(),
+                  )),
             ),
           ),
           Expanded(child: _listaProdutos[_selectedIndex]),

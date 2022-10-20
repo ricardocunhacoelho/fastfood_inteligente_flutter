@@ -23,6 +23,8 @@ class FinalizarPedidoDialogComponente extends StatefulWidget {
 
 class _FinalizarPedidoDialogComponenteState
     extends State<FinalizarPedidoDialogComponente> {
+  ScrollController _controller = ScrollController();
+
   var ordem = EntradaOrdemModelo.empty();
   @override
   void initState() {
@@ -57,26 +59,34 @@ class _FinalizarPedidoDialogComponenteState
                 Container(
                   width: MediaQuery.of(context).size.width * 0.9,
                   height: MediaQuery.of(context).size.width < 640
-                      ? MediaQuery.of(context).size.width * 0.6
+                      ? MediaQuery.of(context).size.width * 0.4
                       : MediaQuery.of(context).size.width * 0.2,
-                  child: ListView.builder(
-                      itemCount: entradastates.produtos.length,
-                      itemBuilder: (context, index) {
-                        final produto = entradastates.produtos[index];
-                        return Column(
-                          children: [
-                              ListTile(
-                                leading: Text('${produto.quantidade}'),
-                                title: Text('${produto.titulo}'),
-                                trailing: Text(
-                                    'R\$ ${(produto.preco * produto.quantidade).toStringAsFixed(2)}'),
-                              ),
-                            const SizedBox(
-                              height: 10,
-                            )
-                          ],
-                        );
-                      }),
+                  child: Scrollbar(
+                    controller: _controller,
+              trackVisibility: true,
+              thumbVisibility: true,
+              thickness: 5, // Optional: Thickness
+              radius: const Radius.circular(5), // Optional: Radius
+                    child: ListView.builder(
+                      controller: _controller,
+                        itemCount: entradastates.produtos.length,
+                        itemBuilder: (context, index) {
+                          final produto = entradastates.produtos[index];
+                          return Column(
+                            children: [
+                                ListTile(
+                                  leading: Text('${produto.quantidade}'),
+                                  title: Text('${produto.titulo}'),
+                                  trailing: Text(
+                                      'R\$ ${(produto.preco * produto.quantidade).toStringAsFixed(2)}'),
+                                ),
+                              const SizedBox(
+                                height: 10,
+                              )
+                            ],
+                          );
+                        }),
+                  ),
                 ),
               const SizedBox(
                 height: 30,

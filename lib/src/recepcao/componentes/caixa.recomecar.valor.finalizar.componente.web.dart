@@ -29,7 +29,9 @@ class _CaixaValorRecomecarFinalizarRecepcaoWebState
         setState(() {
           habilitar = true;
         });
-      }
+      }else{setState(() {
+          habilitar = false;
+        });}
     }
 
     return Container(

@@ -42,7 +42,7 @@ class _EntradaPaginaState extends State<EntradaPagina> {
       // print(entradastate.produto.titulo);
       // print(entradastate.produto.quantidade);
       // print(produtos.length);
-      print(entradastate.produto.preco);
+      // print(entradastate.produto.preco);
     }
     
 
@@ -57,7 +57,6 @@ class _EntradaPaginaState extends State<EntradaPagina> {
       context
           .read<EntradaBloc>()
           .add(AtualizarListaProdutosAdicionadosPedidoEntradaEventos(produtos));
-    print(produtos.length);
     }
 
 

@@ -1,6 +1,3 @@
-import 'package:fastfood_inteligente_flutter/src/configuracoes/bloc/configuracoes.produto.bloc.dart';
-import 'package:fastfood_inteligente_flutter/src/configuracoes/estados/configuracoes.produto.estados.dart';
-import 'package:fastfood_inteligente_flutter/src/produtos/dominio/entidade/produto.entidade.dart';
 import 'package:fastfood_inteligente_flutter/src/recepcao/bloc/entrada.bloc.dart';
 import 'package:fastfood_inteligente_flutter/src/recepcao/controle/recepcao.controle.dart';
 import 'package:fastfood_inteligente_flutter/src/recepcao/estados/entrada.estados.dart';

@@ -1,11 +1,13 @@
 import 'package:fastfood_inteligente_flutter/src/configuracoes/estados/configuracoes.produto.estados.dart';
 import 'package:fastfood_inteligente_flutter/src/recepcao/componentes/contadorquantidade.entrada.componente.dart';
+import 'package:fastfood_inteligente_flutter/src/recepcao/estados/entrada.estados.dart';
+
 import 'package:flutter/material.dart';
 
 ScrollController controller = ScrollController();
 
 Widget listaProdutosRecepcaoWeb(
-        String pagina, ConfiguracoesProdutoEstados produtostate) =>
+        String pagina, ConfiguracoesProdutoEstados produtostate,EntradaEstados entradastates) =>
     Container(
       child: Column(children: [
         const SizedBox(height: 40),
@@ -14,6 +16,9 @@ Widget listaProdutosRecepcaoWeb(
           style: const TextStyle(fontSize: 20),
         ),
         const SizedBox(height: 20),
+         if (!(entradastates is CarregaListaProdutosAdicionadosPedidoEntradaEstados) && 
+                  pagina.toLowerCase() == 'sacola' )
+          const Center(child: Text('Sua sacola está vazia, selecione algum produto')),
         if (produtostate is CarregandoConfiguracoesProdutoEstados)
           const Center(child: CircularProgressIndicator()),
         if (produtostate is CompletoConfiguracoesProdutoEstados)
@@ -26,10 +31,13 @@ Widget listaProdutosRecepcaoWeb(
                 child: ListView.builder(
                   controller: controller,
                   shrinkWrap: true,
-                  itemCount: produtostate.lista.length,
-                  itemBuilder: (context, index) {
-                    final produto = produtostate.lista[index];
-                    if (pagina.toLowerCase() == 'todos') {
+                itemCount: entradastates is CarregaListaProdutosAdicionadosPedidoEntradaEstados && entradastates.produtos.isNotEmpty 
+                && pagina.toLowerCase() == 'sacola' ? entradastates.produtos.length : produtostate.lista.length,
+                itemBuilder: (context, index) {
+                  final produto = entradastates is CarregaListaProdutosAdicionadosPedidoEntradaEstados && entradastates.produtos.isNotEmpty 
+                && pagina.toLowerCase() == 'sacola' ? entradastates.produtos[index] : produtostate.lista[index];
+                  if (entradastates is CarregaListaProdutosAdicionadosPedidoEntradaEstados && 
+                  entradastates.produtos.isNotEmpty && pagina.toLowerCase() == 'sacola' ) {
                       return ListTile(
                         horizontalTitleGap: 18,
                         contentPadding: const EdgeInsets.only(
