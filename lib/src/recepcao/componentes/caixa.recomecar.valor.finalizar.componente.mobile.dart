@@ -29,14 +29,14 @@ Widget caixaValorRecomecarFinalizarRecepcaoMobile(
                       ),
                     ),
                     if (habilitar)
-                      const RecomecarBotao(largura: 100, altura: 25),
+                      RecomecarBotao(largura: 100, altura: 25),
                   ],
                 ),
                 Container(child: const MostrarPrecoEntrada()),
               ],
             ),
           ),
-          const FinalizarBotao(largura: 160, altura: 50),
+          FinalizarBotao(largura: 160, altura: 50),
         ],
       ),
     );

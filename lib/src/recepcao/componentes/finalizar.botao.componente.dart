@@ -27,20 +27,24 @@ class _FinalizarBotaoState extends State<FinalizarBotao> {
       observacao: '',
       posicao: 1);
 
-  final IChecarSeFoiAdicionadoProduto checarSeFoiAdicionadoProduto =
-      ChecarSeFoiAdicionadoProduto();
+
+  bool habilitar = false;
 
   double tamanho = 90;
 
   @override
   Widget build(BuildContext context) {
-    bool habilitar = false;
     final entradabloc = context.watch<EntradaBloc>();
     final entradastates = entradabloc.state;
     if (entradastates is CarregaListaProdutosAdicionadosPedidoEntradaEstados) {
       if (entradastates.produtos.isNotEmpty) {
         setState(() {
           habilitar = true;
+        });
+      }
+       if (entradastates.produtos.isEmpty) {
+        setState(() {
+          habilitar = false;
         });
       }
     }

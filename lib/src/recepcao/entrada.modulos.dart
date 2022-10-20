@@ -13,6 +13,5 @@ final entradaModulos = [
           context.read(),
           context.read(),
           context.read(),
-          context.read(),
           context.read())),
 ];

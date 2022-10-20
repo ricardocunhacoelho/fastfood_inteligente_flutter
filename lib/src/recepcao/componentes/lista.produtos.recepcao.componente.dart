@@ -22,8 +22,7 @@ Widget listaProdutosRecepcaoWeb(
               padding: const EdgeInsets.only(bottom: 100.0),
               child: Scrollbar(
                 controller: controller,
-                showTrackOnHover: true,
-                isAlwaysShown: true,
+                trackVisibility: true,
                 child: ListView.builder(
                   controller: controller,
                   shrinkWrap: true,

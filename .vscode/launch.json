@@ -28,7 +28,7 @@
             "deviceId": "chrome"
         },
         {
-            "name": "emulador-pixel1",
+            "name": "emulador-pixelatt",
             "request": "launch",
             "type": "dart",
             "deviceId": "emulator-5554"

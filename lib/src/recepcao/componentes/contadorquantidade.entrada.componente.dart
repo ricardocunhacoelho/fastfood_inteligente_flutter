@@ -46,8 +46,20 @@ class _ContadorQuantidadeComponenteState
           produtocriado = produtocriado.copyWith(quantidade: entradastate.produtos[indice].quantidade);
           contador = entradastate.produtos[indice].quantidade;
         });
+    }else if(controle.valueByKey(produtocriado.id, entradastate.produtos) == true && produtocriado.quantidade > 0){
+      var indice = controle.indexOfValue([], produtocriado.id, entradastate.produtos.map((e) => ProdutoModelo.toModel(e)).toList());
+      setState(() {
+          contador = entradastate.produtos[indice].quantidade;
+        });
     }
     }
+    if(entradastate is CarregaListaProdutosAdicionadosPedidoEntradaEstados &&
+        entradastate.produtos.isEmpty){
+          setState(() {
+          produtocriado = produtocriado.copyWith(quantidade: 0);
+          contador = 0;
+        });
+        }
 
    
     return Row(

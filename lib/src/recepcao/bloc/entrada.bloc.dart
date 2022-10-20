@@ -26,8 +26,6 @@ class EntradaBloc extends Bloc<EntradaEventos, EntradaEstados> {
   final IGerarOrdem gerarOrdemUsecase;
   final IAtualizarOrdensChapa atualizarOrdensChapaUsecase;
   final IBuscarChapaEntidadeNaLista buscarChapaEntidadeNaListaUsecase;
-  final IResetarProdutosReceberamIncrementoQuantidade
-      resetarProdutosReceberamIncrementoQuantidadeUsecase;
   final IResetarOrdemBase resetarOrdemBaseUsecase;
   EntradaBloc(
       this.buscarOrdemBaseUsecase,
@@ -38,7 +36,6 @@ class EntradaBloc extends Bloc<EntradaEventos, EntradaEstados> {
       this.gerarOrdemUsecase,
       this.atualizarOrdensChapaUsecase,
       this.buscarChapaEntidadeNaListaUsecase,
-      this.resetarProdutosReceberamIncrementoQuantidadeUsecase,
       this.subtrairQuantidadeUsecase,
       this.resetarOrdemBaseUsecase)
       : super(InicialEntradaEstados()) {
@@ -114,7 +111,7 @@ class EntradaBloc extends Bloc<EntradaEventos, EntradaEstados> {
   Future<void> _resetarProdutosReceberamIncrementoQuantidadeEntradaEventos(
       ResetarProdutosReceberamIncrementoQuantidadeEntradaEventos event,
       Emitter<EntradaEstados> emit) async {
-    await resetarProdutosReceberamIncrementoQuantidadeUsecase.call();
+    emit(ResetarProdutosReceberamIncrementoQuantidadeEntradaEstados());
   }
 
   Future<void> _resetarOrdemBaseEntradaEventos(

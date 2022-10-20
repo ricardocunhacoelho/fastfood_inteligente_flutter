@@ -57,3 +57,8 @@ class SubtraiProdutoEntradaEstados implements EntradaEstados {
 
   SubtraiProdutoEntradaEstados(this.produto);
 }
+
+class ResetarProdutosReceberamIncrementoQuantidadeEntradaEstados implements EntradaEstados {
+ 
+}
+

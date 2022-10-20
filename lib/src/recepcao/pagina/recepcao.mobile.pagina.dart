@@ -15,11 +15,12 @@ class RecepcaoMobile extends StatefulWidget {
 }
 
 class _RecepcaoMobileState extends State<RecepcaoMobile> {
+   bool habilitar = false;
   double tamanho = 90;
 
   @override
   Widget build(BuildContext context) {
-    bool habilitar = false;
+   
     final produtobloc = context.watch<ConfiguracoesProdutoBloc>();
     final produtostate = produtobloc.state;
     final entradabloc = context.watch<EntradaBloc>();
@@ -28,6 +29,11 @@ class _RecepcaoMobileState extends State<RecepcaoMobile> {
       if (entradastates.produtos.isNotEmpty) {
         setState(() {
           habilitar = true;
+        });
+      }
+      if (entradastates.produtos.isEmpty) {
+        setState(() {
+          habilitar = false;
         });
       }
     }
@@ -55,10 +61,10 @@ class _RecepcaoMobileState extends State<RecepcaoMobile> {
               isScrollable: true,
               tabs: [
                 Tab(text: 'Lanches'),
-                Tab(text: 'Todos'),
                 Tab(text: 'Bebidas'),
                 Tab(text: 'Combos'),
                 Tab(text: 'Sobremesas'),
+                Tab(text: 'Sacola'),
               ]),
         ),
         body: Column(
@@ -67,11 +73,11 @@ class _RecepcaoMobileState extends State<RecepcaoMobile> {
             Expanded(
               child: TabBarView(
                 children: [
-                  listaProdutosRecepcaoMobile('lanche', produtostate),
-                  listaProdutosRecepcaoMobile('todos', produtostate),
-                  listaProdutosRecepcaoMobile('bebida', produtostate),
-                  listaProdutosRecepcaoMobile('combo', produtostate),
-                  listaProdutosRecepcaoMobile('sobremesa', produtostate),
+                  listaProdutosRecepcaoMobile('lanche', produtostate, entradastates),
+                  listaProdutosRecepcaoMobile('bebida', produtostate, entradastates),
+                  listaProdutosRecepcaoMobile('combo', produtostate, entradastates),
+                  listaProdutosRecepcaoMobile('sobremesa', produtostate, entradastates),
+                  listaProdutosRecepcaoMobile('sacola', produtostate, entradastates),
                 ],
               ),
             ),

@@ -15,11 +15,12 @@ class CaixaValorRecomecarFinalizarRecepcaoWeb extends StatefulWidget {
 
 class _CaixaValorRecomecarFinalizarRecepcaoWebState
     extends State<CaixaValorRecomecarFinalizarRecepcaoWeb> {
+  bool habilitar = false;
+
   double tamanho = 90;
 
   @override
   Widget build(BuildContext context) {
-    bool habilitar = false;
 
     final entradabloc = context.watch<EntradaBloc>();
     final entradastates = entradabloc.state;
@@ -53,7 +54,7 @@ class _CaixaValorRecomecarFinalizarRecepcaoWebState
             ),
             const SizedBox(height: 15),
             const MostrarPrecoEntrada(),
-            if (habilitar) const RecomecarBotao(largura: 100, altura: 25),
+            if (habilitar) RecomecarBotao(largura: 100, altura: 25),
           ],
         ),
       ),

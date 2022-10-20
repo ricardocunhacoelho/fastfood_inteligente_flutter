@@ -36,4 +36,15 @@ int indexOfValue (List<dynamic> toChange, String id, List<ProdutoModelo> listPro
 
 }
 
+double? sumValues (List<ProdutoEntidade> listProdutoEntidade, List<double> valores){
+  double initialValue = 0;
+  for (final entry in listProdutoEntidade) {
+    valores.add(entry.preco * entry.quantidade);
+  }
+   return valores.fold(
+        initialValue, (accumulated, element) => accumulated! + element);
+
+   
+}
+
 }

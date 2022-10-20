@@ -18,14 +18,17 @@ class EntradaPagina extends StatefulWidget {
 
 class _EntradaPaginaState extends State<EntradaPagina> {
   RecepcaoControle controle = RecepcaoControle();
+  List<ProdutoModelo> produtos = [];
   
-  List<String> tituloProdutosJaAdicionados = [];
+  
   
   @override
   Widget build(BuildContext context) {
-    List<ProdutoModelo> produtos = [];
+    
     final entradabloc = context.watch<EntradaBloc>();
     final entradastate = entradabloc.state;
+
+
     //QUANDO CLICA EM ADICIONAR
     if (entradastate is AdicionaProdutoEntradaEstados) {
       if(controle.valueByKey(entradastate.produto.id, produtos) == null){
@@ -36,9 +39,13 @@ class _EntradaPaginaState extends State<EntradaPagina> {
       context
           .read<EntradaBloc>()
           .add(AtualizarListaProdutosAdicionadosPedidoEntradaEventos(produtos));
-      print(entradastate.produto.titulo);
-      print(produtos.length);
+      // print(entradastate.produto.titulo);
+      // print(entradastate.produto.quantidade);
+      // print(produtos.length);
+      print(entradastate.produto.preco);
     }
+    
+
     //QUANDO CLICA EM SUBTRAIR
     if (entradastate is SubtraiProdutoEntradaEstados) {
 
@@ -51,6 +58,15 @@ class _EntradaPaginaState extends State<EntradaPagina> {
           .read<EntradaBloc>()
           .add(AtualizarListaProdutosAdicionadosPedidoEntradaEventos(produtos));
     print(produtos.length);
+    }
+
+
+    //QUANDO CLICAR EM RECOMEÇAR
+    if (entradastate is ResetarProdutosReceberamIncrementoQuantidadeEntradaEstados) {
+      produtos.clear();
+      context
+          .read<EntradaBloc>()
+          .add(AtualizarListaProdutosAdicionadosPedidoEntradaEventos(produtos));
     }
 
     if (MediaQuery.of(context).size.width >= 640 &&
