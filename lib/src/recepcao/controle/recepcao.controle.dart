@@ -1,3 +1,4 @@
+import 'package:fastfood_inteligente_flutter/src/chapas/dominio/objetosdevalor/ordem.objeto.dart';
 import 'package:fastfood_inteligente_flutter/src/produtos/dominio/entidade/produto.entidade.dart';
 import 'package:fastfood_inteligente_flutter/src/produtos/modelos/produto.modelo.dart';
 
@@ -45,6 +46,18 @@ double? sumValues (List<ProdutoEntidade> listProdutoEntidade, List<double> valor
         initialValue, (accumulated, element) => accumulated! + element);
 
    
+}
+
+Ordem criarOrdem (List<ProdutoEntidade> listProdutoEntidade){
+     return Ordem (
+      produtos: listProdutoEntidade,
+      embalarParaViajem: false,
+      estado: EOrdermEstado.aguardando,
+      id: 'ordem1',
+      datahora: DateTime.now(),
+      observacao: '',
+      posicao: 1);
+
 }
 
 }

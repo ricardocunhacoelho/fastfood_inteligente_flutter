@@ -6,6 +6,7 @@ import 'package:fastfood_inteligente_flutter/src/configuracoes/estados/configura
 import 'package:fastfood_inteligente_flutter/src/configuracoes/estados/configuracoes.produto.estados.dart';
 import 'package:fastfood_inteligente_flutter/src/recepcao/bloc/entrada.bloc.dart';
 import 'package:fastfood_inteligente_flutter/src/recepcao/componentes/mostrarpreco.entrada.componente.dart';
+import 'package:fastfood_inteligente_flutter/src/recepcao/estados/entrada.estados.dart';
 import 'package:fastfood_inteligente_flutter/src/recepcao/eventos/entrada.eventos.dart';
 import 'package:fastfood_inteligente_flutter/src/recepcao/modelo/entrada.ordem.model.dart';
 import 'package:fastfood_inteligente_flutter/src/produtos/dominio/entidade/produto.entidade.dart';
@@ -33,8 +34,8 @@ class _FinalizarPedidoDialogComponenteState
   final precoTotal = MostrarPrecoEntrada();
   @override
   Widget build(BuildContext context) {
-    final produtobloc = context.watch<ConfiguracoesProdutoBloc>();
-    final produtostate = produtobloc.state;
+    final entradabloc = context.watch<EntradaBloc>();
+    final entradastates = entradabloc.state;
     final chapabloc = context.watch<ConfiguracoesChapaBloc>();
     final chapastate = chapabloc.state;
     List<ProdutoEntidade> listaComProdutos = [];
@@ -45,32 +46,25 @@ class _FinalizarPedidoDialogComponenteState
     if (chapastate is CarregandoConfiguracoesChapaEstados) {
       listaComChapas = [];
     }
-    if (produtostate is CompletoConfiguracoesProdutoEstados) {
-      produtostate.lista.forEach((element) {
-        if (element.quantidade >= 1) {
-          listaComProdutos.add(element);
-        }
-      });
-    }
+    
     return AlertDialog(
       content: SingleChildScrollView(
         child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              if (produtostate is CompletoConfiguracoesProdutoEstados)
+              if (entradastates is CarregaListaProdutosAdicionadosPedidoEntradaEstados)
                 Container(
                   width: MediaQuery.of(context).size.width * 0.9,
                   height: MediaQuery.of(context).size.width < 640
                       ? MediaQuery.of(context).size.width * 0.6
                       : MediaQuery.of(context).size.width * 0.2,
                   child: ListView.builder(
-                      itemCount: produtostate.lista.length,
+                      itemCount: entradastates.produtos.length,
                       itemBuilder: (context, index) {
-                        final produto = produtostate.lista[index];
+                        final produto = entradastates.produtos[index];
                         return Column(
                           children: [
-                            if (produto.quantidade >= 1)
                               ListTile(
                                 leading: Text('${produto.quantidade}'),
                                 title: Text('${produto.titulo}'),
@@ -84,23 +78,21 @@ class _FinalizarPedidoDialogComponenteState
                         );
                       }),
                 ),
-              SizedBox(
+              const SizedBox(
                 height: 30,
               ),
               TextFormField(
                 initialValue: ordem.observacao,
                 onChanged: (value) {
                   ordem = ordem.copyWith(observacao: value);
-                  context
-                      .read<EntradaBloc>()
-                      .add(AtualizarOrdemBaseEntradaEventos(ordem));
+                 
                 },
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Fazer Observação',
                   border: OutlineInputBorder(),
                 ),
               ),
-              SizedBox(height: 15),
+              const SizedBox(height: 15),
               Row(
                 children: [
                   Text('Embalar para viajem? '),
@@ -177,7 +169,7 @@ class _FinalizarPedidoDialogComponenteState
                           .add(FinalizarImprimirPedidoEntradaEventos(
                             ordem.observacao,
                             ordem.embalarParaViajem,
-                            listaComProdutos,
+                            ordem.produtos,
                             listaComChapas,
                           ));
                       context.read<EntradaBloc>().add(

@@ -3,6 +3,7 @@ import 'package:fastfood_inteligente_flutter/src/recepcao/bloc/entrada.bloc.dart
 import 'package:fastfood_inteligente_flutter/src/recepcao/componentes/finalizarpedido.dialog.componente.dart';
 import 'package:fastfood_inteligente_flutter/src/recepcao/estados/entrada.estados.dart';
 import 'package:fastfood_inteligente_flutter/src/produtos/dominio/casodeuso/checarsefoiadicionadoproduto.casodeuso.dart';
+import 'package:fastfood_inteligente_flutter/src/recepcao/modelo/entrada.ordem.model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -18,16 +19,7 @@ class FinalizarBotao extends StatefulWidget {
 }
 
 class _FinalizarBotaoState extends State<FinalizarBotao> {
-  Ordem ordemInicial = Ordem(
-      produtos: [],
-      embalarParaViajem: false,
-      estado: EOrdermEstado.aguardando,
-      id: 'ordem1',
-      datahora: DateTime.now(),
-      observacao: '',
-      posicao: 1);
-
-
+  var ordem = EntradaOrdemModelo.empty();
   bool habilitar = false;
 
   double tamanho = 90;
@@ -39,6 +31,7 @@ class _FinalizarBotaoState extends State<FinalizarBotao> {
     if (entradastates is CarregaListaProdutosAdicionadosPedidoEntradaEstados) {
       if (entradastates.produtos.isNotEmpty) {
         setState(() {
+          ordem = ordem.copyWith(produtos: entradastates.produtos);
           habilitar = true;
         });
       }
@@ -76,7 +69,7 @@ class _FinalizarBotaoState extends State<FinalizarBotao> {
                 showDialog(
                     context: context,
                     builder: (_) {
-                      return FinalizarPedidoDialogComponente(ordemInicial);
+                      return FinalizarPedidoDialogComponente(ordem);
                     });
               }
             : null,

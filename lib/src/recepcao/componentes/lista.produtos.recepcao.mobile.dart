@@ -15,7 +15,7 @@ Widget listaProdutosRecepcaoMobile(
         const SizedBox(height: 25),
         if (entradastates is CarregaListaProdutosAdicionadosPedidoEntradaEstados && 
                   entradastates.produtos.isEmpty && pagina.toLowerCase() == 'sacola' )
-          Center(child: Text('Sua sacola está vazia, selecione algum produto')),
+          const Center(child: Text('Sua sacola está vazia, selecione algum produto')),
         if (produtostate is CarregandoConfiguracoesProdutoEstados)
           const Center(child: CircularProgressIndicator()),
         if (produtostate is CompletoConfiguracoesProdutoEstados)
