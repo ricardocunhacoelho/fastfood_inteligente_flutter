@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class LoginController {
@@ -7,17 +6,11 @@ class LoginController {
   final formKey = GlobalKey<FormState>();
   String? username;
   String? password;
-  bool _isLoading = false;
-  bool get isLoading => _isLoading;
   final VoidCallback onSuccessLogin;
   final VoidCallback onUpdate;
+  final VoidCallback onConectApi;
 
-  set isLoading(bool value){
-    _isLoading = value;
-    onUpdate();
-  }
-
-  LoginController(this.onSuccessLogin, this.onUpdate);
+  LoginController(this.onSuccessLogin, this.onUpdate, this.onConectApi);
 
   bool validate({required GlobalKey<FormState> formKey}) {
     final form = formKey.currentState!;
@@ -38,10 +31,7 @@ class LoginController {
     required String username,
     required String password,
   }) async {
-    print('conectando a api');
-    await Future.delayed(Duration(seconds: 2));
-    
-    // FirebaseAuth.instance.signInWithEmailAndPassword(email: username, password: password);
+    onConectApi();
     return true;
   }
 
@@ -49,9 +39,7 @@ class LoginController {
     required String username,
     required String password,
   }) async {
-    isLoading = true;
     final response = await apiLogin(username: username, password: password);
-    isLoading = false;
     if (response) {
       onSuccessLogin();
     }

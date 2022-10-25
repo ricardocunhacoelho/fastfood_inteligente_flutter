@@ -4,6 +4,7 @@ import 'package:fastfood_inteligente_flutter/src/configuracoes/configuracoes.cha
 import 'package:fastfood_inteligente_flutter/src/configuracoes/configuracoes.produto.modulos.dart';
 import 'package:fastfood_inteligente_flutter/src/configuracoes/pagina/configuracoes.page.dart';
 import 'package:fastfood_inteligente_flutter/src/inicio/pagina/home.page.dart';
+import 'package:fastfood_inteligente_flutter/src/login/login.modulo.dart';
 import 'package:fastfood_inteligente_flutter/src/login/pagina/login.pagina.dart';
 import 'package:fastfood_inteligente_flutter/src/produtos/produtos.modulos.dart';
 import 'package:fastfood_inteligente_flutter/src/chapasdetrabalho/paginas/chapa.pagina.dart';
@@ -15,7 +16,6 @@ import 'package:fastfood_inteligente_flutter/src/usuarios/usuarios.modulos.dart'
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'src/recepcao/pagina/entrada.web.responsivo.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -30,6 +30,7 @@ class MyApp extends StatelessWidget {
         ...entradaModulos,
         ...ChapaDeTrabalhoModulos,
         ...usuariosModulos,
+        ...loginModulo,
       ],
       child: MaterialApp(
         routes: <String, WidgetBuilder>{
