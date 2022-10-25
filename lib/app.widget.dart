@@ -4,12 +4,14 @@ import 'package:fastfood_inteligente_flutter/src/configuracoes/configuracoes.cha
 import 'package:fastfood_inteligente_flutter/src/configuracoes/configuracoes.produto.modulos.dart';
 import 'package:fastfood_inteligente_flutter/src/configuracoes/pagina/configuracoes.page.dart';
 import 'package:fastfood_inteligente_flutter/src/inicio/pagina/home.page.dart';
+import 'package:fastfood_inteligente_flutter/src/login/pagina/login.pagina.dart';
 import 'package:fastfood_inteligente_flutter/src/produtos/produtos.modulos.dart';
 import 'package:fastfood_inteligente_flutter/src/chapasdetrabalho/paginas/chapa.pagina.dart';
 import 'package:fastfood_inteligente_flutter/src/chapasdetrabalho/selecao.chapa.modulos.dart';
 import 'package:fastfood_inteligente_flutter/src/recepcao/entrada.modulos.dart';
 import 'package:fastfood_inteligente_flutter/src/recepcao/pagina/entrada.pagina.dart';
 import 'package:fastfood_inteligente_flutter/src/tela_chamada_de_pedidos/paginas/tela.chamada.de.pedidos.pagina.dart';
+import 'package:fastfood_inteligente_flutter/src/usuarios/usuarios.modulos.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -27,11 +29,13 @@ class MyApp extends StatelessWidget {
         ...configuracoesChapaModulos,
         ...entradaModulos,
         ...ChapaDeTrabalhoModulos,
+        ...usuariosModulos,
       ],
       child: MaterialApp(
         routes: <String, WidgetBuilder>{
-          '/': (_) => const HomePage(),
+          '/': (_) => const LoginPage(),
           ChapaPagina.routeName: (_) => const ChapaPagina(),
+          '/home': (_) => const HomePage(),
           '/config': (_) => const ConfiguracoesPage(),
           '/selecionesuachapa': (_) => const SelecioneSuaChapaPagina(),
           '/entrada': (_) => const EntradaPagina(),
