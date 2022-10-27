@@ -6,14 +6,14 @@ import 'package:fastfood_inteligente_flutter/src/login/eventos/login.eventos.dar
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+class LoginPagina extends StatefulWidget {
+  const LoginPagina({Key? key}) : super(key: key);
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<LoginPagina> createState() => _LoginPaginaState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _LoginPaginaState extends State<LoginPagina> {
 
   @override
   void initState() {
@@ -21,7 +21,7 @@ class _LoginPageState extends State<LoginPage> {
     context.read<LoginBloc>();
   }
 
-  late final LoginController _loginController = LoginController(
+  late final LoginControle _loginController = LoginControle(
       () => Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(builder: (context) => const HomePage()),

@@ -19,9 +19,6 @@ class LoginBloc
     on<AutenticarUsuarioLoginEventos>(
         _autenticarUsuarioLoginEventos,
         transformer: restartable());
-    on<RegistrarUsuarioLoginEventos>(
-        _registrarUsuarioLoginEventos,
-        transformer: restartable());
   }
 
 
@@ -45,11 +42,5 @@ class LoginBloc
     await autenticaUsuarioCasoDeUso.call(event.email, event.senha);
     await Future.delayed(const Duration(seconds: 2));
     emit(AutenticarUsuarioCompletoEstado());
-  }
-
-  Future<void> _registrarUsuarioLoginEventos(
-      RegistrarUsuarioLoginEventos event,
-      Emitter<LoginEstados> emit) async {
-    await registrarUsuarioCasoDeUso.call(event.usuario, event.senha);
   }
 }

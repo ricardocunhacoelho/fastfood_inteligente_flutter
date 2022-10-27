@@ -110,9 +110,9 @@ class _HomePageState extends State<HomePage> with CompleteStateMixin {
                   color: Colors.white,
                   child: TextButton(
                       onPressed: () {
-                        Navigator.pushNamed(context, '/entradachrome');
+                        Navigator.pushNamed(context, '/cadastrar');
                       },
-                      child: Text('Entrada chrome')),
+                      child: const Text('Cadastrar novos Usuários')),
                 ),
               ),
             ],

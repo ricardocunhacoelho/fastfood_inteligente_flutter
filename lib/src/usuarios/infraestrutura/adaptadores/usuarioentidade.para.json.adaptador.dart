@@ -5,7 +5,6 @@ class UsuarioEntidadeParaJson {
     return ({
       'uid': usuario.uid,
       'usuarioFuncao': usuario.usuarioFuncao.name,
-      'nome': usuario.nome,
       'email': usuario.email,
     });
   }

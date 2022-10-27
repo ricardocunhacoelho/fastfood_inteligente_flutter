@@ -1,4 +1,3 @@
-import 'package:fastfood_inteligente_flutter/src/configuracoes/bloc/configuracoes.produto.bloc.dart';
 import 'package:fastfood_inteligente_flutter/src/login/bloc/login.bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

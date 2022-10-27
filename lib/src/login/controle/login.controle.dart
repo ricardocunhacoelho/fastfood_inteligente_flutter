@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-class LoginController {
+class LoginControle {
   var firestore = FirebaseFirestore.instance;
   final formKey = GlobalKey<FormState>();
   String? username;
@@ -10,7 +10,7 @@ class LoginController {
   final VoidCallback onUpdate;
   final VoidCallback onConectApi;
 
-  LoginController(this.onSuccessLogin, this.onUpdate, this.onConectApi);
+  LoginControle(this.onSuccessLogin, this.onUpdate, this.onConectApi);
 
   bool validate({required GlobalKey<FormState> formKey}) {
     final form = formKey.currentState!;

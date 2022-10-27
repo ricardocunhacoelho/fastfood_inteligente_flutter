@@ -19,11 +19,14 @@ class UsuarioFirebase implements IUsuarioFonteDeDados {
     await firebaseAuth
         .createUserWithEmailAndPassword(
             email: usuarioMap['email'], password: senha)
-        .then((data) {
+        .then((data) async {
       var uid = data.user!.uid;
+      print('o uid é : $uid');
       usuarioMap['uid'] = uid;
-      var ref = firestore.collection('usuarios');
-      ref.doc(uid).set(usuarioMap);
-    });
+         final ref = firestore.collection('usuarios');
+       await ref.doc(uid).set(usuarioMap);
+       
+       }
+        ).catchError((onError) => print('deuerro $onError'));
   }
 }

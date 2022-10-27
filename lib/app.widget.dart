@@ -1,3 +1,5 @@
+import 'package:fastfood_inteligente_flutter/src/cadastro/cadastro.modulo.dart';
+import 'package:fastfood_inteligente_flutter/src/cadastro/pagina/cadastro.pagina.dart';
 import 'package:fastfood_inteligente_flutter/src/chapas/chapa.modulos.dart';
 import 'package:fastfood_inteligente_flutter/src/chapasdetrabalho/paginas/selecione.sua.chapa.pagina.dart';
 import 'package:fastfood_inteligente_flutter/src/configuracoes/configuracoes.chapa.modulos.dart';
@@ -31,20 +33,22 @@ class MyApp extends StatelessWidget {
         ...ChapaDeTrabalhoModulos,
         ...usuariosModulos,
         ...loginModulo,
+        ...cadastroModulo,
       ],
       child: MaterialApp(
         routes: <String, WidgetBuilder>{
-          '/': (_) => const LoginPage(),
+          '/': (_) => const LoginPagina(),
           ChapaPagina.routeName: (_) => const ChapaPagina(),
           '/home': (_) => const HomePage(),
           '/config': (_) => const ConfiguracoesPage(),
           '/selecionesuachapa': (_) => const SelecioneSuaChapaPagina(),
           '/entrada': (_) => const EntradaPagina(),
           '/chamadapedidos': (_) => const TelaChamadaDePedidosPage(),
+          '/cadastrar': (_) => const CadastroPagina(),
         },
         title: 'Flutter Demo',
         theme: ThemeData.dark(),
-        darkTheme: ThemeData(colorSchemeSeed: Colors.orange),
+        darkTheme: ThemeData(colorSchemeSeed: Color.fromARGB(255, 10, 10, 9)),
       ),
     );
   }
