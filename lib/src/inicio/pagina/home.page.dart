@@ -1,3 +1,5 @@
+import 'package:fastfood_inteligente_flutter/src/login/bloc/login.bloc.dart';
+import 'package:fastfood_inteligente_flutter/src/login/estados/login.estados.dart';
 import 'package:fastfood_inteligente_flutter/src/recepcao/bloc/entrada.bloc.dart';
 import 'package:fastfood_inteligente_flutter/src/recepcao/eventos/entrada.eventos.dart';
 import 'package:flutter/material.dart';
@@ -36,6 +38,9 @@ class _HomePageState extends State<HomePage> with CompleteStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    final loginBloc = context.watch<LoginBloc>();
+    final loginEstados = loginBloc.state;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('HomePage'),
@@ -55,10 +60,10 @@ class _HomePageState extends State<HomePage> with CompleteStateMixin {
                       onPressed: () {
                         Navigator.pushNamed(context, '/config');
                       },
-                      child: Text('Configurações app \'gerente\'')),
+                      child: const Text('Configurações app \'gerente\'')),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Center(
@@ -68,9 +73,9 @@ class _HomePageState extends State<HomePage> with CompleteStateMixin {
                   color: Colors.white,
                   child: TextButton(
                       onPressed: () {
-                        Navigator.pushNamed(context, '/selecionesuachapa');
+                        Navigator.pushNamed(context, '/chapeiro');
                       },
-                      child: Text('Chapas de trabalho')),
+                      child: const Text('Chapas de trabalho')),
                 ),
               ),
               Center(
@@ -80,12 +85,12 @@ class _HomePageState extends State<HomePage> with CompleteStateMixin {
                   color: Colors.white,
                   child: TextButton(
                       onPressed: () {
-                        Navigator.pushNamed(context, '/entrada');
+                        Navigator.pushNamed(context, '/registraPedidos');
                       },
-                      child: Text('Entrada Pedidos')),
+                      child: const Text('Entrada Pedidos')),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Center(
@@ -95,12 +100,12 @@ class _HomePageState extends State<HomePage> with CompleteStateMixin {
                   color: Colors.white,
                   child: TextButton(
                       onPressed: () {
-                        Navigator.pushNamed(context, '/chamadapedidos');
+                        Navigator.pushNamed(context, '/avocaClientes');
                       },
-                      child: Text('Chamada de pedidos tela')),
+                      child: const Text('Chamada de pedidos tela')),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Center(
@@ -110,7 +115,7 @@ class _HomePageState extends State<HomePage> with CompleteStateMixin {
                   color: Colors.white,
                   child: TextButton(
                       onPressed: () {
-                        Navigator.pushNamed(context, '/cadastrar');
+                        Navigator.pushNamed(context, '/caixa');
                       },
                       child: const Text('Cadastrar novos Usuários')),
                 ),

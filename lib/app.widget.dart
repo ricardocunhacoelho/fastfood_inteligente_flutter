@@ -39,16 +39,16 @@ class MyApp extends StatelessWidget {
         routes: <String, WidgetBuilder>{
           '/': (_) => const LoginPagina(),
           ChapaPagina.routeName: (_) => const ChapaPagina(),
-          '/home': (_) => const HomePage(),
+          '/gerente': (_) => const HomePage(),
           '/config': (_) => const ConfiguracoesPage(),
-          '/selecionesuachapa': (_) => const SelecioneSuaChapaPagina(),
-          '/entrada': (_) => const EntradaPagina(),
-          '/chamadapedidos': (_) => const TelaChamadaDePedidosPage(),
-          '/cadastrar': (_) => const CadastroPagina(),
+          '/chapeiro': (_) => const SelecioneSuaChapaPagina(),
+          '/registraPedidos': (_) => const EntradaPagina(),
+          '/avocaClientes': (_) => const TelaChamadaDePedidosPage(),
+          '/caixa': (_) => const CadastroPagina(),
         },
         title: 'Flutter Demo',
         theme: ThemeData.dark(),
-        darkTheme: ThemeData(colorSchemeSeed: Color.fromARGB(255, 10, 10, 9)),
+        darkTheme: ThemeData(colorSchemeSeed: const Color.fromARGB(255, 10, 10, 9)),
       ),
     );
   }

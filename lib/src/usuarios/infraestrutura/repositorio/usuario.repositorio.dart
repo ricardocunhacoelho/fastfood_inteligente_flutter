@@ -1,5 +1,6 @@
 import 'package:fastfood_inteligente_flutter/src/usuarios/dominio/entidade/usuario.entidade.dart';
 import 'package:fastfood_inteligente_flutter/src/usuarios/dominio/repositorio/iusuario.repositorio.dart';
+import 'package:fastfood_inteligente_flutter/src/usuarios/infraestrutura/adaptadores/json.para.usuarioentidade.adaptador.dart';
 import 'package:fastfood_inteligente_flutter/src/usuarios/infraestrutura/adaptadores/usuarioentidade.para.json.adaptador.dart';
 import 'package:fastfood_inteligente_flutter/src/usuarios/infraestrutura/fontededados/iusuario.fontededados.dart';
 
@@ -8,6 +9,11 @@ class UsuarioRepositorio implements IUsuarioRepositorio {
 
   UsuarioRepositorio(this.fontededados);
 
+  @override
+  Future<UsuarioEntidade> buscarUsuario(String uid) async {
+    final map = await fontededados.buscarUsuario(uid);
+     return JsonParaUsuarioEntidade.deMap(map);
+  }
   @override
   Future<void> registrarUsuario(UsuarioEntidade usuario, String senha) async {
     final map = UsuarioEntidadeParaJson.paraMap(usuario);

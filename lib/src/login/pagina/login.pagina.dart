@@ -1,8 +1,8 @@
-import 'package:fastfood_inteligente_flutter/src/inicio/pagina/home.page.dart';
 import 'package:fastfood_inteligente_flutter/src/login/bloc/login.bloc.dart';
 import 'package:fastfood_inteligente_flutter/src/login/controle/login.controle.dart';
 import 'package:fastfood_inteligente_flutter/src/login/estados/login.estados.dart';
 import 'package:fastfood_inteligente_flutter/src/login/eventos/login.eventos.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -14,7 +14,6 @@ class LoginPagina extends StatefulWidget {
 }
 
 class _LoginPaginaState extends State<LoginPagina> {
-
   @override
   void initState() {
     super.initState();
@@ -22,14 +21,15 @@ class _LoginPaginaState extends State<LoginPagina> {
   }
 
   late final LoginControle _loginController = LoginControle(
-      () => Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(builder: (context) => const HomePage()),
-          (route) => false),
-      () => setState(() {}), () {
-    context.read<LoginBloc>().add(AutenticarUsuarioLoginEventos(
-        _loginController.username!, _loginController.password!));
-  });
+    () async {
+      final uid = await FirebaseAuth.instance.currentUser!.uid.toString();
+      context.read<LoginBloc>().add(BuscarUsuarioLoginEventos(uid));
+    },
+    () {
+      context.read<LoginBloc>().add(AutenticarUsuarioLoginEventos(
+          _loginController.username!, _loginController.password!));
+    },
+  );
 
   final _usernameControle = TextEditingController();
   final _passwordControle = TextEditingController();
@@ -38,7 +38,12 @@ class _LoginPaginaState extends State<LoginPagina> {
   Widget build(BuildContext context) {
     final loginBloc = context.watch<LoginBloc>();
     final loginEstados = loginBloc.state;
-
+    if (loginEstados is CompletoBuscarUsuarioLoginEstado) {
+      Navigator.pushNamedAndRemoveUntil(
+          context,
+          '/gerente',
+          ModalRoute.withName('/'));
+    }
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 25),
@@ -69,27 +74,31 @@ class _LoginPaginaState extends State<LoginPagina> {
                 ),
               ),
               const SizedBox(height: 15),
-              if(loginEstados is AutenticarUsuarioCarregandoEstado)
-                   const CircularProgressIndicator(),
-              if(loginEstados is IniciarLoginEstado)
-              TextButton(
-                      style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStateProperty.all(Colors.orange),
-                      ),
-                      onPressed: () {
-                        final isValid = _loginController.validate(
-                            formKey: _loginController.formKey);
-                        if (isValid) {
-                          _loginController.login(
-                              username: _loginController.username!,
-                              password: _loginController.password!);
-                        }
-                      },
-                      child: const Text(
-                        'Entrar',
-                        style: TextStyle(color: Colors.white),
-                      )),
+              if (loginEstados is AutenticarUsuarioCarregandoEstado)
+                const CircularProgressIndicator(),
+              if (loginEstados is CarregandoUsuariosLoginEstado)
+                const CircularProgressIndicator(),
+              if (loginEstados is IniciarLoginEstado)
+                TextButton(
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(Colors.orange),
+                    ),
+                    onPressed: () {
+                      final isValid = _loginController.validate(
+                          formKey: _loginController.formKey);
+                      if (isValid) {
+                        _loginController.login(
+                            username: _loginController.username!,
+                            password: _loginController.password!);
+                      }
+                    },
+                    child: const Text(
+                      'Entrar',
+                      style: TextStyle(color: Colors.white),
+                    )),
+                    if (loginEstados is CompletoBuscarUsuarioLoginEstado)
+                    Text('completo'),
+                  
             ],
           ),
         ),

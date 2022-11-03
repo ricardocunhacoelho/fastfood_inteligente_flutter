@@ -29,4 +29,19 @@ class UsuarioFirebase implements IUsuarioFonteDeDados {
        }
         ).catchError((onError) => print('deuerro $onError'));
   }
+  
+  @override
+  Future<Map> buscarUsuario(String uid) async {
+    final docRef = firestore.collection("usuarios").doc(uid);
+    final data = docRef.get().then(
+  (DocumentSnapshot doc) {
+    return doc.data() as Map<String, dynamic>;
+    // ...
+  },
+  onError: (e) => print("Error getting document: $e"),
+);
+  return data;
+  }
+
+
 }

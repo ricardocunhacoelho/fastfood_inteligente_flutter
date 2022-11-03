@@ -21,6 +21,10 @@ class CadastroBloc
   Future<void> _registrarUsuarioCadastroEventos(
       RegistrarUsuarioCadastroEventos event,
       Emitter<CadastroEstados> emit) async {
+    emit(RegistrarUsuarioCarregandoEstado());
     await registrarUsuarioCasoDeUso.call(event.usuario, event.senha);
+    await Future.delayed(const Duration(seconds: 2));
+        emit(RegistrarUsuarioCompletoEstado());
+
   }
 }

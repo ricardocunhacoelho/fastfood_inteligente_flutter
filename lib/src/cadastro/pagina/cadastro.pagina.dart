@@ -113,7 +113,7 @@ class _CadastroPaginaState extends State<CadastroPagina> {
                           }
                         },
                         child: const Text(
-                          'Entrar',
+                          'Confirmar',
                           style: TextStyle(color: Colors.white),
                         )),
                 ],
