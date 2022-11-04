@@ -12,8 +12,10 @@ class UsuarioRepositorio implements IUsuarioRepositorio {
   @override
   Future<UsuarioEntidade> buscarUsuario(String uid) async {
     final map = await fontededados.buscarUsuario(uid);
-     return JsonParaUsuarioEntidade.deMap(map);
+    final usuario = JsonParaUsuarioEntidade.deMap(map);
+    return usuario;
   }
+
   @override
   Future<void> registrarUsuario(UsuarioEntidade usuario, String senha) async {
     final map = UsuarioEntidadeParaJson.paraMap(usuario);

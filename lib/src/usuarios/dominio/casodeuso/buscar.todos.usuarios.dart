@@ -1,4 +1,3 @@
-import 'package:fastfood_inteligente_flutter/src/produtos/dominio/entidade/produto.entidade.dart';
 import 'package:fastfood_inteligente_flutter/src/usuarios/dominio/entidade/usuario.entidade.dart';
 import 'package:fastfood_inteligente_flutter/src/usuarios/dominio/repositorio/iusuario.repositorio.dart';
 
@@ -11,7 +10,7 @@ class BuscarUsuario implements IBuscarUsuario {
 
   BuscarUsuario(this.repositorio);
   @override
-  Future<UsuarioEntidade> call(String uid) async  {
+  Future<UsuarioEntidade> call(String uid) async {
     return await repositorio.buscarUsuario(uid);
   }
 }

@@ -22,10 +22,6 @@ class _LoginPaginaState extends State<LoginPagina> {
 
   late final LoginControle _loginController = LoginControle(
     () async {
-      final uid = await FirebaseAuth.instance.currentUser!.uid.toString();
-      context.read<LoginBloc>().add(BuscarUsuarioLoginEventos(uid));
-    },
-    () {
       context.read<LoginBloc>().add(AutenticarUsuarioLoginEventos(
           _loginController.username!, _loginController.password!));
     },
@@ -33,16 +29,23 @@ class _LoginPaginaState extends State<LoginPagina> {
 
   final _usernameControle = TextEditingController();
   final _passwordControle = TextEditingController();
+  void navegar(String rota) {
+    Navigator.pushNamedAndRemoveUntil(
+        context, '/$rota', ModalRoute.withName('/'));
+  }
 
   @override
   Widget build(BuildContext context) {
     final loginBloc = context.watch<LoginBloc>();
     final loginEstados = loginBloc.state;
+    if (loginEstados is AutenticarUsuarioCompletoEstado) {
+      final uid = FirebaseAuth.instance.currentUser!.uid.toString();
+      context.read<LoginBloc>().add(BuscarUsuarioLoginEventos(uid));
+    }
     if (loginEstados is CompletoBuscarUsuarioLoginEstado) {
-      Navigator.pushNamedAndRemoveUntil(
-          context,
-          '/gerente',
-          ModalRoute.withName('/'));
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        navegar(loginEstados.usuario.usuarioFuncao.name);
+      });
     }
     return Scaffold(
       body: Padding(
@@ -74,9 +77,8 @@ class _LoginPaginaState extends State<LoginPagina> {
                 ),
               ),
               const SizedBox(height: 15),
-              if (loginEstados is AutenticarUsuarioCarregandoEstado)
-                const CircularProgressIndicator(),
-              if (loginEstados is CarregandoUsuariosLoginEstado)
+              if (loginEstados is AutenticarUsuarioCarregandoEstado ||
+                  loginEstados is CarregandoUsuariosLoginEstado)
                 const CircularProgressIndicator(),
               if (loginEstados is IniciarLoginEstado)
                 TextButton(
@@ -96,9 +98,6 @@ class _LoginPaginaState extends State<LoginPagina> {
                       'Entrar',
                       style: TextStyle(color: Colors.white),
                     )),
-                    if (loginEstados is CompletoBuscarUsuarioLoginEstado)
-                    Text('completo'),
-                  
             ],
           ),
         ),

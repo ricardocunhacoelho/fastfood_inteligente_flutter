@@ -25,8 +25,8 @@ class LoginBloc extends Bloc<LoginEventos, LoginEstados> {
 
   Future<void> _buscarUsuarioLoginEventos(
       BuscarUsuarioLoginEventos event, Emitter<LoginEstados> emit) async {
-        emit(CarregandoUsuariosLoginEstado());
-    final usuario = await buscarUsuarioCasoDeUso.call(event.uid);    
+    emit(CarregandoUsuariosLoginEstado());
+    final usuario = await buscarUsuarioCasoDeUso.call(event.uid);
     emit(CompletoBuscarUsuarioLoginEstado(usuario));
   }
 
