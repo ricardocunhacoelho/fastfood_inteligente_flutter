@@ -112,9 +112,6 @@ class _FinalizarPedidoDialogComponenteState
                         setState(() {
                           ordem = ordem.copyWith(embalarParaViajem: value);
                         });
-                        context
-                            .read<EntradaBloc>()
-                            .add(AtualizarOrdemBaseEntradaEventos(ordem));
                       }),
                 ],
               ),
@@ -149,20 +146,6 @@ class _FinalizarPedidoDialogComponenteState
                     },
                     child: Text('Voltar')),
               ),
-              // Container(
-              //   color: Colors.black12,
-              //   width: 90,
-              //   height: 50,
-              //   child: TextButton(
-              //       style: TextButton.styleFrom(
-              //         primary: Colors.orangeAccent,
-              //         minimumSize: Size.infinite,
-              //       ),
-              //       onPressed: () {
-              //         Navigator.pop(context);
-              //       },
-              //       child: Text('Pagar')),
-              // ),
               Container(
                 color: Colors.black12,
                 width: 90,
@@ -182,15 +165,9 @@ class _FinalizarPedidoDialogComponenteState
                             ordem.produtos,
                             listaComChapas,
                           ));
-                      context.read<EntradaBloc>().add(
-                          ResetarProdutosReceberamIncrementoQuantidadeEntradaEventos());
-                      context
-                          .read<EntradaBloc>()
-                          .add(ResetarOrdemBaseEntradaEventos());
-
                       Navigator.pop(context);
                     },
-                    child: Text('Imprimir')),
+                    child: const Text('Imprimir')),
               ),
             ],
           ),

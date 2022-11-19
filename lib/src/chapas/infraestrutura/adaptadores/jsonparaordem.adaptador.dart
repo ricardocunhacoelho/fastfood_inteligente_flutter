@@ -17,12 +17,4 @@ class JsonParaOrders {
       datahora: DateTime.parse(json['datahora']),
     );
   }
-  // static Map<String, dynamic> toMap(Ordem order) {
-  //   return {
-  //     'id': order.id,
-  //     'position': order.position,
-  //     'status': order.status.name,
-  //     'timestamp': order.timestamp.toIso8601String(),
-  //   };
-  // }
 }

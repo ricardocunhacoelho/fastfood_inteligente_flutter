@@ -2,14 +2,18 @@ import 'package:fastfood_inteligente_flutter/src/chapasdetrabalho/bloc/chapadetr
 import 'package:fastfood_inteligente_flutter/src/chapasdetrabalho/estados/selecaochapa.estados.dart';
 import 'package:fastfood_inteligente_flutter/src/chapasdetrabalho/eventos/selecaochapa.eventos.dart';
 import 'package:fastfood_inteligente_flutter/src/configuracoes/bloc/configuracoes.chapa.bloc.dart';
+import 'package:fastfood_inteligente_flutter/src/configuracoes/bloc/configuracoes.mesa.bloc.dart';
 import 'package:fastfood_inteligente_flutter/src/configuracoes/bloc/configuracoes.produto.bloc.dart';
 import 'package:fastfood_inteligente_flutter/src/configuracoes/componentes/chapa/adicionar.chapa.dialog.componente.dart';
 import 'package:fastfood_inteligente_flutter/src/configuracoes/componentes/chapa/botao.resetar.pedidos.configuracoes.componente.dart';
 import 'package:fastfood_inteligente_flutter/src/configuracoes/componentes/chapa/caixa.lista.chapas.configuracoes.dart';
 import 'package:fastfood_inteligente_flutter/src/configuracoes/componentes/chapa/lista.solicitacoes.cancelamento.configuracoes.dart';
+import 'package:fastfood_inteligente_flutter/src/configuracoes/componentes/mesa/adicionarmesa.dialog.componente.dart';
+import 'package:fastfood_inteligente_flutter/src/configuracoes/componentes/mesa/removermesa.dialog.componente.dart';
 import 'package:fastfood_inteligente_flutter/src/configuracoes/componentes/produto/adicionar.produto.dialog.componente.dart';
 import 'package:fastfood_inteligente_flutter/src/configuracoes/componentes/produto/caixa.lista.produtos.configuracoes.dart';
 import 'package:fastfood_inteligente_flutter/src/configuracoes/eventos/configuracoes.chapa.eventos.dart';
+import 'package:fastfood_inteligente_flutter/src/configuracoes/eventos/configuracoes.mesa.eventos.dart';
 import 'package:fastfood_inteligente_flutter/src/configuracoes/eventos/configuracoes.produto.eventos.dart';
 import 'package:fastfood_inteligente_flutter/src/recepcao/bloc/entrada.bloc.dart';
 import 'package:fastfood_inteligente_flutter/src/recepcao/eventos/entrada.eventos.dart';
@@ -63,8 +67,7 @@ class _ConfiguracoesPageState extends State<ConfiguracoesPage>
       ),
       body: Container(
         child: Scrollbar(
-          isAlwaysShown: true,
-          showTrackOnHover: true,
+          trackVisibility: true,
           child: ListView(
             children: [
               //PRODUTOS - ADICIONAR PRODUTOS
@@ -134,6 +137,66 @@ class _ConfiguracoesPageState extends State<ConfiguracoesPage>
 
                   //LISTA CHAPAS
                   listaChapasConfiguracoes(chapastate, context),
+                ],
+              ),
+              const SizedBox(height: 35),
+
+              //MESAS
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(
+                        left: 40, right: 40, top: 20, bottom: 15),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text(
+                          'MESAS',
+                          style: TextStyle(fontSize: 15),
+                        ),
+
+                        // - ADICIONAR MESAS
+
+                        IconButton(
+                          onPressed: () {
+                            context
+                                .read<ConfiguracoesMesaBloc>()
+                                .add(BuscarTodasMesasConfiguracoesEventos());
+                            showDialog(
+                                context: context,
+                                builder: (_) {
+                                  return AdicionarMesaDialogComponente();
+                                });
+                          },
+                          icon: const Icon(
+                            Icons.add_circle,
+                          ),
+                        ),
+
+                        // - REMOVER MESAS
+
+                        IconButton(
+                          onPressed: () {
+                            context
+                                .read<ConfiguracoesMesaBloc>()
+                                .add(BuscarTodasMesasConfiguracoesEventos());
+                            showDialog(
+                                context: context,
+                                builder: (_) {
+                                  return RemoverMesaDialogComponente();
+                                });
+                          },
+                          icon: const Icon(
+                            Icons.remove_circle,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  // //LISTA CHAPAS
+                  // listaChapasConfiguracoes(chapastate, context),
                 ],
               ),
               const SizedBox(height: 35),

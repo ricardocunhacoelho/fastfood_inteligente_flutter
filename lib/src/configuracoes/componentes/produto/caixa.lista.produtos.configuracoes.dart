@@ -25,8 +25,7 @@ Widget listaProdutosConfiguracoes(
       width: MediaQuery.of(context).size.width * 0.9,
       height: MediaQuery.of(context).size.width * 0.8,
       child: Scrollbar(
-        isAlwaysShown: true,
-        showTrackOnHover: true,
+        trackVisibility: true,
         child: ListView.builder(
           shrinkWrap: true,
           itemCount: produtostate.lista.length,
