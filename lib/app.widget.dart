@@ -6,6 +6,7 @@ import 'package:fastfood_inteligente_flutter/src/configuracoes/configuracoes.cha
 import 'package:fastfood_inteligente_flutter/src/configuracoes/configuracoes.mesa.modulo.dart';
 import 'package:fastfood_inteligente_flutter/src/configuracoes/configuracoes.produto.modulos.dart';
 import 'package:fastfood_inteligente_flutter/src/configuracoes/pagina/configuracoes.page.dart';
+import 'package:fastfood_inteligente_flutter/src/gerente/pagina/home.gerente.pagina.dart';
 import 'package:fastfood_inteligente_flutter/src/inicio/pagina/home.page.dart';
 import 'package:fastfood_inteligente_flutter/src/login/login.modulo.dart';
 import 'package:fastfood_inteligente_flutter/src/login/pagina/login.pagina.dart';
@@ -49,9 +50,10 @@ class MyApp extends StatelessWidget {
           '/registraPedidos': (_) => const EntradaPagina(),
           '/avocaClientes': (_) => const TelaChamadaDePedidosPage(),
           '/caixa': (_) => const CadastroPagina(),
+          '/gerentepage': (_) => const HomeGerente(),
         },
         title: 'Flutter Demo',
-        theme: ThemeData.dark(),
+        theme: ThemeData.light(),
         darkTheme: ThemeData(colorSchemeSeed: const Color.fromARGB(255, 10, 10, 9)),
       ),
     );

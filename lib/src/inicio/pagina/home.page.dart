@@ -120,6 +120,21 @@ class _HomePageState extends State<HomePage> with CompleteStateMixin {
                       child: const Text('Cadastrar novos Usuários')),
                 ),
               ),
+              const SizedBox(
+                height: 20,
+              ),
+              Center(
+                child: Container(
+                  width: 201,
+                  height: 40,
+                  color: Colors.white,
+                  child: TextButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/gerentepage');
+                      },
+                      child: const Text('Construção')),
+                ),
+              ),
             ],
           ),
         ),
