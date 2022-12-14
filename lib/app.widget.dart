@@ -17,6 +17,7 @@ import 'package:fastfood_inteligente_flutter/src/chapasdetrabalho/selecao.chapa.
 import 'package:fastfood_inteligente_flutter/src/recepcao/entrada.modulos.dart';
 import 'package:fastfood_inteligente_flutter/src/recepcao/pagina/entrada.pagina.dart';
 import 'package:fastfood_inteligente_flutter/src/tela_chamada_de_pedidos/paginas/tela.chamada.de.pedidos.pagina.dart';
+import 'package:fastfood_inteligente_flutter/src/pedidos/novopedido/pagina/novopedido.pagina.dart';
 import 'package:fastfood_inteligente_flutter/src/usuarios/usuarios.modulos.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -51,6 +52,7 @@ class MyApp extends StatelessWidget {
           '/avocaClientes': (_) => const TelaChamadaDePedidosPage(),
           '/caixa': (_) => const CadastroPagina(),
           '/gerentepage': (_) => const HomeGerente(),
+          '/novoPedido': (_) => NovoPedidoPagina(),
         },
         title: 'Flutter Demo',
         theme: ThemeData.light(),

@@ -1,15 +1,12 @@
 import 'package:fastfood_inteligente_flutter/src/mesas/dominio/entidade/mesa.entidade.dart';
-import 'package:fastfood_inteligente_flutter/src/mesas/infraestrutura/adaptadores/cliente.parajson.adaptador.dart';
-import 'package:fastfood_inteligente_flutter/src/mesas/infraestrutura/adaptadores/conta.parajson.adaptador.dart';
+import 'package:fastfood_inteligente_flutter/src/mesas/infraestrutura/adaptadores/comanda.parajson.adaptador.dart';
 
 class MesaParaJson {
   static Map<String, dynamic> paraMap(MesaEntidade mesaEntidade) {
     return ({
       'numero': mesaEntidade.numero,
-      'atendente': mesaEntidade.atendente,
-      'clientes':
-          mesaEntidade.clientes.map((e) => ClienteParaJson.paraMap(e)).toList(),
-      'conta' : ContaParaJson.paraMap(mesaEntidade.conta),
+      'comandas':
+          mesaEntidade.comandas.map((e) => ComandaParaJson.paraMap(e)).toList(),
     });
   }
 }

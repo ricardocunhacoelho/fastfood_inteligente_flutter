@@ -10,7 +10,7 @@ class JsonParaSolicitacaoCancelamentoPedidoObjeto {
         posicao: map['posicao'] ?? 0,
         estado: ESolicitacaoCancelamentoEstado.values
             .firstWhere((element) => element.name == map['estado']),
-        ordem: JsonParaOrders.fromMap(map['ordem']),
+        ordem: JsonParaOrdem.fromMap(map['ordem']),
         chapa: JsonParaChapa.deMap(map['chapa']),
         motivo: map['motivo'],
         datahora: DateTime.parse(map['datahora']));

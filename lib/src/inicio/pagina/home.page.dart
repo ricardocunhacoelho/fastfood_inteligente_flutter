@@ -132,7 +132,22 @@ class _HomePageState extends State<HomePage> with CompleteStateMixin {
                       onPressed: () {
                         Navigator.pushNamed(context, '/gerentepage');
                       },
-                      child: const Text('Construção')),
+                      child: const Text('Gerente')),
+                ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Center(
+                child: Container(
+                  width: 201,
+                  height: 40,
+                  color: Colors.white,
+                  child: TextButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/novoPedido');
+                      },
+                      child: const Text('NovoPedido')),
                 ),
               ),
             ],

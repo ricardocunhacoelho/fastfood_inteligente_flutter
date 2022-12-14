@@ -11,7 +11,7 @@ class JsonParaChapa {
           .firstWhere((element) => element.name == map['estado']),
       ordens: map.containsKey('ordens')
           ? (map['ordens'] as List)
-              .map((e) => JsonParaOrders.fromMap(e))
+              .map((e) => JsonParaOrdem.fromMap(e))
               .toList()
           : [],
     );

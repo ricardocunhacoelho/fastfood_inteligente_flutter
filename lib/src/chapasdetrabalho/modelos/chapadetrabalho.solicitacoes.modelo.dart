@@ -56,13 +56,19 @@ class ChapasDeTrabalhoSolicitacoesModelo
         chapa: ConfiguracoesChapaModelo.empty(),
         estado: ESolicitacaoCancelamentoEstado.aguardando,
         ordem: Ordem(
-            id: 'id',
-            observacao: 'observacao',
-            posicao: 1,
-            embalarParaViajem: false,
-            datahora: DateTime.now(),
-            produtos: [],
-            estado: EOrdermEstado.aguardando),
+          id: 'id',
+          observacao: 'observacao',
+          posicao: 1,
+          embalarParaViajem: false,
+          datahora: DateTime.now(),
+          produtos: [],
+          estado: EOrdermEstado.aguardando,
+          nomeCliente: '',
+          atendente: '',
+          nomeChapeiro: '',
+          numeroMesa: 0,
+          valorTotalPedido: 0,
+        ),
       );
 
   factory ChapasDeTrabalhoSolicitacoesModelo.converter(

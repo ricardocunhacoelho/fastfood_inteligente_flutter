@@ -4,9 +4,9 @@ import 'package:fastfood_inteligente_flutter/src/produtos/infraestrutura/adaptad
 class ContaParaJson {
   static Map<String, dynamic> paraMap(Conta conta) {
     return ({
-      'dinheiroAvulso': conta.dinheiroAvulso,
-      'produtosPagos':
-          conta.produtosPagos.map((e) => ProdutosEntidadeToJson.toMap(e)).toList(),
+      'total': conta.total,
+      'produtos':
+          conta.produtos.map((e) => ProdutosEntidadeToJson.toMap(e)).toList(),
     });
   }
 }

@@ -1,0 +1,34 @@
+mesa ok
+numeroMesa
+comandas (comanda)
+
+comanda_'nome' (cliente) ok
+nome cliente -
+numero mesa -
+pedidos - (ordens)
+contaPg - Conta
+
+pedido (ordem)
+  final String id;
+  final String observacao;
+  final int posicao;
+  final bool embalarParaViajem;
+  final DateTime datahora;
+  final List<ProdutoEntidade> produtos;
+  final EOrdermEstado estado;
+  final String nomeCliente;
+  final String atendente;
+  final String nomeChapeiro;
+  final int numeroMesa;
+  final int valorTotalPedido;
+
+conta da mesa toda só dividi entre amigos ou receber valor total.
+
+conta comanda individual receber total, receber parcial.
+
+se valor > 0 e produtos == null || valor !== somaValorProdutos então receber parcial somente por valor
+else receber parcial produtos e valor.
+
+se valorContaRecebido == somaProdutosConsumidos > enviar para historico
+
+HistoricoEntidade vai conter List<Ordem>

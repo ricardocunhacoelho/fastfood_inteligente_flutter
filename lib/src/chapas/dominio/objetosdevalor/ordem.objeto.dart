@@ -8,6 +8,11 @@ class Ordem {
   final DateTime datahora;
   final List<ProdutoEntidade> produtos;
   final EOrdermEstado estado;
+  final String nomeCliente;
+  final String atendente;
+  final String nomeChapeiro;
+  final int numeroMesa;
+  final double valorTotalPedido;
   Ordem({
     required this.id,
     required this.observacao,
@@ -16,6 +21,11 @@ class Ordem {
     required this.datahora,
     required this.produtos,
     required this.estado,
+    required this.nomeCliente,
+    required this.atendente,
+    required this.nomeChapeiro,
+    required this.numeroMesa,
+    required this.valorTotalPedido,
   });
 }
 

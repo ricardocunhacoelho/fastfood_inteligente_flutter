@@ -156,16 +156,16 @@ class _FinalizarPedidoDialogComponenteState
                       minimumSize: Size.infinite,
                     ),
                     onPressed: () {
-                      print(listaComChapas.length);
-                      context
-                          .read<EntradaBloc>()
-                          .add(FinalizarImprimirPedidoEntradaEventos(
-                            ordem.observacao,
-                            ordem.embalarParaViajem,
-                            ordem.produtos,
-                            listaComChapas,
-                          ));
-                      Navigator.pop(context);
+                      // print(listaComChapas.length);
+                      // context
+                      //     .read<EntradaBloc>()
+                      //     .add(FinalizarImprimirPedidoEntradaEventos(
+                      //       ordem.observacao,
+                      //       ordem.embalarParaViajem,
+                      //       ordem.produtos,
+                      //       listaComChapas,
+                      //     ));
+                      // Navigator.pop(context);
                     },
                     child: const Text('Imprimir')),
               ),

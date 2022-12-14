@@ -33,12 +33,22 @@ class FinalizarImprimirPedidoEntradaEventos implements EntradaEventos {
   final bool embalarParaViajem;
   final List<ProdutoEntidade> produtos;
   final List<ChapaEntidade> listaChapas;
+  final String nomeCliente;
+  final String atendente;
+  final String nomeChapeiro;
+  final int numeroMesa;
+  final double valorTotalPedido;
 
   FinalizarImprimirPedidoEntradaEventos(
     this.observacao,
     this.embalarParaViajem,
     this.produtos,
     this.listaChapas,
+    this.nomeCliente,
+    this.atendente,
+    this.nomeChapeiro,
+    this.numeroMesa,
+    this.valorTotalPedido,
   );
 }
 

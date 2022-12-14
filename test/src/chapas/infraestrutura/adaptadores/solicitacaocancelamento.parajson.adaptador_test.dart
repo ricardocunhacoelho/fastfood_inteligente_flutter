@@ -8,13 +8,19 @@ void main() {
   test('deve retornar um map a partir de uma solicitação', () {
     //ordem
     final ordem = Ordem(
-        id: 'id',
-        observacao: 'observacao',
-        posicao: 2,
-        embalarParaViajem: true,
-        datahora: DateTime.now(),
-        produtos: [],
-        estado: EOrdermEstado.aguardando);
+      id: 'id',
+      observacao: 'observacao',
+      posicao: 2,
+      embalarParaViajem: true,
+      datahora: DateTime.now(),
+      produtos: [],
+      estado: EOrdermEstado.aguardando,
+      nomeCliente: '',
+      atendente: '',
+      nomeChapeiro: '',
+      numeroMesa: 0,
+      valorTotalPedido: 0,
+    );
     //chapa
     final chapa = ChapaEntidade(
         titulo: 'titulo',

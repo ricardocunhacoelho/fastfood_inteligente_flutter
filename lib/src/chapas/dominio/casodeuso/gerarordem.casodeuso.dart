@@ -4,6 +4,10 @@ import 'package:fastfood_inteligente_flutter/src/produtos/dominio/entidade/produ
 
 abstract class IGerarOrdem {
   List<Ordem> call(
+      String nomeCliente,
+      String atendente,
+      int numeroMesa,
+      double valorTotalPedido,
       String observacao,
       bool embalarParaViajem,
       List<ProdutoEntidade> produtos,
@@ -15,6 +19,10 @@ class GerarOrdem implements IGerarOrdem {
   var initialValue = 0;
   @override
   List<Ordem> call(
+      String nomeCliente,
+      String atendente,
+      int numeroMesa,
+      double valorTotalPedido,
       String observacao,
       bool embalarParaViajem,
       List<ProdutoEntidade> produtos,
@@ -39,7 +47,12 @@ class GerarOrdem implements IGerarOrdem {
         id: _generateId(totalOrdensTodasChapas + 1),
         estado: EOrdermEstado.aguardando,
         posicao: totalOrdensTodasChapas + 1,
-        datahora: DateTime.now());
+        datahora: DateTime.now(),
+        nomeCliente: nomeCliente,
+        atendente: atendente,
+        nomeChapeiro: '',
+        numeroMesa: numeroMesa,
+        valorTotalPedido: valorTotalPedido);
     ordens.add(ordem);
     return ordens;
   }

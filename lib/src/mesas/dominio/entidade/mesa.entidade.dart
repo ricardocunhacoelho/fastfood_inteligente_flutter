@@ -1,16 +1,11 @@
-import 'package:fastfood_inteligente_flutter/src/mesas/dominio/objetosdevalor/cliente.objeto.dart';
-import 'package:fastfood_inteligente_flutter/src/mesas/dominio/objetosdevalor/conta.objeto.dart';
+import 'package:fastfood_inteligente_flutter/src/mesas/dominio/objetosdevalor/comanda.objeto.dart';
 
 class MesaEntidade {
   final int numero;
-  final List<Cliente> clientes;
-  final String atendente;
-  final Conta conta;
+  final List<Comanda> comandas;
   MesaEntidade({
     required this.numero,
-    required this.clientes,
-    required this.atendente,
-    required this.conta,
+    required this.comandas,
   });
 }
 

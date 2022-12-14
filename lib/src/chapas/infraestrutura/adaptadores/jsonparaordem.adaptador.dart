@@ -1,7 +1,7 @@
 import 'package:fastfood_inteligente_flutter/src/chapas/dominio/objetosdevalor/ordem.objeto.dart';
 import 'package:fastfood_inteligente_flutter/src/produtos/infraestrutura/adaptadores/json.to.produtoentity.dart';
 
-class JsonParaOrders {
+class JsonParaOrdem {
   static Ordem fromMap(dynamic json) {
     return Ordem(
       produtos: json.containsKey('produtos')
@@ -15,6 +15,11 @@ class JsonParaOrders {
         (element) => element.name == json['estado'],
       ),
       datahora: DateTime.parse(json['datahora']),
+      nomeCliente: json['nomeCliente'],
+      atendente: json['atendente'],
+      nomeChapeiro: json['nomeChapeiro'],
+      numeroMesa: json['numeroMesa'],
+      valorTotalPedido: json['valorTotalPedido'],
     );
   }
 }

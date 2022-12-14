@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   test('veraqui', () {
-    final valorOrdem = JsonParaOrders.fromMap(
+    final valorOrdem = JsonParaOrdem.fromMap(
       {
         'id': 'ordem1',
         'observacao': 'obs',

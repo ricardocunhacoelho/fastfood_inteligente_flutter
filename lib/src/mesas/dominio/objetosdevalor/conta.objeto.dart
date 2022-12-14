@@ -1,10 +1,10 @@
 import 'package:fastfood_inteligente_flutter/src/produtos/dominio/entidade/produto.entidade.dart';
 
 class Conta {
-  final List<ProdutoEntidade> produtosPagos;
-  final double dinheiroAvulso;
+  final List<ProdutoEntidade> produtos;
+  final double total;
   Conta({
-    required this.produtosPagos,
-    required this.dinheiroAvulso,
+    required this.produtos,
+    required this.total,
   });
 }

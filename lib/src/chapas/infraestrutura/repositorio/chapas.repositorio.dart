@@ -57,7 +57,7 @@ class ChapaRepositorio implements IChapaRepositorio {
   }
 
   List<Ordem> _convertOrdem(List<Map<dynamic, dynamic>> list) {
-    return list.map(JsonParaOrders.fromMap).toList();
+    return list.map(JsonParaOrdem.fromMap).toList();
   }
 
   @override

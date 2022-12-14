@@ -98,11 +98,16 @@ class EntradaBloc extends Bloc<EntradaEventos, EntradaEstados> {
     final chapaEntidadeQueDeveReceberAOrdem = buscarChapaEntidadeNaListaUsecase
         .call(event.listaChapas, numeroDaChapaDeveReceberOPedido);
     final listaOrdensQueDevemSerAdicionadas = gerarOrdemUsecase.call(
-        event.observacao,
-        event.embalarParaViajem,
-        event.produtos,
-        chapaEntidadeQueDeveReceberAOrdem,
-        event.listaChapas);
+      event.nomeCliente,
+      event.atendente,
+      event.numeroMesa,
+      event.valorTotalPedido,
+      event.observacao,
+      event.embalarParaViajem,
+      event.produtos,
+      chapaEntidadeQueDeveReceberAOrdem,
+      event.listaChapas,
+    );
     await atualizarOrdensChapaUsecase.call(
         listaOrdensQueDevemSerAdicionadas, numeroDaChapaDeveReceberOPedido);
   }

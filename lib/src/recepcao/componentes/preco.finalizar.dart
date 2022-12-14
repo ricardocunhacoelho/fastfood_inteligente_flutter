@@ -25,7 +25,13 @@ class _PrecofinalizarState extends State<Precofinalizar> {
       id: 'ordem1',
       datahora: DateTime.now(),
       observacao: '',
-      posicao: 1);
+      posicao: 1,
+      nomeCliente: '',
+      atendente: '',
+      nomeChapeiro: '',
+      numeroMesa: 0,
+      valorTotalPedido: 0,   
+      );
   double tamanho = 90;
   bool habilitar = false;
   @override

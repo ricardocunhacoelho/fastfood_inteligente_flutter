@@ -81,8 +81,9 @@ class _HomeGerenteState extends State<HomeGerente> {
                                 Text(
                                   'R\$ 621,10',
                                   style: TextStyle(
-                                      fontSize: 20, color: Colors.orangeAccent),
-                                )
+                                      fontSize: 20, color: Colors.orangeAccent,
+                                      fontWeight: FontWeight.w700),
+                                ),
                               ]),
                           Icon(
                             Icons.library_books_rounded,

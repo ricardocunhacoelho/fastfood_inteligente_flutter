@@ -12,6 +12,11 @@ class OrdemParaJson {
       'datahora': ordem.datahora.toIso8601String(),
       'produtos':
           ordem.produtos.map((e) => ProdutosEntidadeToJson.toMap(e)).toList(),
+      'nomeCliente': ordem.nomeCliente,
+      'atendente': ordem.posicao,
+      'nomeChapeiro': ordem.nomeChapeiro,
+      'numeroMesa': ordem.numeroMesa,
+      'valorTotalPedido': ordem.valorTotalPedido,
     });
   }
 }
