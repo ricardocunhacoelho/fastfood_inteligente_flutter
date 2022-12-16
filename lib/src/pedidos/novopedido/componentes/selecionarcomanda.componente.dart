@@ -6,16 +6,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../configuracoes/bloc/configuracoes.mesa.bloc.dart';
 import '../../../configuracoes/estados/configuracoes.mesa.estados.dart';
 
-class SelecionarMesa extends StatefulWidget {
-  const SelecionarMesa({Key? key, this.clique}) : super(key: key);
+class SelecionarComanda extends StatefulWidget {
+  const SelecionarComanda({Key? key, this.clique}) : super(key: key);
 
   final VoidCallback? clique;
 
   @override
-  State<SelecionarMesa> createState() => _SelecionarMesaState();
+  State<SelecionarComanda> createState() => _SelecionarComandaState();
 }
 
-class _SelecionarMesaState extends State<SelecionarMesa> {
+class _SelecionarComandaState extends State<SelecionarComanda> {
   final controlePedidos = PedidosControle();
   @override
   Widget build(BuildContext context) {

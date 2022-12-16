@@ -3,14 +3,9 @@ import 'package:flutter/material.dart';
 
 class PedidosControle {
   final controller = PageController(initialPage: 0);
-  var firestore = FirebaseFirestore.instance;
-  final formKey = GlobalKey<FormState>();
-  String? username;
-  String? password;
   int mesaSelecionada = 0;
-  final VoidCallback? refresh;
 
-  PedidosControle(this.refresh);
+  PedidosControle();
 
   void checarOpcao(int index) async {
     mesaSelecionada = index + 1;

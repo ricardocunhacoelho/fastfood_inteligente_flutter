@@ -6,4 +6,6 @@ abstract class IMesaFonteDeDados {
 
   Stream<List<Map>> buscarTodasMesas();
 
+  Stream<Map> buscarMesas(int numeroDaMesa);
+
 }

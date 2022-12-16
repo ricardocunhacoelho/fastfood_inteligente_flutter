@@ -1,7 +1,9 @@
+import 'package:fastfood_inteligente_flutter/src/pedidos/novopedido/componentes/selecionarcomanda.componente.dart';
 import 'package:fastfood_inteligente_flutter/src/pedidos/novopedido/componentes/selecionarmesa.componente.dart';
 import 'package:fastfood_inteligente_flutter/src/pedidos/novopedido/controle/pedidos.controle.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../../../configuracoes/bloc/configuracoes.mesa.bloc.dart';
 import '../../../configuracoes/estados/configuracoes.mesa.estados.dart';
@@ -25,9 +27,7 @@ class _NovoPedidoPaginaState extends State<NovoPedidoPagina>
         .add(BuscarTodasMesasConfiguracoesEventos());
   }
 
-  late final controlePedidos = PedidosControle(() {
-    setState(() {});
-    });
+  final controlePedidos = PedidosControle();
   @override
   void dispose() {
     controlePedidos.controller.dispose();
@@ -36,33 +36,39 @@ class _NovoPedidoPaginaState extends State<NovoPedidoPagina>
 
   @override
   Widget build(BuildContext context) {
-
     final mesabloc = context.watch<ConfiguracoesMesaBloc>();
     final mesastate = mesabloc.state;
 
     return Scaffold(
-        body: PageView(
-      physics: NeverScrollableScrollPhysics(),
-      controller: controlePedidos.controller,
-      onPageChanged: (index) {
-        print('Page ${index + 1}');
-      },
+        body: Column(
       children: [
-        IniciarNovoPedido(clique: controlePedidos.adiantarPagina),
-        SelecionarMesa(),
-        Container(
-          color: Colors.blue,
-          child: TextButton(
-            onPressed: (() {
-              controlePedidos.controller.previousPage(
-                  duration: Duration(seconds: 1), curve: Curves.easeInOut);
-            }),
-            child: Text(
-              'Pagina3',
-              style: TextStyle(fontSize: 35),
-            ),
+        Expanded(
+          child: PageView(
+            physics: NeverScrollableScrollPhysics(),
+            controller: controlePedidos.controller,
+            onPageChanged: (index) {
+              print('Page ${index + 1}');
+            },
+            children: [
+              IniciarNovoPedido(clique: controlePedidos.adiantarPagina),
+              SelecionarMesa(clique: controlePedidos.adiantarPagina),
+              SelecionarComanda(clique: controlePedidos.adiantarPagina),
+            ],
           ),
         ),
+        Padding(
+          padding: const EdgeInsets.all(35),
+          child: SmoothPageIndicator(
+              controller: controlePedidos.controller, // PageController
+              count: 3,
+              effect: const ExpandingDotsEffect(
+                  spacing: 8,
+                  dotWidth: 20.0,
+                  dotHeight: 20,
+                  dotColor: Colors.grey,
+                  activeDotColor: Colors.orangeAccent), // your preferred effect
+              onDotClicked: (index) {}),
+        )
       ],
     ));
   }

@@ -30,4 +30,13 @@ class MesaRepositorio implements IMesaRepositorio {
   List<MesaEntidade> _convert(List<Map<dynamic, dynamic>> list) {
     return list.map(JsonParaMesa.deMap).toList();
   }
+  
+  @override
+  Stream<MesaEntidade> buscarMesas(int numeroDaMesa) {
+    final streammap = fontededados.buscarMesas(numeroDaMesa);
+    return streammap.map(_convertMesa);
+  }
+   MesaEntidade _convertMesa(Map<dynamic, dynamic> map) {
+    return JsonParaMesa.deMap(map);
+  }
 }

@@ -36,4 +36,11 @@ class MesaFirestore implements IMesaFonteDeDados {
         )
         .toList();
   }
+
+  @override
+  Stream<Map> buscarMesas(int numeroDaMesa) {
+    final docRef = firestore.collection("mesas").doc("mesa${numeroDaMesa}");
+    final mapMesa = docRef.snapshots().map((event) => event.data()!);
+    return mapMesa;
+  }
 }

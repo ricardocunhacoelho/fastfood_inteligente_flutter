@@ -7,5 +7,7 @@ abstract class IMesaRepositorio {
   Future<void> removerMesa(MesaEntidade mesa);
 
   Stream<List<MesaEntidade>> buscarTodasMesas();
+
+  Stream<MesaEntidade> buscarMesas(int numeroDaMesa);
   
 }

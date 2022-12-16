@@ -8,7 +8,7 @@ class IniciarNovoPedido extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.only(left: 30, right: 30, top: 50, bottom: 75),
+      padding: const EdgeInsets.only(left: 30, right: 30, top: 50, bottom: 50),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
@@ -17,7 +17,7 @@ class IniciarNovoPedido extends StatelessWidget {
             style: TextStyle(
               fontSize: 27,
               fontWeight: FontWeight.w500,
-              color: Color.fromARGB(146, 114, 114, 114),
+              color: Color.fromARGB(146, 83, 83, 83),
               fontFamily: 'NunitoSans-Regular',
             ),
           ),
